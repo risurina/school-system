@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
         $admin = User::create([
             'name' => 'Raizen Jon S. Isurina',
             'email' => 'raizen.isurina@gmail.com',
-            'password' => bcrypt('gemvir'),
+            'password' => bcrypt('raizen'),
         ]);
         $school->users()->save($admin);
         $admin->roles()->attach($schoolAdmin);

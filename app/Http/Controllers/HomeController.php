@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -22,7 +23,16 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $view = 'school.schoolProfile';
+        $school = '';
+
+        if (Auth::user()->school_id == '') {
+            $view = 'school.index';
+        }else{
+            $school = \App\School::find(Auth::user()->school_id);
+            $school->id = encrypt($school->id);
+        }
+        return view($view,['school' => $school]);
     }
 }
