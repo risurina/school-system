@@ -1,76 +1,127 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {{ csrf_field() }}
+<head>
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+    <title>SIS | Register</title>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('assets/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('assets/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('assets/css/style.css') }}" rel="stylesheet">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+</head>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+<body class="gray-bg">
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name" style="font-size: 40px;">&nbsp;</h1>
+        </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+        <h3>Register</h3>
+        <p>Create your account!</p>
+            
+        <form class="m-t" role="form" method="POST" action="{{ url('/register') }}">
+            {{ csrf_field() }}
+            
+            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                <input type="text" 
+                        name="name"
+                        class="form-control" 
+                        placeholder="Name" 
+                        value="{{ old('name') }}" 
+                        required 
+                        autofocus>
+                @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+            </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                <input type="email" 
+                        class="form-control" 
+                        name="email" 
+                        placeholder="Email"
+                        value="{{ old('email') }}" 
+                        required>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+            @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+            </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                <input type="password" 
+                        class="form-control"
+                        name="password"
+                        placeholder="Password"
+                        required>
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
+            <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                <input type="password" 
+                        class="form-control" 
+                        name="password_confirmation"
+                        placeholder="Confirm Password"
+                        required>
+            </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            <!-- Hide For the now
+            <div class="form-group">
+                <div class="checkbox i-checks">
+                    <label>
+                        <input type="checkbox">
+                        <i></i>Agree the terms and policy
+                    </label>
                 </div>
             </div>
-        </div>
+            -->
+
+            <button type="submit" class="btn btn-primary block full-width m-b">
+                Register
+            </button>
+
+            <p class="text-muted text-center">
+                <small>Already have an account?</small>
+            </p>
+
+            <a class="btn btn-sm btn-white btn-block" href="{{ route('login') }}">Login</a>
+        </form>
+        
+        <p class="m-t">
+            <small>Schoo Information System &copy; 2017</small>
+        </p>
     </div>
 </div>
-@endsection
+
+<!-- Mainly scripts -->
+<script src="{{ URL::to('assets/js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ URL::to('assets/js/bootstrap.min.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ URL::to('assets/js/plugins/iCheck/icheck.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+
+</body>
+</html>
