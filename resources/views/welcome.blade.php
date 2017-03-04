@@ -35,7 +35,8 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="page-scroll" href="#page-top">Home</a></li>
+                        <li><a class="page-scroll" href="#page-top">Welcome</a></li>
+                        <li><a class="page-scroll" href="{{ route('home') }}">Home</a></li>
                         @if (Route::has('login'))
                             @if (!Auth::check())
                                 <li><a href="{{ route('login') }}">Login/Register</a></li>
