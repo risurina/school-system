@@ -48,6 +48,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'school_code' => 'required|max:10|unique:schools,code',
+            'school_name' => 'required|max:50|unique:schools,name',
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
@@ -61,12 +63,22 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {   
+        $school = \App\School::create([
+            'code' => $data['school_code'],
+            'name' => $data['school_name'],
+            ]);
+
+        $role = \App\Role::where('name','schoolAdmin')->first();
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'userRole' => 'admin',
             'password' => bcrypt($data['password']),
         ]);
+        $user->roles()->attach($role);
+        $school->users()->save($user);
+
+        return $user;
     }
 }
