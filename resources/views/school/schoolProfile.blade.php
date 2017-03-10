@@ -78,8 +78,8 @@
 @section('js_script')
 
 <script type="text/javascript"> 
-    /** Highlight Sidebard **/
-    $('#sidemenu_school').addClass('active');
+/** Highlight Sidebard **/
+$('#sidemenu_dashboard').addClass('active');
 </script>
 
 @include('school.schoolScript')
