@@ -70,7 +70,8 @@ class SchoolController extends Controller
         'name' => 'required',
         'address' => 'required'
       ];
-
+      $this->validate($req,$validate_array);
+      
       $school = School::find($req->input('id'));
       $school->name = $req->input('name');
       $school->address = $req->input('address');
