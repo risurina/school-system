@@ -17,7 +17,9 @@
                     <li>
                         <div class="dropdown-messages-box">
                             <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="assets/img/a7.jpg">
+                                <img alt="image" 
+                                        class="img-circle" 
+                                        src="{{ URL::to('assets/img/a7.jpg') }}">
                             </a>
                             <div class="media-body">
                                 <small class="pull-right">46h ago</small>
@@ -113,7 +115,9 @@
                     <div class="sidebar-message">
                         <a href="#">
                             <div class="pull-left text-center">
-                                <img alt="image" class="img-circle message-avatar" src="assets/img/a1.jpg">
+                                <img alt="image" 
+                                        class="img-circle message-avatar" 
+                                        src="{{ URL::to('assets/img/a1.jpg') }}">
 
                                 <div class="m-t-xs">
                                     <i class="fa fa-star text-warning"></i>
