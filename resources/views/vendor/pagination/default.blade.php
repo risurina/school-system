@@ -1,26 +1,30 @@
 @if ($paginator->hasPages())
-    <ul class="pagination">
+    <div class="btn-group pull-right pagination" style="margin:-0px;">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <li class="disabled"><span>&laquo;</span></li>
+            <a class="btn btn-white btn-sm disabled">
+                <i class="fa fa-chevron-left"></i>
+            </a>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+            <a class="btn btn-white btn-sm" href="{{ $paginator->previousPageUrl() }}" rel="prev">
+                <i class="fa fa-chevron-left"></i>
+            </a>
         @endif
 
         {{-- Pagination Elements --}}
         @foreach ($elements as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
-                <li class="disabled"><span>{{ $element }}</span></li>
+                <a class="btn btn-white btn-sm disabled"><span>{{ $element }}</span></a>
             @endif
 
             {{-- Array Of Links --}}
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <li class="active"><span>{{ $page }}</span></li>
+                        <a class="btn btn-white btn-sm active"><span>{{ $page }}</span></a>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <a class="btn btn-white btn-sm btn btn-white btn-sm" href="{{ $url }}">{{ $page }}</a>
                     @endif
                 @endforeach
             @endif
@@ -28,9 +32,13 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
+            <a class="btn btn-white btn-sm" href="{{ $paginator->nextPageUrl() }}" rel="next">
+                <i class="fa fa-chevron-right"></i>
+            </a>
         @else
-            <li class="disabled"><span>&raquo;</span></li>
+            <a class="btn btn-white btn-sm disabled">
+                <i class="fa fa-chevron-right"></i>
+            </a>
         @endif
-    </ul>
+    </div>
 @endif
