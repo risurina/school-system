@@ -4,6 +4,31 @@
 * Web Routes
 */
 
+/** Schoo Year Route **/
+Route::group(['prefix' => 'school/year'], function() {
+  Route::get('/', [
+    'uses' => 'SchoolYearController@syIndex',
+    'as' => 'sy.index',
+  ]);
+  Route::post('/table',[
+    'uses' => 'SchoolYearController@syTable',
+    'as' => 'sy.table'
+  ]);
+  Route::post('/create',[
+    'uses' => 'SchoolYearController@syCreate',
+    'as' => 'sy.create'
+  ]);
+  Route::post('/update',[
+    'uses' => 'SchoolYearController@syUpdate',
+    'as' => 'sy.update'
+  ]);
+  Route::get('/{year}', [
+    'uses' => 'SchoolYearController@syView',
+    'as' => 'sy.view'
+  ]);
+});
+/** End School Year Route **/
+
 /** School Route **/
 Route::group(['prefix' => 'school'], function() {
   Route::get('/', [
