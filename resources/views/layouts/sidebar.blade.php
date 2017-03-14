@@ -26,6 +26,11 @@
                     <i class="fa fa-home"></i><span class="nav-label">Dashboard</span>
                 </a>
             </li>
+            <li id="sidemenu_sy">
+                <a href="{{ route('sy.index') }}">
+                    <i class="fa fa-calendar"></i><span class="nav-label">School Year</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
