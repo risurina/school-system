@@ -8,9 +8,10 @@ class Employee extends Model
 {
 	protected $fillable = [
 		'number', 'eeNum', 'firstName', 'middleName', 'lastName',
-		'position', 'level', 'hiredDate', 'dateOfBirth', 'age',
+		'status','isActive',
+		'position', 'level', 'hiredDate', 'dateOfBirth',
 		'basicSalary', 'allowance', 'takeHome', 'daysOfWork', 'endDate',
-		'persent', 'bonus', 'declare', 'er', 'ee', 'tc', 
+		'percent', 'bonus', 'declare', 'er', 'ee', 'tc', 
 	];
 
 	/**
@@ -19,5 +20,14 @@ class Employee extends Model
     public function school()
     {
         return $this->belongsTo('App\School');
+    }
+
+    public function fullName()
+    {
+    	$fullName = $this->lastName . ', ';
+    	$fullName .= $this->firstName . ' ';
+    	$fullName .= ($this->middleName != '') ? $this->middleName[0] . '.' : '';
+    	
+    	return ucwords($fullName); 
     }
 }
