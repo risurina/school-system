@@ -31,6 +31,11 @@
                     <i class="fa fa-calendar"></i><span class="nav-label">School Year</span>
                 </a>
             </li>
+            <li id="sidemenu_employee">
+                <a href="{{ route('emp.index') }}">
+                    <i class="fa fa-user-o"></i><span class="nav-label">Employee</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
