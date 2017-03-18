@@ -4,6 +4,27 @@
 * Web Routes
 */
 
+/** Employee Route */
+Route::group(['prefix' => 'school/employee'], function () {
+  Route::get('/', [
+    'uses' => 'EmployeeController@empIndex',
+    'as' => 'emp.index'
+  ]);
+  Route::post('/table',[
+    'uses' => 'EmployeeController@empTable',
+    'as' => 'emp.table'
+  ]);
+  Route::post('/create',[
+    'uses' => 'EmployeeController@empCreate',
+    'as' => 'emp.create'
+  ]);
+  Route::post('/update',[
+    'uses' => 'EmployeeController@empUpdate',
+    'as' => 'emp.update'
+  ]);
+});
+/** End Employee Route */
+
 /** Schoo Year Route **/
 Route::group(['prefix' => 'school/year'], function() {
   Route::get('/', [
