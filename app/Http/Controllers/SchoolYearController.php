@@ -58,7 +58,7 @@ class SchoolYearController extends Controller
           "start" => $start,
           "end" => $end,
         ]);
-        $this->mySchool()->schoolYears()->save($sy);
+        $this->mySchool()->school_years()->save($sy);
         return response()->json($sy);
       }
       return "notAllow";

@@ -19,12 +19,12 @@ class CreateSchoolYearsTable extends Migration
             $table->string('code');
             $table->date('start');
             $table->date('end');
-            $table->date('firstGrading');
-            $table->date('secondGrading');
-            $table->date('thirdGrading');
-            $table->date('fourthGrading');
-            $table->integer('monthlyExam');
-            $table->integer('monthlyDue');
+            $table->date('firstGrading')->nullable();
+            $table->date('secondGrading')->nullable();
+            $table->date('thirdGrading')->nullable();
+            $table->date('fourthGrading')->nullable();
+            $table->integer('monthlyExam')->nullable();
+            $table->integer('monthlyDue')->nullable();
             $table->increments('id');
             $table->timestamps();
         });

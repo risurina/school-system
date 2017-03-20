@@ -13,6 +13,13 @@ class SchoolYear extends Model
         'firstGrading','secondGrading','thirdGrading','fourthGrading',
     ];
 
+    public function displayDateFormat($date)
+    {
+      if ($date != '') {
+        return date('M d, Y',strtotime($date));
+      }
+    }
+
     public function school()
     {
     	return $this->belongsTo('App\School');

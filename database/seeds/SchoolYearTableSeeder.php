@@ -26,6 +26,6 @@ class SchoolYearTableSeeder extends Seeder
             'monthlyDue' => '05',
         ]);
 
-       	$school->schoolYears()->save($schoolYear);
+       	$school->school_years()->save($schoolYear);
     }
 }
