@@ -26,6 +26,11 @@
                     <i class="fa fa-home"></i><span class="nav-label">Dashboard</span>
                 </a>
             </li>
+            <li id="sidemenu_lvl_sec">
+                <a href="{{ route('lvl.index') }}">
+                    <i class="fa fa-area-chart"></i><span class="nav-label">Level & Section</span>
+                </a>
+            </li>
             <li id="sidemenu_sy">
                 <a href="{{ route('sy.index') }}">
                     <i class="fa fa-calendar"></i><span class="nav-label">School Year</span>

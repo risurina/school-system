@@ -1,77 +1,71 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-md-4">
+        <h2>
+            Welcome to year <strong class="text-navy">{{ $sy->year }}</strong>
+        </h2>
+        <p>CODE : <strong class="text-navy">{{ $sy->code }}</strong></p>
+        <p>
+            Date : 
+            <strong class="text-navy"> {{ $sy->displayStartDate() . ' - ' . $sy->displayEndDate() }} </strong>
+        </p>
 
-<div class="wrapper wrapper-content animated fadeInRight" style="margin-top: -30px;">
+        <button class="btn btn-sm btn-flat btn-info" onClick="syUpdateModal({{ $sy }})">Edit</button>
+        <button class="btn btn-sm btn-flat btn-info" onClick="lvlAndSec_show()">Level & Section</button>
+        <button class="btn btn-sm btn-flat btn-primary">Student</button>
+    </div>
 
-	<div class="row m-b-lg m-t-lg">
-    	<div class="col-md-6">
-            <div class="profile-image">
-                <img src="{{ URL::to('assets/img/a4.jpg') }}" 
-                    class="img-circle circle-border m-b-md" alt="profile">
-            </div>
-            <div class="profile-info">
-                <div class="">
-                    <div>
-                        <h2 class="no-margins">
-                        	{{ $sy->year }}
-                        </h2>
-                        <h4>Code : <span> {{ $sy->code }} </span></h4>
-                        <h4>Date : 
-                        	<span> {{ $sy->displayStartDate() . ' - ' . $sy->displayEndDate() }} </span>
-                        </h4>
-                        <a onClick='syUpdateModal({{ $sy }})'>Edit </a>
-                    </div>
+    <div class="col-md-4">
+        <ul class="list-group clear-list m-t">
+            <li class="list-group-item fist-item">
+                <strong>Grading Period</strong>
+            </li>
+            <li class=" row list-group-item">
+                <div class="col-lg-6">
+                   <span class="label label-primary">1st</span>
+                   {{ $sy->displayDateFormat($sy->firstGrading) }} 
                 </div>
-            </div><!-- /.profile-info -->
-        </div>
-        <!-- /.col-md-6-->
+                <div class="col-lg-6">
+                    <span class="label label-success">2nd</span>
+                    {{ $sy->displayDateFormat($sy->secondGrading) }}
+                </div>
+            </li>
+            <li class=" row list-group-item">
+                <div class="col-lg-6">
+                   <span class="label label-warning">3rd</span>
+                   {{ $sy->displayDateFormat($sy->thirdGrading) }} 
+                </div>
+                <div class="col-lg-6">
+                    <span class="label label-danger">4th</span>
+                    {{ $sy->displayDateFormat($sy->fourthGrading) }}
+                </div>
+            </li>
+        </ul>
+    </div>
 
-        <!--
-        <div class="col-md-3">
-            <table class="table small m-b-xs">
-                <tbody>
-                    <tr>
-                        <td>
-                            <strong>142</strong> Projects
-                        </td>
-                        <td>
-                            <strong>22</strong> Followers
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>61</strong> Comments
-                        </td>
-                        <td>
-                            <strong>54</strong> Articles
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>154</strong> Tags
-                        </td>
-                        <td>
-                            <strong>32</strong> Friends
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        col-md-3-->
-
-        <!--
-        <div class="col-md-3">
-            <small>Sales in last 24h</small>
-            <h2 class="no-margins">206 480</h2>
-            <div id="sparkline1"></div>
-        </div>
-        col-md-3-->
-	</div>
-	<!-- /.row m-b-lg m-t-lg -->
-	
+    <div class="col-md-4">
+        <ul class="list-group clear-list m-t">
+            <li class="list-group-item fist-item">
+                <strong>Monthly Schedule</strong>
+            </li>
+            <li class=" row list-group-item">
+                <div class="col-lg-12">
+                   <span class="label label-primary">{{ $sy->monthlyExam }}th</span>
+                   Examination
+                </div>
+            </li>
+            <li class=" row list-group-item">
+                <div class="col-lg-12">
+                   <span class="label label-warning">{{ $sy->monthlyDue }}th</span>
+                   Payment Due
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
-<!-- /.wrapper wrapper-content animated fadeInRight -->
+<!-- /.row  border-bottom white-bg dashboard-header -->
 
 @include('sy.modalForm')
 @endsection
