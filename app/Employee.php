@@ -22,6 +22,11 @@ class Employee extends Model
         return $this->belongsTo('App\School');
     }
 
+    public function sections()
+    {
+        return $this->hasMany('App\Section');
+    }
+
     public function fullName()
     {
     	$fullName = $this->lastName . ', ';
