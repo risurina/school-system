@@ -4,6 +4,43 @@
 * Web Routes
 */
 
+/** Section Route */
+Route::group(['prefix' => 'school/level/section'], function() {
+    Route::post('/create',[
+      'uses' => 'SectionController@secCreate',
+      'as' => 'sec.create'
+    ]);
+    Route::post('/update',[
+      'uses' => 'SectionController@secUpdate',
+      'as' => 'sec.update'
+    ]);
+});
+/** End Section Route */
+/** Level Route */
+Route::group(['prefix' => 'school/level'], function () {
+  Route::get('/', [
+    'uses' => 'LevelController@lvlIndex',
+    'as' => 'lvl.index'
+  ]);
+  Route::post('/table',[
+    'uses' => 'LevelController@lvlTable',
+    'as' => 'lvl.table'
+  ]);
+  Route::get('/{year}', [
+      'uses' => 'LevelController@getLvlTable',
+      'as' => 'lvl.getTable'
+  ]);
+  Route::post('/create',[
+    'uses' => 'LevelController@lvlCreate',
+    'as' => 'lvl.create'
+  ]);
+  Route::post('/update',[
+    'uses' => 'LevelController@lvlUpdate',
+    'as' => 'lvl.update'
+  ]);
+});
+/** End Level Route */
+
 /** Employee Route */
 Route::group(['prefix' => 'school/employee'], function () {
   Route::get('/', [
