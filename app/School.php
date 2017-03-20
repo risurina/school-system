@@ -11,7 +11,8 @@ class School extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'address',
+        'code', 'name', 'address','tel',
+        'schoolID', 'recognitionNo',
     ];
 
     /**
@@ -20,5 +21,15 @@ class School extends Model
     public function users()
     {
     	return $this->hasMany('App\User');
+    }
+
+    public function school_years()
+    {
+        return $this->hasMany('App\SchoolYear');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany('App\Employee');
     }
 }
