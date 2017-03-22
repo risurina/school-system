@@ -6,3 +6,9 @@ toastr.options = {
     showMethod: 'slideDown',
     timeOut: 4000
 };
+
+$('input').on('keyup change',function() {
+    let $this = $(this);
+    let $thisVal = $this.val();
+    $this.val($thisVal.toUpperCase());
+});
