@@ -30,6 +30,11 @@ class SchoolYear extends Model
         return $this->hasMany('App\Level');
     }
 
+    public function students()
+    {
+        return $this->belongsToMany('App\Student');
+    }
+
     public function displayStartDate()
     {
     	return date("M d, Y", strtotime($this->start));

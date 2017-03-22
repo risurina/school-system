@@ -32,4 +32,9 @@ class School extends Model
     {
         return $this->hasMany('App\Employee');
     }
+
+    public function students()
+    {
+        return $this->hasMany('App\Student');
+    }
 }
