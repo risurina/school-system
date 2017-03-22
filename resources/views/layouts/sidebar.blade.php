@@ -2,16 +2,15 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element">
+                <div class="dropdown profile-element text-center">
                     <span>
-                        <img alt="image" class="img-circle" src="{{ URL::to('assets/img/profile_small.jpg') }}" />
+                        <img alt="image" class="img-circle" src="{{ URL::to('assets/img/a4.jpg') }}" 
+                        style="width: 70px; height: 70px; border: 3px white solid;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
                                 <strong class="font-bold">{{ Auth::user()->name }}</strong>
-                            </span>
-                            <span class="text-muted text-xs block">
                                 <b class="caret"></b>
                             </span>
                         </span>
@@ -24,6 +23,11 @@
             <li id="sidemenu_dashboard">
                 <a href="{{ url('/home') }}">
                     <i class="fa fa-home"></i><span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+            <li id="sidemenu_student">
+                <a href="{{ route('student.index') }}">
+                    <i class="fa fa-address-book"></i><span class="nav-label">Student</span>
                 </a>
             </li>
             <li id="sidemenu_lvl_sec">
