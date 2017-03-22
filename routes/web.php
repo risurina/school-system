@@ -4,6 +4,39 @@
 * Web Routes
 */
 
+/** Student Route */
+Route::group(['prefix' => 'school/student'], function() {
+    Route::get('/', [
+      'uses' => 'StudentController@studentIndex',
+      'as'  => 'student.index',
+    ]);
+    Route::post('/table',[
+      'uses' => 'StudentController@studentTable',
+      'as' => 'student.table'
+    ]);
+    Route::post('/create',[
+      'uses' => 'StudentController@studentCreate',
+      'as' => 'student.create'
+    ]);
+    Route::post('/update',[
+      'uses' => 'StudentController@studentUpdate',
+      'as' => 'student.update'
+    ]);
+    Route::post('/delete', [
+      'uses' => 'StudentController@studentDelete',
+      'as' => 'student.delete'
+    ]);
+    Route::post('/restore', [
+      'uses' => 'StudentController@studentRestore',
+      'as' => 'student.restore'
+    ]);
+    Route::get('/profile/{id}', [
+      'uses' => 'StudentController@studentProfile',
+      'as' => 'student.profile'
+    ]);
+});
+/** End Student Route */
+
 /** Section Route */
 Route::group(['prefix' => 'school/level/section'], function() {
     Route::post('/create',[
