@@ -30,12 +30,11 @@
     /** Show create modal **/
     function studentCreateModal() {
       $('#studentSave').attr({
-        "onClick" : "studentSave()",
+        "onClick" : "studentCreate()",
         "disabled" : false,
       });
 
       student_form.trigger('reset');
-      student_modal.find('#studentSave').attr('onClick',"studentCreate()");
       student_modal.modal('show');
 
       student_form.find('.has-error').removeClass('has-error');
