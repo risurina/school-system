@@ -58,15 +58,15 @@ class StudentController extends Controller
       
       $this->validate($req,$validate_array);
       
-      $student = new Student([
-    	'firstName' => $req->input('firstName'), 
-    	'middleName' => $req->input('middleName'), 
-    	'lastName' => $req->input('lastName'),
-    	'dateOfBirth' => $req->input('dateOfBirth'), 
-    	'sex' => $req->input('sex'), 
-    	'lrnNo' => $req->input('lrnNo'),
-      ]);
-      $this->mySchool()->employees()->save($student);
+      $student = new Student;
+    	$student->firstName = $req->input('firstName'); 
+    	$student->middleName = $req->input('middleName'); 
+    	$student->lastName = $req->input('lastName');
+    	$student->dateOfBirth = $req->input('dateOfBirth'); 
+    	$student->sex = $req->input('sex'); 
+    	$student->lrnNo = $req->input('lrnNo');
+      
+      $this->mySchool()->students()->save($student);
 
       return response()->json($student);
     }
