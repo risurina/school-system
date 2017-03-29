@@ -30,11 +30,6 @@
                     <i class="fa fa-address-book"></i><span class="nav-label">Student</span>
                 </a>
             </li>
-            <li id="sidemenu_lvl_sec">
-                <a href="{{ route('lvl.index') }}">
-                    <i class="fa fa-area-chart"></i><span class="nav-label">Level & Section</span>
-                </a>
-            </li>
             <li id="sidemenu_sy">
                 <a href="{{ route('sy.index') }}">
                     <i class="fa fa-calendar"></i><span class="nav-label">School Year</span>
@@ -43,6 +38,11 @@
             <li id="sidemenu_employee">
                 <a href="{{ route('emp.index') }}">
                     <i class="fa fa-user-o"></i><span class="nav-label">Employee</span>
+                </a>
+            </li>
+            <li id="sidemenu_settings">
+                <a href="{{ route('setting.index') }}">
+                    <i class="fa fa-cogs"></i><span class="nav-label">Settings</span>
                 </a>
             </li>
         </ul>
