@@ -2,42 +2,39 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated fadeIn">
             <div class="ibox-title">
-                <h5>School Year Level Form</h5>
+                <h5>Level Form</h5>
             </div>
             <!-- /.ibox-title -->
 
             <div class="ibox-content">
                 <!-- form start -->
                 <form class="form-horizontal" id="lvl_form" method="POST">
-                <input type="hidden" name="id">
                 <div class="row">
+                    <div class="col-xs-12 col-lg-12 hidden" id="lvlID"></div>
+
                     <div class="col-xs-12 col-lg-12">
-                        <div class="form-group" id="error_year">
-                            <label for="year" class="col-sm-5 control-label">
-                              <i>SY <span>*</span></i>
+                        <div class="form-group" id="error_code">
+                            <label for="code" class="col-sm-4 control-label">
+                              <i>Code <span>*</span></i>
                             </label>
 
-                            <div class="col-sm-7">
-                                <select  name="year" class="form-control col-md-7 col-xs-12">
-                                    @foreach($yearList as $year)
-                                    <option value="{{ $year->year }}">
-                                        {{ $year->year }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="col-sm-8">
+                                <input type="text" name="code"
+                                        class="form-control col-md-7 col-xs-12" 
+                                        placeholder="Level Code">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                     </div><!-- /.col -->
 
                     <div class="col-xs-12 col-lg-12">
-                        <div class="form-group" id="error_name">
-                            <label for="name" class="col-sm-5 control-label">
+                        <div class="form-group" id="error_level">
+                            <label for="level" class="col-sm-4 control-label">
                               <i>Level <span>*</span></i>
                             </label>
 
-                            <div class="col-sm-7">
-                                <input type="text" name="name" 
+                            <div class="col-sm-8">
+                                <input type="text" name="level"
                                         class="form-control col-md-7 col-xs-12" 
                                         placeholder="Level">
                                 <span class="help-block"></span>
@@ -46,11 +43,6 @@
                     </div><!-- /.col -->
                 </div>
                 <!-- /.row -->
-
-                <div class="row" id="sectionAppend">
-                    
-                </div>
-
                 </form>
                 <!--/.form -->
             </div>
@@ -63,7 +55,7 @@
 
                 <button type="button" 
                         id="lvlSave" 
-                        onClick="lvlUpdate()" 
+                        onClick="lvlCreate()"
                         class="btn btn-flat btn-primary btn-sm"> 
                   Save
                 </button>

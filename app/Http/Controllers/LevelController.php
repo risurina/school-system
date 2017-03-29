@@ -3,77 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Level;
-use App\SchoolYear;
 use Illuminate\Http\Request;
 
 class LevelController extends Controller
 {
-    public function lvlIndex()
-    {
-      $yearList = $this->mySchool()->school_years()->orderBy('year','desc')->get();
-      $employeeList = $this->mySchool()->employees()->orderBy('lastName','desc')->get();
-      return view('level.index',[
-          'yearList' => $yearList,
-          'employeeList' => $employeeList
-      ]);
-    }
-
     public function lvlTable(Request $req) {
-      $search_key = '%'.$req->input('search_key').'%';
-      $searchYear = $req->input('year');
+      $levels = $this->mySchool()
+                    ->levels()
+                    ->where('code','like','%'.$req->input('lvlSearch_key').'%')
+                    ->orWhere('level','like','%'.$req->input('lvlSearch_key').'%')
+                    ->orderBy('id')
+                    ->paginate(5);
 
-      $school_year = $this->mySchool()
-                          ->school_years()
-                          ->where('year',$searchYear)
-                          ->first();
-
-      return response()->view('level.table',['school_year' => $school_year]);
+      return response()->view('level.table',['levels' => $levels]);
     }
 
     /**
-     * Validation
-     * @param  Request $req
-     * @return validation
-     */
-    public function lvlValidation(Request $req)
-    {
-        $validate_array = [ 'name' => 'required' ];
-
-        $this->validate($req,$validate_array);
-    }
-
-    /**
-    * Employee Create function
+    * Level Create function
     * @param Request $req 
     * @return json
     **/
     public function lvlCreate(Request $req) {
-      $this->lvlValidation($req); 
+      $validate_array = [ 
+            'code' => 'required|unique:levels',
+            'level' => 'required|unique:levels',
+      ];
+      $this->validate($req,$validate_array);
 
-      $school_year = SchoolYear::where('year',$req->input('year'))->first();
+      $level = new Level([
+        'level' => $req->input('level'),
+        'code' => $req->input('code'),
+      ]);
 
-      $level = new Level(['name' => $req->input('name')]);
-
-      $school_year->levels()->save($level);
+      $this->mySchool()->levels()->save($level);
 
       return response()->json($level);
     }
 
     /**
-     * Emplyee Update function
+     * Level Update function
      * @param  Request $req
      * @return json
      */
     public function lvlUpdate(Request  $req)
     {
-      $this->validate($req,[
-          "name" => "required", 
-          "id" => "required|integer",
-      ]);
+      $validate_array = [ 
+            'code' => 'required',
+            'level' => 'required',
+            'id' => 'required|integer',
+      ];
+      $this->validate($req,$validate_array);
 
       $lvl = level::find($req->input('id'));
-      $lvl->name = $req->input('name');
-      $lvl->save();
+      $lvl->code = $req->input('code');
+      $lvl->level = $req->input('level');
+      $this->mySchool()->levels()->save($lvl);
 
       return response()->json($lvl);
     }

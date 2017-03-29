@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
-    protected $fillable = [ 'name' ];
+    protected $fillable = [ 'code','level' ];
 
-    public function school_year()
+    public function school()
     {
-    	return $this->belongsTo('App\SchoolYear');
-    }
-
-    public function sections()
-    {
-    	return $this->hasMany('App\Section');
+    	return $this->belongsTo('App\School');
     }
 }

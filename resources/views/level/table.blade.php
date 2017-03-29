@@ -1,55 +1,50 @@
 <tbody>
-  @if ($school_year)
-    @foreach ($school_year->levels as $lvl)
-      <tr>
-        <td class="project-status">
-          <span class="label label-info">{{ $school_year->year }}</span>
-        </td>
+    @if ($levels)
+        @foreach($levels as $lvlCount => $level)
+            <tr>
+                <td class="text-center">{{ $lvlCount + 1 }}</td>
+                <td>{{ $level->code }}</td>
+                <td class="">
+                    <span class="label label-primary">{{ $level->level }}</span>
+                </td>
+                <td class="text-center">
+                    <a onClick="lvlUpdateModal({{ $level }})">Edit</a>
+                </td>
+            </tr>
+        @endforeach
+    @endif
 
-        <td class="project-title">
-          <strong class="text-navy">{{ $lvl->name }}</strong>
+  @if (!$levels->count())
+    <tr>
+        <td class="text-center" colspan="5">
+            No level!
         </td>
-
-        <td class="project-title">
-          @if (count($lvl->sections))
-            @foreach($lvl->sections as $secCount => $section)
-              *
-              <strong>{{ $section->section }}</strong> | 
-              <strong>{{ date('h:i A',strtotime($section->schedule)) }}</strong> |
-              <strong>
-                {{ $section->employee->fullName() }}
-              </strong>
-              &nbsp;
-              <a onClick="secUpdateModal('{{ $school_year->year }}','{{ $lvl->name }}',{{ $section }})">
-                <i class="fa fa-edit text-warning"></i>
-              </a>
-              <br>
-            @endforeach
-          @else
-            No section!
-          @endif
-        </td>
-
-        <td class="project-action">
-          <a class="btn btn-sm btn-white pull-right" 
-              onClick="lvlUpdateModal(
-                  {{ json_encode( [ "year" => $school_year->year,"level" => $lvl ] ) }}
-              )">Edit </a>
-          <a class="pull-right">&nbsp;</a>
-          <a class="btn btn-sm btn-white pull-right"
-              onClick="secCreateModal(
-                  {{ json_encode( [ "year" => $school_year->year,"level" => $lvl ] ) }}
-              )">Add Section</a>
-        </td>
-      </tr>
-    @endforeach
+    </tr>
   @endif
 
-  @if (!$school_year->levels()->count())
-  <tr>
+  @if ($levels->count())
+    <tr id="lvlTbl_paginate_row">
       <td class="text-center" colspan="5">
-          No level!
+        <div id="lvlPagination_row">
+          <div class="row">
+              <div class="col-lg-5">
+                <div id="table_info">
+                  <p>
+                    Showing  {{ $levels->firstItem() }} 
+                    to  {{ $levels->lastItem() }} 
+                    of  {{ $levels->total() }} 
+                    entries.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="lvlTable_pagination">
+                  {{ $levels->render() }}
+                </div>
+              </div>
+          </div>
+        </div>
       </td>
-  </tr>
+    </tr>
   @endif
 </tbody>
