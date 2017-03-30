@@ -15,7 +15,6 @@
         success: function(res) {
           var table_row = $(res).find('tr').clone();
           var page_link = $(res).find('#pagination_row').clone();
-          console.log(page_link);
           $('#table_body').html(table_row);
           $('#tbl_paginate_row').remove();
           $('#table_pagination').html(page_link);

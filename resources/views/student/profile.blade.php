@@ -47,35 +47,20 @@
                     </div>
         </div>
         <div class="col-md-3">
-                    <table class="table small m-b-xs">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <strong>142</strong> Projects
-                            </td>
-                            <td>
-                                <strong>22</strong> Followers
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>61</strong> Comments
-                            </td>
-                            <td>
-                                <strong>54</strong> Articles
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>154</strong> Tags
-                            </td>
-                            <td>
-                                <strong>32</strong> Friends
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <button class="btn btn-primary dim btn-large-dim" type="button">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <i class="fa fa-money"></i>
+                    </div>
+                    <div class="col-lg-12">
+                        <i style="font-size: 10pt; padding: 0">Payment</i>
+                    </div>
+                </div>
+            </button>
+            <button class="btn btn-warning dim btn-large-dim" type="button">
+                <div><i class="fa fa-warning"></i></div>
+                <div style="font-size: 10pt; margin-top: -10px;">TEST</div>
+            </button>
         </div>
         <div class="col-md-3">
             <small>Sales in last 24h</small>

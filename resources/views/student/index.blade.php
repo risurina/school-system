@@ -72,6 +72,7 @@
                         <th>Date of Birth</th>
                         <th>Current Age/s</th>
                         <th>Date Added</th>
+                        <th>Status</th>
                         <th>&nbsp;</th>
                       </tr>
                     </thead> 

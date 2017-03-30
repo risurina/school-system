@@ -11,11 +11,19 @@ class Student extends Model
     	'dateOfBirth' , 'sex' , 'lrnNo',
    	];
 
+   	public $status;
+
+   	public function __construct()
+   	{
+   		Parent::__construct();
+
+   		$this->currentStatus();
+   	}
    	
-   	public function currentAge($dateOfBirth = '')
+   	public function currentAge()
 	{	
-		if ($dateOfBirth != '') {
-			$dob = explode('-', $dateOfBirth);
+		if ($this->dateOfBirth != '') {
+			$dob = explode('-', $this->dateOfBirth);
 			$todayYear = date('Y');
 			$todayMonth = date('m');
 
@@ -41,6 +49,11 @@ class Student extends Model
     	$fullName .= ($this->middleName != '') ? $this->middleName[0] . '.' : '';
     	
     	return ucwords($fullName); 
+    }
+
+    protected function currentStatus()
+    {
+    	return $this->status = 'NEW';
     }
 
    	public function school_years()

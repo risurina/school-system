@@ -13,8 +13,11 @@
           {{ $student->sex }}
         </th>
         <td>{{ date('M d, Y',strtotime($student->dateOfBirth)) }}</td>
-        <td>{{ $student->currentAge($student->dateOfBirth) }}</td>
+        <td>{{ $student->currentAge() }}</td>
         <td>{{ date('M d, Y', strtotime($student->created_at)) }}</td>
+        <th class="text-center {{ ($student->status == 'NEW') ? 'text-info' : 'text-navy' }}">
+          {{ $student->status }}
+        </th>
         <td class="text-center">
           <a href="{{ route('student.profile',['id'=> $student->id ]) }}">View </a> |
           <a onClick="studentUpdateModal({{ $student }})">Edit </a>
