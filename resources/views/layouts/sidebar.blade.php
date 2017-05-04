@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element text-center">
                     <span>
-                        <img alt="image" class="img-circle" src="{{ URL::to('assets/img/a4.jpg') }}" 
+                        <img alt="image" class="img-circle" src="{{ asset('storage/school/logo.png') }}" 
                         style="width: 70px; height: 70px; border: 3px white solid;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -21,10 +21,11 @@
                 </div>
             </li>
             <li id="sidemenu_dashboard">
-                <a href="{{ url('/home') }}">
-                    <i class="fa fa-home"></i><span class="nav-label">Dashboard</span>
+                <a href="{{ route('home') }}">
+                    <i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
                 </a>
             </li>
+
             <li id="sidemenu_student">
                 <a href="{{ route('student.index') }}">
                     <i class="fa fa-address-book"></i><span class="nav-label">Student</span>

@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel | Inspinia</title>
+    <title>SIS</title>
+
+    <link rel="shortcut icon" href="{{ asset('storage/school/logo.png') }}">
 
     <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
