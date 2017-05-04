@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeesTable extends Migration
+class CreateSchoolYearLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateFeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fees', function (Blueprint $table) {
-            $table->integer('school_id');
-            $table->string('code');
-            $table->string('fee');
-            $table->float('amount');
-            $table->boolean('isDefault')->default(1);
-            $table->timestamps();
+        Schema::create('school_year_levels', function (Blueprint $table) {
+            $table->integer('school_year_id');
+            $table->integer('level_id');
             $table->increments('id');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateFeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fees');
+        Schema::dropIfExists('school_year_levels');
     }
 }
