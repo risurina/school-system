@@ -2,454 +2,467 @@
 
 @section('content')
 
-<div class="wrapper wrapper-content animated fadeInRight" style="margin-top: -20px;">
+<div class="wrapper wrapper-content animated fadeInRight" style="margin-top: -25px;">
+    <!-- Primary Info -->
     <div class="row m-b-lg m-t-lg">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="profile-image">
                 <img src="{{ URL::to('assets/img/a4.jpg')}}" 
                      class="img-circle circle-border m-b-md" 
                      alt="profile">
             </div>
-                    <div class="profile-info">
-                        <div class="">
-                            <div>
-                                <a class="btn btn-success btn-xs pull-right"
-                                    onClick="studentUpdateModal({{ $student }})">Edit Info</a>
-                                <h2 class="no-margins">
-                                    <strong class="text-navy">{{ $student->fullName() }}</strong>
-                                </h2>
-                                <h4>
-                                    LRN NO : 
-                                    <span class="text-danger">{{ $student->lrnNo }}</span>
-                                </h4>
-                                <h5>
-                                    Date Of Birth : 
-                                    <span class="text-warning">
-                                        {{ date('M d, Y',strtotime($student->dateOfBirth)) }}
-                                    </span>
-                                </h5>
-                                <h5>
-                                    Current Age : 
-                                    <span class="text-warning">
-                                        {{ $student->currentAge($student->dateOfBirth) }}
-                                    </span>
-                                </h5>
-                                <h5>
-                                    Address :
-                                    <span class="text-warning">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have suffered alteration in some form Ipsum available.
-                                        </p>
-                                    </span>
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-primary dim btn-large-dim" type="button">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <i class="fa fa-money"></i>
-                    </div>
-                    <div class="col-lg-12">
-                        <i style="font-size: 10pt; padding: 0">Payment</i>
-                    </div>
-                </div>
-            </button>
-            <button class="btn btn-warning dim btn-large-dim" type="button">
-                <div><i class="fa fa-warning"></i></div>
-                <div style="font-size: 10pt; margin-top: -10px;">TEST</div>
-            </button>
-        </div>
-        <div class="col-md-3">
-            <small>Sales in last 24h</small>
-            <h2 class="no-margins">206 480</h2>
-            <div id="sparkline1"></div>
-        </div>
-    </div>
-    <!-- /.row m-b-lg -m-t-lg -->
-
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="wrapper wrapper-content animated fadeInUp">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h3>Student Progress</h3>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="m-b-md">
-                                    <a href="#" class="btn btn-white btn-xs pull-right">Edit Progress</a>
-                                    <h2>School Year 2017</h2>
-                                </div>
-                                <dl class="dl-horizontal">
-                                    <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>Alex Smith</dd>
-                                        <dt>Messages:</dt> <dd>  162</dd>
-                                        <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
-                                        <dt>Version:</dt> <dd>  v1.4.2 </dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>16.08.2014 12:15:57</dd>
-                                        <dt>Created:</dt> <dd>  10.07.2014 23:36:57 </dd>
-                                        <dt>Participants:</dt>
-                                        <dd class="project-people">
-                                        <a href="#"><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-                                        <a href="#"><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-                                        <a href="#"><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-                                        <a href="#"><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-                                        <a href="#"><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-                                        </dd>
-                                    </dl>
-                                </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-lg-12">
-                                    <dl class="dl-horizontal">
-                                        <dt>Completed:</dt>
-                                        <dd>
-                                            <div class="progress progress-striped active m-b-sm">
-                                                <div style="width: 60%;" class="progress-bar"></div>
-                                            </div>
-                                            <small>Project completed in <strong>60%</strong>. Remaining close the project, sign a contract and invoice.</small>
-                                        </dd>
-                                    </dl>
-                                </div>
-                        </div>
-                        <div class="row m-t-sm">
-                                <div class="col-lg-12">
-                                <div class="panel blank-panel">
-                                <div class="panel-heading">
-                                    <div class="panel-options">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab-1" data-toggle="tab">Users messages</a></li>
-                                            <li class=""><a href="#tab-2" data-toggle="tab">Last activity</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-
-                                <div class="tab-content">
-                                <div class="tab-pane active" id="tab-1">
-                                    <div class="feed-activity-list">
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a2.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right">2h ago</small>
-                                                <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
-                                                <div class="well">
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a3.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right">2h ago</small>
-                                                <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
-                                                <small class="text-muted">2 days ago at 8:30am</small>
-                                            </div>
-                                        </div>
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a4.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right text-navy">5h ago</small>
-                                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                                                <div class="actions">
-                                                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                    <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a5.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right">2h ago</small>
-                                                <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
-                                                <div class="well">
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/profile.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right">23h ago</small>
-                                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                                            </div>
-                                        </div>
-                                        <div class="feed-element">
-                                            <a href="#" class="pull-left">
-                                                <img alt="image" class="img-circle" src="img/a7.jpg">
-                                            </a>
-                                            <div class="media-body ">
-                                                <small class="pull-right">46h ago</small>
-                                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="tab-pane" id="tab-2">
-
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Title</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                            </td>
-                                            <td>
-                                               Create project in webapp
-                                            </td>
-                                            <td>
-                                               12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                            <p class="small">
-                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                            </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                            </td>
-                                            <td>
-                                                Various versions
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                There are many variations
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                            </td>
-                                            <td>
-                                                Latin words
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Latin words, combined with a handful of model sentence structures
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                            </td>
-                                            <td>
-                                                The generated Lorem
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                The first line
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                            </td>
-                                            <td>
-                                                The standard chunk
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                            </td>
-                                            <td>
-                                                Lorem Ipsum is that
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                </p>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                            </td>
-                                            <td>
-                                                Contrary to popular
-                                            </td>
-                                            <td>
-                                                12.07.2014 10:10:1
-                                            </td>
-                                            <td>
-                                                14.07.2014 10:16:36
-                                            </td>
-                                            <td>
-                                                <p class="small">
-                                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                </p>
-                                            </td>
-
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                </div>
-
-                                </div>
-
-                                </div>
-                                </div>
-                        </div>
+            <div class="profile-info">
+                <div class="">
+                    <div>
+                        <a class="btn btn-success btn-sm pull-right"
+                            onClick="studentUpdateModal({{ $student }})">
+                            Edit Info
+                        </a>
+                        <span class="pull-right">&nbsp;</span>
+                        <a class="btn btn-info btn-sm pull-right" 
+                            onClick="progressCreateModal(
+                                        {{ $student }},
+                                        '{{ $student->fullName }}',
+                                        '{{ $student->currentAge }}'
+                            )">
+                            Enroll
+                        </a>
+                        <h2 class="no-margins">
+                            <strong class="text-navy">{{ $student->fullName }}</strong>
+                        </h2>
+                        <h4>
+                            LRN NO : 
+                            <span class="text-danger">{{ $student->lrnNo }}</span>
+                        </h4>
+                        <h5>
+                            Gender : 
+                            <span class="text-warning">{{ $student->gender }}</span>
+                        </h5>
+                        <h5>
+                            Date Of Birth : 
+                            <span class="text-warning">
+                                {{ date('M d, Y',strtotime($student->dateOfBirth)) }}
+                            </span>
+                        </h5>
+                        <h5>
+                            Current Age : 
+                            <span class="text-warning">
+                                {{ $student->currentAge }}
+                            </span>
+                        </h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- /.row m-b-lg -m-t-lg -->
+
+    <div class="row" style="margin-top: -30px;">
+
+        <!-- Progress Info -->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    @if (isset($currentProgress))
+                    <h5>Student Details - SY {{ $currentSchoolYear->code }}</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-primary btn-xs" 
+                            onclick="progressUpdateModal(
+                                        {{ $currentProgress }},
+                                        '{{ $currentSchoolYear->id }}',
+                                        '{{ $currentLevel->id }}',
+                                        '{{ $currentSection->school_year_level_id }}'
+                        )">
+                            Update Details
+                        </a>
+                        <a class="btn btn-primary btn-xs" 
+                            onclick="progressPrint( {{ $currentProgress }} )">
+                            Print Reg Form
+                        </a>
+
+                        <a href="{{ route('student.profile',['id'=> $student->id ]) }}">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                    </div>
+                    @else
+                    <h5>Student Details</h5>
+                    @endif
+                </div>
+
+                @if (isset($currentProgress))
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal">
+                                <dt>Status:</dt> 
+                                <dd><span class="label label-primary">{{ $currentProgress->status }}</span></dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal">
+                                <dt>Last Year Attended:</dt> 
+                                <dd>
+                                    <span class="label label-primary">
+                                        {{ $currentProgress->last_year_attended }}
+                                    </span>       
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal">
+                                <dt>Date Enrolled:</dt> 
+                                    <dd> {{ date('M d, Y', strtotime($currentProgress->enrolledDate)) }} </dd>
+                                <dt><small>(when time of enrolled)</small> Age :</dt> 
+                                    <dd>{{ $currentProgress->ageTimeOfEnrolled }}</dd>
+                                <dt>StudentID:</dt> 
+                                <dd><a href="#" class="text-navy">
+                                    {{ $currentSchoolYear->code.'-'.$currentProgress->syStudentID }}
+                                </a></dd>
+                                <dt>Level & Section:</dt> 
+                                    <dd>{{ $currentLevel->level->level }} - {{ $currentSection->section }}</dd>
+                                <dt>Shift :</dt> 
+                                    <dd >
+                                        {{ $currentSection->schedule->time }}
+                                    </dd> 
+                                <dt>Adviser :</dt> 
+                                    <dd>{{ $currentSection->employee->fullName }}</dd>
+                                <dt>Address :</dt> 
+                                    <dd class="text-warning">{{ $currentProgress->address }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal" >
+                                <dt>Payment :</dt>
+                                    <dd> 
+                                        <span class="label label-info"> 
+                                        {{ ($currentProgress->isCash) ? 'CASH' : 'INSTALLMENT' }} 
+                                        </span>
+                                    </dd>
+                                <dt>Mobile No. :</dt> <dd> {{ $currentProgress->mobileNo }} </dd>
+                                <dt>Landline No. :</dt> <dd> {{ $currentProgress->landlineNo }} </dd>
+                                <dt>Parent/Gaurdian Name :</dt> <dd>{{ $currentProgress->guardianName }}</dd>
+                                <dt>Relationship :</dt> <dd>{{ $currentProgress->guardianRelationship }}</dd>
+                                <dt>Health Problem :</dt> <dd>{{ $currentProgress->healthProblem }} </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs" id="tabs">
+                                            <li class="active"><a id="tab-1" data-toggle="tab">Fee</a></li>
+                                            <li><a id="tab-2" data-toggle="tab">Payment</a></li>
+                                            <li ><a id="tab-3" data-toggle="tab">Academic</a></li>
+                                        </ul>
+                                    </div>
+                                </div><!-- /.panel-heading -->
+
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="row tab-pane active" id="content-tab-1">
+                                            <div class="col-lg-12">
+                                                <h4 class="pull-left">Fee/s :</h4>
+                                                <a class="btn btn-xs btn-primary pull-right"
+                                                    onClick="studentFeeCreateModal({{ $currentProgress->id }})"
+                                                    >
+                                                    ADD FEE
+                                                </a>
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">#</th>
+                                                            <th>Discription</th>
+                                                            <th class="text-center">Amount</th>
+                                                            <th class="text-center">Discount</th>
+                                                            <th class="text-center">Total</th>
+                                                            <th class="text-center">Payment</th>
+                                                            <th class="text-center">Balance</th>
+                                                            <th class="text-center">&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach ($currentFee as $feeCount => $fee)
+                                                        <tr>
+                                                            <td>{{ $feeCount + 1 }} </td>
+                                                            <th >
+                                                                <span class="label 
+                                                                {{ ($fee->balance <= 0) ? 'label-primary' 
+                                                                                       : 'label-danger' 
+                                                                }}">
+                                                                    {{ $fee->fee->fee }}
+                                                                </span>
+                                                            </th>
+                                                            <td class="text-right">
+                                                                {{ number_format($fee->feeAmount,2,'.',',') }}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{ number_format($fee->discount,2,'.',',') }}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{ 
+                                                                number_format($fee->total,2,'.',',') }}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                {{ 
+                                                                number_format($fee->total_payment,2,'.',',') }}
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <span class="font-bold">
+                                                                {{ 
+                                                                number_format($fee->balance,2,'.',',') }}
+                                                                </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a onClick="studentFeeUpdateModal({{
+                                                                        $fee
+                                                                    }})">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                 | 
+                                                                <a onClick="studentFeeDelete({{
+                                                                        $fee->id
+                                                                    }})">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /#tab1C -->
+                                        
+                                        <div class="tab-pane" id="content-tab-3">
+                                            <div class="feed-activity-list">
+                                                <div class="feed-element">
+                                                    <a href="#" class="pull-left">
+                                                        <img alt="image" 
+                                                            class="img-circle" 
+                                                            src="{{ URL::to('assets/img/a4.jpg') }}">
+                                                    </a>
+                                                    <div class="media-body ">
+                                                        <small class="pull-right text-navy">5h ago</small>
+                                                        <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                                        <div class="actions">
+                                                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                            <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /#tab3C -->
+
+                                        <div class="row tab-pane" id="content-tab-2">
+                                            <div class="col-lg-12">
+                                                <h4 class="pull-left">Payment/s :</h4>
+                                                <a class="btn btn-xs btn-primary pull-right"
+                                                    onClick="studentPaymentCreateModal( '{{ $currentProgress->guardianName }}' )">
+                                                    ADD PAYMENT
+                                                </a>
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Inv No.</th>
+                                                            <th>Payment By</th>
+                                                            <th>Discription</th>
+                                                            <th>Amount</th>
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach ($currentPayment as $paymentCount => $payment)
+                                                        <tr>
+                                                            <td>
+                                                                {{ date('F d, Y',strtotime($payment->payment_date)) }}
+                                                            </td>
+                                                            <td>{{ $payment->invNo }}</td>
+                                                            <td>{{ $payment->payment_by }}</td>
+                                                            <th>
+                                                                {{ $payment->fee }}
+                                                            </th>
+                                                            <td class="text-right">
+                                                                <span class="label 
+                                                                    label-{{ ( $payment->isCancel )? 'danger':'primary' }}">
+                                                                    P {{ number_format($payment->amount
+                                                                            ,2,'.','.') }}
+                                                                </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if( !$payment->isCancel )
+                                                                    <a onClick="studentPaymentUpdateModal(
+                                                                                    {{ $payment }}
+                                                                                )">
+                                                                        Edit
+                                                                    </a>
+                                                                    |
+                                                                    <a onClick="studentPaymentCancel({{$payment->id}})">
+                                                                        Cancel
+                                                                    </a> 
+                                                                @else
+                                                                    <span class="label label-danger">
+                                                                        Cancelled
+                                                                    </span>
+                                                                    &nbsp;| 
+                                                                    <a onClick="studentPaymentRestore({{$payment->id}})">
+                                                                        Restore!
+                                                                    </a> 
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /#tab2C -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @else
+
+                <!-- New Student View -->
+                <div class="ibox-content">
+                    <div class="m-b-md">
+                        <h3>
+                            New student!
+                        </h3>
+                        <h4>
+                            <a class="font-italic" 
+                                onClick="progressCreateModal(
+                                            {{ $student }},
+                                            '{{ $student->fullName }}',
+                                            '{{ $student->currentAge }}'
+                                )">
+                                Click here to enroll.
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                @endif
+
+            </div>
+        </div>
+
+        <!-- HISTORY TABLE -->
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>History</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div>
+                        <div class="feed-activity-list">
+                            @foreach($student->student_history()->latest('year')->get() as $history)
+                            <div class="feed-element">
+                                <a href="#" class="pull-left">
+                                    <img alt="image" class="img-thumbnail" 
+                                            src="{{ URL::to('assets/img/a4.jpg') }}"
+                                            style="width: 100px; height: 100px;">
+                                </a>
+                                <div class="media-body ">
+                                    <!--
+                                    <small class="pull-right text-navy">1m ago</small>
+                                    -->
+                                    Student ID :    
+                                        <strong class="label label-success">
+                                            {{ $history->sy_code.'-'. $history->syStudentID }}
+                                        </strong>
+                                    <br>
+                                    School Year : <strong>{{ $history->year }}</strong>
+                                    <br>
+                                    Level & Section : 
+                                        <strong>{{ $history->level }} - {{ $history->section }}</strong>
+                                    <br>
+                                    Adviser : 
+                                    <strong>
+                                        {{ $history->empFirstName }} {{ $history->empLastName }}
+                                    </strong>
+                                    <div class="actions">
+                                        <a class="btn btn-xs btn-success"
+                                            href="{{ route('student.profile',[
+                                                'id' => $student->id,
+                                                'year' => $history->year
+                                            ]) }}">
+                                            View 
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END HISTORY TABLE -->
+    </div>
 </div>
 <!-- /.wrapper wrapper-content animated fadeInRight -->
 
 @include('student.modalForm')
+
+@include('student.profileModalForm')
+
+@if( isset($currentProgress) )
+    @include('studentFee.modalForm')
+    @include('studentPayment.modalForm')
+@endif
+
 @endsection
 
 @section('js_script')
 
+
+@include('student.profileScript')
+
+@if( isset($currentProgress) )
+    @include('studentFee.script')
+    @include('studentPayment.script')
+@endif
+
 <script type="text/javascript"> 
 /** Highlight Sidebard **/
 $('#sidemenu_student').addClass('active');
+$('title').text('{{ $student->fullName }}');
 </script>
 
-@include('student.script')
-
 <script type="text/javascript">
-    $('#studentSave').click(function() {
-        setTimeout(function(){ 
-            window.print();window.close(); 
-        }, 2000);
+$(document).ready(function() {    
+
+    $('#tabs li a:not(:first)').addClass('inactive');
+    $('.tab-pane:first').show();
+        
+    $('#tabs li a').click(function(){
+        var t = $(this).attr('id');
+        if($(this).hasClass('inactive')){ //this is the start of our condition 
+            $('#tabs li a').addClass('inactive');           
+            $(this).removeClass('inactive');
+            
+            $('.tab-pane').hide();
+            $('#content-'+ t).fadeIn('slow');
+        }  
     });
+
+});
 </script>
 @endsection

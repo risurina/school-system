@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\School;
 use App\Student;
+use App\StudentPayment;
+use App\SchoolYear as Year;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -50,22 +52,40 @@ class StudentController extends Controller
     * @return Illuminate\Http\Response
     **/
     public function studentCreate(Request $req) {
+      // validate input
       $validate_array = $this->studentValidationArray();
 
       if ($req->input('lrnNo') != '') {
         $validate_array['lrnNo'] = 'unique:students';
       }
-      
       $this->validate($req,$validate_array);
-      
+
+      // check if exist
+      $newStudent = Student::where('firstName',$req->input('firstName'))
+                            ->where('middleName',$req->input('middleName'))
+                            ->where('lastName',$req->input('lastName'))
+                            ->where('dateOfBirth',$req->input('dateOfBirth'))
+                            ->where('sex',$req->input('sex'))
+                            ->first();
+      if ($newStudent) {
+        return response()->json([
+          'firstName' => 'Student already exist!',
+          'middleName' => '',
+          'lastName' => 'Student already exist!',
+          'dateOfBirth' => '',
+          'sex' => ''
+        ],400);
+      }
+                      
+      // input to database
       $student = new Student;
-    	$student->firstName = $req->input('firstName'); 
-    	$student->middleName = $req->input('middleName'); 
-    	$student->lastName = $req->input('lastName');
-    	$student->dateOfBirth = $req->input('dateOfBirth'); 
-    	$student->sex = $req->input('sex'); 
-    	$student->lrnNo = $req->input('lrnNo');
-      
+      $student->firstName = $req->input('firstName'); 
+      $student->middleName = $req->input('middleName'); 
+      $student->lastName = $req->input('lastName');
+      $student->dateOfBirth = $req->input('dateOfBirth'); 
+      $student->sex = $req->input('sex'); 
+      $student->lrnNo = $req->input('lrnNo');
+        
       $this->mySchool()->students()->save($student);
 
       return response()->json($student);
@@ -98,8 +118,63 @@ class StudentController extends Controller
     * View School Details
     * @return Illuminate\Http\Response
     **/
-    public function studentProfile($id) {
+    public function studentProfile($id,$sy = '') {
       $student = Student::find($id);
-      return response()->view('student.profile',['student' => $student]);
+
+      if (!$student) {
+        return redirect()->route('student.index');
+      }
+      
+      $output = [ 'student' => $student ];
+
+      if ( $sy ) {
+        
+        # year validation
+        $syCheck = Year::where( 'year', $sy )->first();
+
+        if ( !$syCheck ) {
+          return redirect()->route('student.index');
+        }
+        # end year validation
+
+        $currentProgress = $student
+                           ->student_history()
+                           ->where( 'year', $sy )
+                           ->latest('school_year_level_section_id')
+                           ->first();
+      } else {
+        $currentProgress = $student
+                           ->student_history()
+                           ->latest('school_year_level_section_id')
+                           ->first();
+      }
+
+      if ($currentProgress) {
+        $currentSection = $currentProgress->school_year_level_section;
+        $currentLevel = $currentSection->school_year_level;
+        $currentSchoolYear = $currentLevel->school_year;
+                      
+        $currentFee = $currentProgress->student_fees;
+        $currentPayment = $currentProgress->student_payments;
+
+
+        $output = [
+          'student' => $student,
+          'currentProgress' => $currentProgress,
+          'currentSection' => $currentSection,
+          'currentLevel' => $currentLevel,
+          'currentSchoolYear' => $currentSchoolYear,
+          'currentFee' => $currentFee,
+          'currentPayment' => $currentPayment,
+          'fees' => $this->mySchool()->fees,
+        ];
+      };
+
+      /** School Year  List **/
+      $school_years = $this->mySchool()->school_years()->latest('id')->get();
+      $output['school_years'] = $school_years;
+      /** End Latest School Year List **/
+
+      return response()->view('student.profile', $output);
     }
 }

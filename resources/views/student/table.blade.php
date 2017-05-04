@@ -13,14 +13,20 @@
           {{ $student->sex }}
         </th>
         <td>{{ date('M d, Y',strtotime($student->dateOfBirth)) }}</td>
-        <td>{{ $student->currentAge() }}</td>
+        <td>{{ $student->currentAge }}</td>
         <td>{{ date('M d, Y', strtotime($student->created_at)) }}</td>
-        <th class="text-center {{ ($student->status == 'NEW') ? 'text-info' : 'text-navy' }}">
-          {{ $student->status }}
+        <?php
+          $status = ($student->student_progresses()
+                       ->whereNotNull('status')->first()) 
+                    ? $student->student_progresses()
+                       ->whereNotNull('status')->first()->status
+                    :  "NEW"
+        ?>
+        <th class="text-center {{ ($status == 'NEW') ? 'text-danger' : 'text-navy' }} ">
+          {{ $status }}
         </th>
         <td class="text-center">
-          <a href="{{ route('student.profile',['id'=> $student->id ]) }}">View </a> |
-          <a onClick="studentUpdateModal({{ $student }})">Edit </a>
+          <a href="{{ route('student.profile',['id'=> $student->id ]) }}">View </a>
         </td>
     </tr>
     @endforeach
@@ -28,7 +34,7 @@
 
   @if (!$students->count())
   <tr>
-      <td class="text-center" colspan="10">
+      <td class="text-center" colspan="15">
           No result!
       </td>
   </tr>

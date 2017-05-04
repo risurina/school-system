@@ -7,7 +7,7 @@
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>School Table</h5>
+            <h5>Student Table</h5>
             <div class="ibox-tools">
                 <a href="#add-school" class="btn btn-primary btn-xs" onclick="studentCreateModal()">
                     New Student
