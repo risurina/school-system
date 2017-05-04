@@ -14,6 +14,7 @@ class Employee extends Model
 		'percent', 'bonus', 'declare', 'er', 'ee', 'tc', 
 	];
 
+    protected $appends = [ 'fullName' ];
 	/**
 	* DB relation to users
     **/
@@ -26,13 +27,13 @@ class Employee extends Model
     {
         return $this->hasMany('App\Section');
     }
-
-    public function fullName()
-    {
-    	$fullName = $this->lastName . ', ';
-    	$fullName .= $this->firstName . ' ';
-    	$fullName .= ($this->middleName != '') ? $this->middleName[0] . '.' : '';
-    	
-    	return ucwords($fullName); 
+    
+    public function getFullNameAttribute($value='')
+    {   
+        $fullName = $this->attributes['lastName'] . ', ';
+        $fullName .= $this->attributes['firstName'] . ' ';
+        $fullName .= ($this->attributes['middleName'] != '') ? $this->attributes['middleName'][0] . '.' : '';
+        
+        return ucwords($fullName);
     }
 }

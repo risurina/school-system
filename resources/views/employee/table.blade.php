@@ -5,7 +5,7 @@
     <tr>
         <td>{{ ($count + 1) }}</td>
 
-        <td> <strong>{{ $emp->fullName() }}</strong> </td>
+        <td> <strong>{{ $emp->fullName }}</strong> </td>
 
         <td> {{ $emp->position }} </td>
 
