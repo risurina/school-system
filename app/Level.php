@@ -12,4 +12,14 @@ class Level extends Model
     {
     	return $this->belongsTo('App\School');
     }
+
+    public function school_years()
+    {
+    	return $this->belongsToMany(
+    		'App\SchoolYear',
+    		'school_year_levels',
+    		'level_id',
+    		'school_year_id'
+    	);
+    }
 }

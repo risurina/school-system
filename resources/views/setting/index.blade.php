@@ -9,7 +9,7 @@
 	<div class="row m-b-lg m-t-lg">
     	<div class="col-md-6">
             <div class="profile-image">
-                <img src="{{ URL::to('assets/img/a4.jpg') }}" 
+                <img src="{{ asset('storage/school/logo.png') }}" 
                     class="img-circle circle-border m-b-md" alt="profile">
             </div>
             <div class="profile-info">
@@ -113,6 +113,7 @@
                                     <th style="width: 1%" class="text-center">#</th>
                                     <th>Code</th>
                                     <th>Fee</th>
+                                    <th>Default</th>
                                     <th>Amount</th>
                                     <th class="text-center">&nbsp;</th>
                                 </tr>
