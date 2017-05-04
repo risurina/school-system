@@ -11,7 +11,7 @@ class EmployeesTableSeeder extends Seeder
      */
     public function run()
     {
-        $school = \App\School::where('code','RES')->first();
+        $school = \App\School::where('code','ALC')->first();
 
         $employee = new \App\Employee([
         	'number' => '2016-001',

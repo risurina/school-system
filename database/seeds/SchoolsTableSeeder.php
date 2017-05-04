@@ -12,9 +12,9 @@ class SchoolsTableSeeder extends Seeder
     public function run()
     {
         $school = \App\School::create([
-        	'code' => 'RES',
-        	'name' => 'RIAZEN ELEM SCHOOL',
-        	'address' => 'PH. 4 BAGONG SILANG, CAL. CITY',
+        	'code' => 'ALC',
+        	'name' => 'AEJHAN LEARNING CENTER',
+        	'address' => 'PH. 3 BAGONG SILANG, CAL. CITY',
         	]);
     }
 }

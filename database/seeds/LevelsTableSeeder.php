@@ -15,17 +15,17 @@ class LevelsTableSeeder extends Seeder
 
         $nursery = new App\Level;
         $nursery->code = 'NURSERY';
-        $nursery->level = 'Nursery';
+        $nursery->level = 'NURSERY';
         $school->levels()->save($nursery);
 
         $kinder_one = new App\Level;
         $kinder_one->code = 'KINDER-I';
-        $kinder_one->level = 'Kinder I';
+        $kinder_one->level = 'KINDER I';
         $school->levels()->save($kinder_one);
 
         $kinder_two = new App\Level;
         $kinder_two->code = 'KINDER-II';
-        $kinder_two->level = 'Kinder II';
+        $kinder_two->level = 'KINDER II';
         $school->levels()->save($kinder_two);
 
         $K1 = new App\Level;
