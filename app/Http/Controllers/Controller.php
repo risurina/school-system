@@ -15,6 +15,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     protected function mySchool() 
     {
     	return School::find(Auth::user()->school_id);
