@@ -60,6 +60,7 @@ class FeeController extends Controller
       $fee = Fee::find($req->input('id'));
       $fee->code = $req->input('code');
       $fee->fee = $req->input('fee');
+      $fee->amount = $req->input('amount');
       $this->mySchool()->fees()->save($fee);
 
       return response()->json($fee);

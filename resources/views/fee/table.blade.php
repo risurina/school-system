@@ -7,6 +7,13 @@
                 <td class="">
                     <span class="label label-primary">{{ $fee->fee }}</span>
                 </td>
+                <td class="text-right text-center">
+                  @if($fee->isDefault)
+                    <i class="fa fa-check text-navy"></i>
+                  @else
+                    <i class="fa fa-times text-muted"></i>
+                  @endif
+                </td>
                 <td class="text-right">{{ number_format($fee->amount,2,'.',',') }}</td>
                 <td class="text-center">
                     <a onClick="feeUpdateModal({{ $fee }})">Edit</a>
