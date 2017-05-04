@@ -37,4 +37,23 @@ class School extends Model
     {
         return $this->hasMany('App\Student');
     }
+
+    public function sections()
+    {
+        return $this->hasMany('App\Section');
+    }
+    public function fees()
+    {
+        return $this->hasMany('App\Fee');
+    }
+
+    public function levels()
+    {
+        return $this->hasMany('App\Level');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
 }
