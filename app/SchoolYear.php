@@ -13,6 +13,10 @@ class SchoolYear extends Model
         'firstGrading','secondGrading','thirdGrading','fourthGrading',
     ];
 
+    protected $appends = [
+        'total_student',
+    ];
+
     public function displayDateFormat($date)
     {
       if ($date != '') {
@@ -27,7 +31,17 @@ class SchoolYear extends Model
 
     public function levels()
     {
-        return $this->hasMany('App\Level');
+        return $this->belongsToMany(
+            'App\Level',
+            'school_year_levels',
+            'school_year_id',
+            'level_id'
+        );
+    }
+
+    public function school_year_levels()
+    {
+        return $this->hasMany('App\SchoolYearLevel');
     }
 
     public function students()
@@ -43,5 +57,15 @@ class SchoolYear extends Model
     public function displayEndDate()
     {
     	return date("M d, Y", strtotime($this->end));
+    }
+
+    public function getTotalStudentAttribute()
+    {
+        $total_student = 0;
+        foreach ($this->school_year_levels()->get() as $section) {
+            $total_student += $section->total_student;
+        }
+
+        return $total_student;
     }
 }

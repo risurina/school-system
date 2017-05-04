@@ -78,7 +78,6 @@
 <!-- /.row -->
 </div>
 <!-- /.wrapper wrapper-content animated fadeInRight -->
-@include('sy.modalForm')
 @endsection
 
 @section('js_script')

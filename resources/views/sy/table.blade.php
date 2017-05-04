@@ -38,8 +38,7 @@
         </td>
 
         <td class="text-center project-action">
-          <a href="{{ route("sy.view",[ 'year' => $sy->year ]) }}">View</a> |
-          <a onClick="syUpdateModal({{ $sy }})">Edit </a>
+          <a class="btn btn-info btn-flat btn-sm" href="{{ route("sy.profile",[ 'year' => $sy->year ]) }}">View</a>
         </td>
     </tr>
     @endforeach
