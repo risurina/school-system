@@ -1,0 +1,5 @@
+/** Remove margin on btn under table **/
+td .btn-group {
+  margin-bottom: -10px;
+  margin-top: -7px;"
+}
