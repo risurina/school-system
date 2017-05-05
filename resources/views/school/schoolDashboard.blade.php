@@ -206,182 +206,85 @@
     </div>
 
     <div class="row tab-pane" id="content-tab-1">
-        
         <!-- Level Table -->
-        <div class="col-lg-12">
+        <div class="col-lg-12" id="lvlTable">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Levels & Sections Table</h5>
-                    <div class="ibox-tools pull-right">
-                        <a class="btn btn-primary btn-xs" 
-                           onclick="sylvlCreateModal()">
-                           <span class="font-bold
-                           ">Add Level</span>
+                    <h5>LEVEL TABLE</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
                         </a>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        <a class="close-link"><i class="fa fa-times"></i></a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <!-- Table -->
-                    <div class="table-responsive project-list">
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Level</th>
-                                    <th>Sectio's & Schedule</th>
-                                    <th>Fee's</th>
-                                    <th class="text-center">&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lvlTable_body">
-                            @foreach ($schoolYearLevels as $schoolYearLevel)
+                    <table class="table table-hover no-margins">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">LEVEL</th>
+                            <th class="text-center">FEE'S</th>
+                            <th class="text-center"># OF SECTION</th>
+                            <th class="text-center"># OF STUDENT</th>
+                            <th class="text-center">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($schoolYearLevels as $lvlCount => $syLvl)
                             <tr>
-                                <td class="text-center project-status">
-                                    <h4 class="label label-primary">
-                                        {{ $schoolYearLevel->level->level }}
-                                    </h4>
-                                    <center>Total Student : {{ $schoolYearLevel->total_student }}</center>
+                                <td class="text-center">{{ $lvlCount + 1 }}</td>
+                                <td class="text-center font-bold text-navy">{{ $syLvl->level->level }}</td>
+                                <td class="text-center">
+                                    {{ number_format( $syLvl->total_fee, 2, '.', ',') }}
                                 </td>
-                                <td class="project-title">
-                                    @foreach ($schoolYearLevel->school_year_level_sections 
-                                            as $syLevelSectionCount => $schoolYearLevelSection)
-                                        @if ($syLevelSectionCount != 0)
-                                            <div class="border-top" style="margin-top: 4px;"></div>
-                                        @endif
-                                        
-                                        <strong>
-                                            {{ $schoolYearLevelSection->section }}
-                                            <a class="text-success pull-right"
-                                                onClick="sectionDelete({{ $schoolYearLevelSection->id }})">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                            <span class="pull-right">&nbsp;|&nbsp;</span> 
-                                            <a class="text-success pull-right"
-                                                onClick="sectionUpdateModal('{{ $schoolYearLevel->level->level                          }}',
-                                                                            {{ $schoolYearLevelSection }}
-                                                )">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </strong>
-                                        <br>
-                                        <small>
-                                            Adviser : {{ $schoolYearLevelSection->adviser }} / 
-                                            {{ $schoolYearLevelSection->level }}
-                                        </small>
-                                        <br>                                            
-                                        <small>
-                                            No. Of Student : 
-                                            <span class="badge badge-primary">{{ $schoolYearLevelSection
-                                                    ->total_student }}
-                                            </span>
-                                        </small> 
-                                        <br>
-                                        <small>
-                                            Schedule : 
-                                            <span class="label label-info"> 
-                                                {{ $schoolYearLevelSection->schedule_time }}
-                                            </span>
-                                            <span>
-                                        </small>          
-                                    @endforeach
-                                    @if( count($schoolYearLevel->school_year_level_sections) == 0 )
-                                        <strong>
-                                            No Section!
-                                        </strong>
-                                    @endif
+                                <td class="text-navy text-center">
+                                    {{ $syLvl->school_year_level_sections()->count() }}
                                 </td>
-                                <!-- End Sections And Schedule -->
-
-                                <!-- Fee's -->
-                                <td class="project-title border-left">
-                                @foreach ($schoolYearLevel->school_year_level_fees()
-                                                          ->oldest('fee_id')->get() 
-                                            as $syLevelFeeCount => $schoolYearLevelFee)
-                                    <div class="stream-small">
-                                        <small>{{ $syLevelFeeCount + 1 }}.</small>
-                                        <span class="font-bold">{{ $schoolYearLevelFee->fee->fee }}</span>
-                                        <span class="pull-right">
-                                            <a onClick="sylvlfeeUpdateModal(
-                                                    '{{ $schoolYearLevel->level->level}}',
-                                                    '{{ $schoolYearLevelFee->fee->fee }}',
-                                                     {{ $schoolYearLevelFee }}
-                                                )">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                             | 
-                                            <a onClick="sylvlfeeDelete(
-                                                {{ $schoolYearLevelFee->id }}
-                                               )">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </span>
-                                        <span class="pull-right">&nbsp;</span>
-                                        <span class="label label-primary pull-right">
-                                            P {{ number_format($schoolYearLevelFee->feeAmount,2,'.',',') }}
-                                        </span>
-
-                                    </div>
-                                   
-                                @endforeach
-
-                                @if(count($schoolYearLevel->school_year_level_fees) == 0)
-                                    <strong>
-                                        No Fee!
-                                    </strong>
-                                @endif
+                                <td class="text-navy text-center">
+                                    {{ $syLvl->total_student }}
                                 </td>
-                                <!-- End Fee's -->
-
-                                <td class="text-center border-left project-action">
-                                    <div class="dropdown">
-                                        <button data-toggle="dropdown" 
-                                                class="btn btn-primary btn-sm dropdown-toggle" >
-                                                Actions <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li>
-                                                <a onClick="sectionCreateModal({{ $schoolYearLevel->id }},
-                                                                                '{{ $schoolYearLevel->level->level }}'
-                                                )">
-                                                    <strong>Add Section</strong>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a onClick="sylvlfeeCreateModal(
-                                                        {{ $schoolYearLevel->id }},
-                                                        '{{ $schoolYearLevel->level->level }}'
-                                                )">
-                                                    <strong>Add Fee</strong>
-                                                </a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a onClick="syLevelDelete(
-                                                                {{ $schoolYearLevel->id }})">
-                                                    <strong>Remove Level</strong>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <td class="text-center">
+                                    <a onClick="lvlView( 
+                                             '{{ $syLvl->level->level }}'
+                                            ,{{ $syLvl->school_year_level_sections }} )">
+                                        View
+                                    </a>
                                 </td>
                             </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.table-responsive -->
-
-                    <!-- Pagination -->
-                    <div class="row">
-                        <div class="col-lg-12" id="lvlTable_pagination">
-                        </div>
-                    </div>
-                    <!-- /.row -->
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <!-- End Level Table -->
+
+        <!-- Section Table -->
+        <div class="col-lg-12" id="secTable" hidden>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>SECTION TABLE</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div>
+                        <div class="feed-activity-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Section Table -->
     </div>
 </div>
 <!-- /.wrapper wrapper-content -->
@@ -410,5 +313,41 @@ $('#sidemenu_dashboard ul li:first').addClass('active');
     $(document).ready(function () {
         $('#content-tab-1').hide();
     });
+
+    function lvlView($lvl,$sections) {
+        var sectionRow = '';
+
+        if ($sections.length <= 0) {
+            sectionRow = '<div class="feed-element">' +
+                            '<div class="media-body text-center">' +
+                                '<span><strong class="text-navy">'+
+                                    $lvl+
+                                '</strong> has no Section!</span>' +
+                            '</div>' +
+                        '</div>';
+        } else {
+            $.each($sections, function(i, v) {
+
+                sectionRow += '<div class="feed-element">' +
+                                '<div class="media-body ">' +
+                                    '<span class="pull-right badge badge-primary">'+(i+1)+'</span>' +
+                                    'SECTION : <strong class="text-navy">'+v.section+'</strong><br>' +
+                                    'ADVISER : <strong>'+v.adviser+'</strong><br>' +
+                                    'TIME : <strong>'+v.schedule_time+'</strong><br>' +
+                                    '# OF STUDENT : <strong>'+v.total_student+'</strong><br>' +
+                                '</div>' +
+                            '</div>';
+            });
+        }
+
+        $( '#secTable .ibox-title h5' ).html(  
+            '<span class="text-info">' + $lvl + '</span> - SECTION TABLE'
+        );
+
+        $( '#lvlTable' ).attr('class','col-lg-6');
+        $( '#secTable' ).attr('class','col-lg-6').show();
+
+        $( '#secTable .ibox .ibox-content .feed-activity-list' ).html( sectionRow );
+    }
 </script>
 @endsection
