@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolYearLevel extends Model
 {
     protected $appends = [
-        'total_student',
+        'total_fee','total_student',
     ];
 
 	public function school_year()
@@ -41,5 +41,15 @@ class SchoolYearLevel extends Model
     public function getTotalStudentAttribute()
     {   
         return $this->student_progresses()->count();
+    }
+
+    public function getTotalFeeAttribute()
+    {
+        $totalFee = 0;
+        foreach ( $this->school_year_level_fees as $lvlFee ) {
+            $totalFee += $lvlFee->feeAmount;
+        }
+
+        return $totalFee;
     }
 }
