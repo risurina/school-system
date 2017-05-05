@@ -1,7 +1,7 @@
 <html>
 <head>
 	<script>
-		setTimeout(function(){ window.print();window.close(); }, 10);
+		//setTimeout(function(){ window.print();window.close(); }, 10);
 	</script>
 <style>
 	body{
