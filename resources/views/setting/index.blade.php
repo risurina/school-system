@@ -113,6 +113,7 @@
                                     <th style="width: 1%" class="text-center">#</th>
                                     <th>Code</th>
                                     <th>Fee</th>
+                                    <th>Is Installment</th>
                                     <th>Default</th>
                                     <th>Amount</th>
                                     <th class="text-center">&nbsp;</th>

@@ -14,13 +14,13 @@
 
                     <div class="col-xs-12 col-lg-12">
                         <div class="form-group" id="error_code">
-                            <label for="code" class="col-sm-4 control-label">
+                            <label for="code" class="col-sm-5 control-label">
                               <i>Code <span>*</span></i>
                             </label>
 
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <input type="text" name="code"
-                                        class="form-control col-md-7 col-xs-12" 
+                                        class="form-control" 
                                         placeholder="Fee Code">
                                 <span class="help-block"></span>
                             </div>
@@ -29,11 +29,11 @@
 
                     <div class="col-xs-12 col-lg-12">
                         <div class="form-group" id="error_fee">
-                            <label for="level" class="col-sm-4 control-label">
+                            <label for="level" class="col-sm-5 control-label">
                               <i>Fee <span>*</span></i>
                             </label>
 
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <input type="text" name="fee"
                                         class="form-control col-md-7 col-xs-12" 
                                         placeholder="Fee">
@@ -44,13 +44,45 @@
 
                     <div class="col-xs-12 col-lg-12">
                         <div class="form-group" id="error_amount">
-                            <label for="amount" class="col-sm-4 control-label">
+                            <label for="amount" class="col-sm-5 control-label">
                               <i>Amount <span>*</span></i>
                             </label>
 
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <input type="number" name="amount"
                                         class="form-control col-md-7 col-xs-12 text-right">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+
+                    <div class="col-xs-12 col-lg-12">
+                        <div class="form-group" id="error_isDefault">
+                            <label for="isDefault" class="col-sm-5 control-label">
+                              <i>Is Default <span>*</span></i>
+                            </label>
+
+                            <div class="col-sm-7">
+                                <select class="form-control" name="isDefault">
+                                    <option value="0">NO</option>
+                                    <option value="1">YES</option>
+                                </select>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+
+                    <div class="col-xs-12 col-lg-12">
+                        <div class="form-group" id="error_isInstallment">
+                            <label for="isInstallment" class="col-sm-5 control-label">
+                              <i>Is Installment <span>*</span></i>
+                            </label>
+
+                            <div class="col-sm-7">
+                                <select class="form-control" name="isInstallment">
+                                    <option value="0">NO</option>
+                                    <option value="1">YES</option>
+                                </select>
                                 <span class="help-block"></span>
                             </div>
                         </div>

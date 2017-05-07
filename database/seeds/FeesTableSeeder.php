@@ -16,6 +16,7 @@ class FeesTableSeeder extends Seeder
         $fee = new App\Fee;
         $fee->code = 'TUITION';
         $fee->fee = 'Tuition Fee';
+        $fee->isInstallment = true;
         $fee->amount = 10000;
         $school->fees()->save($fee);
         

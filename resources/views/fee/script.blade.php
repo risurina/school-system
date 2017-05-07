@@ -83,6 +83,8 @@
       fee_form.find('input[name=code]').val(data.code);
       fee_form.find('input[name=fee]').val(data.fee);
       fee_form.find('input[name=amount]').val(data.amount);
+      fee_form.find('select[name=isDefault]').val(data.isDefault);
+      fee_form.find('select[name=isInstallment]').val(data.isInstallment);
 
       fee_modal.find('#feeSave').attr('onClick', 'feeUpdate()');
       fee_modal.modal('show');
