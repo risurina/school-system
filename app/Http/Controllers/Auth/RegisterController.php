@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Fee;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -79,6 +80,48 @@ class RegisterController extends Controller
         $user->roles()->attach($role);
         $school->users()->save($user);
 
+        # Create School Year Upon registration
+        $schoolYear = new \App\SchoolYear([
+            'year' => '2017',
+            'code' => '201718',
+            'start' => '2017-06-05',
+            'end' => '2018-02-28',
+            'firstGrading' => '2017-08-01',
+            'secondGrading' => '2017-10-02',
+            'thirdGrading' => '2017-12-02',
+            'fourthGrading' => '2018-03-02',
+            'monthlyExam' => '10',
+            'monthlyDue' => '05',
+        ]);
+
+        $school->school_years()->save($schoolYear);
+
+        # Create Fee's For School
+        $fee = new Fee;
+        $fee->code = 'TUITION';
+        $fee->fee = 'Tuition Fee';
+        $fee->isInstallment = true;
+        $fee->isTuition = true;
+        $fee->amount = 10000;
+        $school->fees()->save($fee);
+        
+        $book = new Fee;
+        $book->code = 'BK';
+        $book->fee = 'Book';
+        $book->amount = 2500;
+        $school->fees()->save($book);
+
+        $uniform = new Fee;
+        $uniform->code = 'UNIF';
+        $uniform->fee = 'Uniform';
+        $uniform->amount = 500;
+        $school->fees()->save($uniform);
+
+        $pe = new Fee;
+        $pe->code = 'PE';
+        $pe->fee = 'PE Uniform';
+        $pe->amount = 500;
+        $school->fees()->save($pe);
         return $user;
     }
 }
