@@ -19,7 +19,7 @@ class CreateFeesTable extends Migration
             $table->string('fee');
             $table->float('amount');
             $table->boolean('isDefault')->default(1);
-            $table->boolean('isInstallment')->default(0);
+            $table->boolean('isTuition')->default(0);
             $table->timestamps();
             $table->increments('id');
         });

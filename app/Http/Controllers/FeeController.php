@@ -36,7 +36,6 @@ class FeeController extends Controller
         'code' => $req->input('code'),
         'amount' => $req->input('amount'),
         'isDefault' => $req->input('isDefault'),
-        'isInstallment' => $req->input('isInstallment'),
       ]);
 
       $this->mySchool()->fees()->save($fee);
@@ -64,7 +63,6 @@ class FeeController extends Controller
       $fee->fee = $req->input('fee');
       $fee->amount = $req->input('amount');
       $fee->isDefault = $req->input('isDefault');
-      $fee->isInstallment = $req->input('isInstallment');
       $this->mySchool()->fees()->save($fee);
 
       return response()->json($fee);

@@ -71,22 +71,6 @@
                             </div>
                         </div>
                     </div><!-- /.col -->
-
-                    <div class="col-xs-12 col-lg-12">
-                        <div class="form-group" id="error_isInstallment">
-                            <label for="isInstallment" class="col-sm-5 control-label">
-                              <i>Is Installment <span>*</span></i>
-                            </label>
-
-                            <div class="col-sm-7">
-                                <select class="form-control" name="isInstallment">
-                                    <option value="0">NO</option>
-                                    <option value="1">YES</option>
-                                </select>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                    </div><!-- /.col -->
                 </div>
                 <!-- /.row -->
                 </form>
