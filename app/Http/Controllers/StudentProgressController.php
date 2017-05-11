@@ -8,6 +8,7 @@ use App\SchoolYear as sy;
 use App\Student;
 use App\StudentProgress as Progress;
 use App\StudentFee;
+use App\StudentPayment as Payment;
 use Illuminate\Http\Request;
 
 class StudentProgressController extends Controller
@@ -78,6 +79,7 @@ class StudentProgressController extends Controller
     {
 	    $this->validate($req,[
 	    	'enrolledDate' => 'date|required',
+	    	'guardianName' => 'required',
 	    	'school_year' => 'required|integer',
 	    	'level' => 'required|integer',
 	    	'section' => 'required|integer',
@@ -99,6 +101,7 @@ class StudentProgressController extends Controller
 							->select('student_progresses.*','a.*','b.*','c.*','d.*')
 							->where('school_year_id',$req->input('school_year'))
 							->first();
+
 		if ( $enrollmentValidate ) {
 			return response()->json([
 				'school_year' => 'Student already enrolled with this year!',
@@ -145,14 +148,90 @@ class StudentProgressController extends Controller
 		
 			$student->student_progresses()->save( $studentProgress );
 
+			$sy = \App\SchoolYear::find( $req->input('school_year') );
+
 			/** Duplicate Level fee's to Student Progress Fee **/
 			$schoolYearLevel = Level::find( $req->input('level') );
+
+			$discount = ( $req->input('discount') ) ? $req->input('discount') : 0 ;
 			foreach ($schoolYearLevel->school_year_level_fees  as $lvlFee) {
-				$studentFee = new StudentFee([
-					'fee_id' => $lvlFee->fee_id,
-					'feeAmount' => $lvlFee->feeAmount
-				]);
-				$studentProgress->student_fees()->save( $studentFee );
+				# if installment
+				if ( $lvlFee->fee->isTuition ) {
+					# if Cash
+					if ( $req->input( 'isCash' ) ) {
+						$studentFee = new StudentFee([
+							'fee_id' => $lvlFee->fee_id,
+							'feeAmount' => $lvlFee->feeAmount,
+							'discount' => $discount,
+						]);
+						$studentProgress->student_fees()->save( $studentFee );
+
+						if ( $req->input('initiallPayment') ) {
+							$initiallPayment = new Payment;
+						    $initiallPayment->amount = $req->input('initiallPayment');
+						    $initiallPayment->payment_by = $req->input( 'guardianName' );
+						    $initiallPayment->payment_date = $req->input( 'enrolledDate' );
+
+						    $studentFee->student_payments()->save( $initiallPayment );
+						}
+					} else {
+						/** Initialls **/
+						$initiallTuition = $req->input('initiallPayment') + $req->input('discount');
+						if ( $req->input('initiallPayment') ) {
+							$initiallTuitionFee = new StudentFee([
+								'fee_id' => $lvlFee->fee_id,
+								'feeAmount' => $initiallTuition, 
+								'discount' => $discount,
+							]);
+							$studentProgress->student_fees()->save( $initiallTuitionFee );
+
+							$initiallPayment = new Payment;
+						    $initiallPayment->amount = $req->input('initiallPayment');
+						    $initiallPayment->payment_by = $req->input( 'guardianName' );
+						    $initiallPayment->payment_date = $req->input( 'enrolledDate' );
+
+						    $initiallTuitionFee->student_payments()->save( $initiallPayment );
+						}
+						/** End Initialls **/
+
+						$monthCount = 10;
+						$tuitionFeeLeft = $lvlFee->feeAmount - $initiallTuition;
+						$amort = $tuitionFeeLeft / $monthCount;
+
+						for ($i = 0; $i <= ( $monthCount - 1 ); $i++) { 
+							$feeDueDate = strtotime( $sy->start );
+							$feeDueDate = date( 'Y-m-'.$sy->monthlyDue, strtotime("+".(31 * $i)." day" ,$feeDueDate) );
+
+							$tuitionFeeArray = [ 
+								'fee_id' => $lvlFee->fee_id,
+							];
+
+							if ( $i == $monthCount - 1 ) {
+								$tuitionFeeArray['dueDate'] = $feeDueDate;
+								$tuitionFeeArray['feeAmount'] = $tuitionFeeLeft;
+							} else {
+								if ($i == 0) {
+									$tuitionFeeArray['dueDate'] = $sy->start;
+								} else {
+									$tuitionFeeArray['dueDate'] = $feeDueDate;
+								}
+								$tuitionFeeArray['feeAmount'] = $amort;
+							}
+							
+							$tuitionFee = new StudentFee( $tuitionFeeArray );
+							$studentProgress->student_fees()->save( $tuitionFee );
+
+							$tuitionFeeLeft -= $amort;
+						}
+					}
+
+				} else {
+					$studentFee = new StudentFee([
+						'fee_id' => $lvlFee->fee_id,
+						'feeAmount' => $lvlFee->feeAmount,
+					]);
+					$studentProgress->student_fees()->save( $studentFee );
+				}
 			}
 			/** End Duplicate Level Fee's **/
 		}
@@ -164,6 +243,7 @@ class StudentProgressController extends Controller
     {
     	$this->validate($req,[
 	    	'enrolledDate' => 'date|required',
+	    	'guardianName' => 'required',
 	    	'school_year' => 'required|integer',
 	    	'level' => 'required|integer',
 	    	'section' => 'required|integer'
