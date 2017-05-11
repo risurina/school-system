@@ -42,7 +42,8 @@ class SchoolYearLevelController extends Controller
         $schoolYearLevel->level_id = $req->input('level_id');
         $school_year->school_year_levels()->save( $schoolYearLevel );
 
-        foreach ($this->mySchool()->fees as $fee) {
+        $fees = $this->mySchool()->fees()->where('isDefault',true)->get();
+        foreach ($fees as $fee) {
             $schoolYearLevelFee = new \App\SchoolYearLevelFee;
             $schoolYearLevelFee->fee_id = $fee->id;
             $schoolYearLevelFee->feeAmount = $fee->amount;
