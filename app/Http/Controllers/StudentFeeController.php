@@ -7,7 +7,7 @@ use App\StudentProgress as Progress;
 use Illuminate\Http\Request;
 
 class StudentFeeController extends Controller
-{
+{ 
     public function feeCreate(Request $req) 
     {
       $this->validate($req,[
@@ -34,6 +34,10 @@ class StudentFeeController extends Controller
       $fee->fee_id = $req->input('fee_id');
       $fee->feeAmount = $req->input('feeAmount');
       $fee->discount = ( $req->input('discount') ) ? $req->input('discount') : '0' ;
+
+      if ( $req->input('dueDate') ) {
+        $fee->dueDate = $req->input( 'input' );
+      }
 
       $studentProgress->student_fees()->save( $fee );
       return response()->json( [ 'fee' => $fee->fee->fee] );
@@ -63,6 +67,7 @@ class StudentFeeController extends Controller
 
       $fee->feeAmount = $req->input( 'feeAmount' );
       $fee->discount = $req->input( 'discount' );
+      $fee->dueDate = $req->input( 'dueDate' );
       $fee->update();
 
       return response()->json( ['fee' => $fee->fee->fee] );

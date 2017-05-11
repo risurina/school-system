@@ -31,6 +31,21 @@
                         </div><!-- /.col -->
 
                         <div class="col-xs-12 col-lg-12">
+                            <div class="form-group" id="error_dueDate">
+                                <label for="dueDate" class="col-sm-4 control-label">
+                                  <i>Due Date <span>*</span></i>
+                                </label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" 
+                                            type="date" 
+                                            name="dueDate"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <div class="col-xs-12 col-lg-12">
                             <div class="form-group" id="error_feeAmount">
                                 <label for="feeAmount" class="col-sm-4 control-label">
                                   <i>Amount <span>*</span></i>

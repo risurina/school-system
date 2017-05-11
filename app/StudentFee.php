@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class StudentFee extends Model
 {
     protected $fillable = [
-        'fee_id', 'feeAmount'
+        'fee_id', 'feeAmount','discount','dueDate'
     ];
 
     protected $appends = [
-        'total','balance','total_payment'
+        'total','balance','total_payment','displayDueDate'
     ];
 
     public function student_progress()
@@ -60,5 +60,16 @@ class StudentFee extends Model
     public function getBalanceAttribute()
     {
         return number_format( $this->total() - $this->total_payment() , 2 , '.' , '' );
+    }
+
+    public function getDisplayDueDateAttribute()
+    {
+        $dueDate = $this->attributes['dueDate'];
+
+        if ( !$dueDate ) {
+            return '';
+        }
+
+        return date( 'M d, Y', strtotime( $dueDate ) );
     }
 }

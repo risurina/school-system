@@ -80,6 +80,7 @@
       studentFee_form.find('select[name=fee_id]').val( data.fee_id ).attr( 'disabled',true );
       studentFee_form.find('input[name=feeAmount]').val( data.feeAmount );
       studentFee_form.find('input[name=discount]').val( data.discount );
+      studentFee_form.find('input[name=dueDate]').val( data.dueDate );
 
       studentFee_modal.modal('show');
 
