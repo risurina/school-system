@@ -17,6 +17,7 @@ class CreateStudentFeesTable extends Migration
             $table->integer('student_progress_id');
             $table->integer('fee_id');
             $table->float('feeAmount');
+            $table->date('dueDate')->nullable();
             $table->float('discount')->default(0);
             $table->timestamps();
             $table->increments('id');
