@@ -79,7 +79,10 @@
                             onclick="progressPrint( {{ $currentProgress }} )">
                             Print Reg Form
                         </a>
-
+                        <a class="btn btn-primary btn-xs" 
+                            onclick="soaPrint( {{ $currentProgress->id }} )">
+                            Print SOA
+                        </a>
                         <a href="{{ route('student.profile',['id'=> $student->id ]) }}">
                             <i class="fa fa-refresh"></i>
                         </a>
@@ -176,6 +179,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center">#</th>
+                                                            <th class="text-center">Due Date</th>
                                                             <th>Discription</th>
                                                             <th class="text-center">Amount</th>
                                                             <th class="text-center">Discount</th>
@@ -189,6 +193,7 @@
                                                     @foreach ($currentFee as $feeCount => $fee)
                                                         <tr>
                                                             <td>{{ $feeCount + 1 }} </td>
+                                                            <td class="text-center">{{ $fee->displayDueDate }}</td>
                                                             <th >
                                                                 <span class="label 
                                                                 {{ ($fee->balance <= 0) ? 'label-primary' 
@@ -233,6 +238,22 @@
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
+
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="5"></th>
+                                                            <th class="text-right">
+                                                                P {{ number_format($currentProgress->total_fee,2,'.',',') }}
+                                                            </th>
+                                                            <th class="text-right">
+                                                                P {{ number_format($currentProgress->total_payment,2,'.',',') }}
+                                                                </th>
+                                                            <th class="text-right">
+                                                                P {{ number_format($currentProgress->total_balance,2,'.',',') }}
+                                                                </th>
+                                                            <th class="text-right">&nbsp;</th>
+                                                        </tr>
+                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>
