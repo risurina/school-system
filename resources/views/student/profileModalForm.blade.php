@@ -63,29 +63,6 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-12 col-lg-6 tuitionDiv">
-                            <div class="form-group" id="error_discount">
-                                <label for="discount">Tuition Fee Discount *</label>
-                                <input type="number"
-                                       class="form-control text-right"
-                                       name="discount"
-                                       placeholder="0.00" 
-                                >
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-12 col-lg-6 tuitionDiv">
-                            <div class="form-group" id="error_initiallPayment">
-                                <label for="initiallPayment">Tuition Initial Payment *</label>
-                                <input type="number"
-                                       class="form-control text-right"
-                                       name="initiallPayment"
-                                       placeholder="0.00" 
-                                >
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="hr-line-dashed" style="margin-top: -0px;margin-bottom: 10px;"></div>
