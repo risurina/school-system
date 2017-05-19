@@ -100,7 +100,6 @@ class RegisterController extends Controller
         $fee = new Fee;
         $fee->code = 'TUITION';
         $fee->fee = 'Tuition Fee';
-        $fee->isInstallment = true;
         $fee->isTuition = true;
         $fee->amount = 10000;
         $school->fees()->save($fee);
