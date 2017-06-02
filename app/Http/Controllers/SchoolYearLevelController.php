@@ -17,7 +17,7 @@ class SchoolYearLevelController extends Controller
     						  ->select('school_year_levels.*','levels.level')
     						  ->get();
     	
-    	return response()->json($levels);
+    	return response()->json( $levels );
     }
 
     public function levelCreate(Request $req)
@@ -69,25 +69,6 @@ class SchoolYearLevelController extends Controller
         $level->delete();
 
         return response()->json( [ 'level' => $level->level->level ] );
-    }
-
-    public function test($id)
-    {
-        $level = Level::find( $id );
-        $levelStudent = $level->student_progresses()->get()->count();
-        $levelSections = $level->school_year_level_sections()->get();
-
-
-        $level->student_progresses()->delete();
-
-        if ($levelStudent) {
-            return response()->json(
-                ['error' => 'This level has already enrolled student!']
-            );
-        }
-
-
-        return response()->json( $level->school_year_level_sections );
     }
 }
 

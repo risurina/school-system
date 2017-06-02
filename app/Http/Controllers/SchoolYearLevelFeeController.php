@@ -11,7 +11,7 @@ class SchoolYearLevelFeeController extends Controller
     public function feeList(Request $req)
     {
     	$level = Level::find( $req->input('id') );
-    	$fees = $level->school_year_level_fees;
+    	$fees = $this->mySchool()->level->school_year_level_fees;
     	
     	return response()->json($fees);
     }

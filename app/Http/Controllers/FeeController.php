@@ -10,8 +10,7 @@ class FeeController extends Controller
     public function feeTable(Request $req) {
       $fees = $this->mySchool()
                     ->fees()
-                    ->where('code','like','%'.$req->input('feeSearch_key').'%')
-                    ->orWhere('fee','like','%'.$req->input('feeSearch_key').'%')
+                    ->where('fee','like','%'.$req->input('feeSearch_key').'%')
                     ->orderBy('id')
                     ->paginate(5);
 

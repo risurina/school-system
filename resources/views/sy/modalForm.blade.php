@@ -147,3 +147,67 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal inmodal -->
+
+
+<!-- Print Master List Modal -->
+<div class="modal inmodal in" id="printMaterList_modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content animated fadeIn">
+            <div class="ibox-title">
+                <h5>Print Master List <strong id="year" class="text-navy"></strong> </h5>
+                <span class="label label-info pull-right" id="code"></span>
+            </div>
+            <!-- /.ibox-title -->
+
+            <div class="ibox-content">
+                <!-- form start -->
+                <form class="" id="printMaterList_form">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group" id="error_start">
+                                <label for="start" class="control-label">
+                                  Print Type <span>*</span>
+                                </label>
+                                <select name="printType"  class="form-control" >
+                                    <option value="">All Level</option>
+                                    @foreach( $sy->school_year_levels as $level )
+                                    <option value="{{ $level->school_year_level_sections }}" >
+                                        {{ $level->level->level }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block has-error"></span>
+                            </div>
+                            <!--/.form-group-->
+                        </div><!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                </form>
+                <!--/.form -->
+            </div>
+            <!-- /.ibox-content -->
+            <div class="ibox-footer">
+              <div class="pull-right">
+                <button type="button" class="btn btn-white btn-sm " data-dismiss="modal">
+                  Close
+                </button>
+
+                <button type="button" 
+                        id="sySave" 
+                        onClick="syUpdate()" 
+                        class="btn btn-flat btn-primary btn-sm"> 
+                  Save
+                </button>
+              </div>
+              <div>&nbsp;<br>&nbsp;</div>
+            </div>
+            <!-- /.ibox-footer -->
+        </div>
+        <!-- /.modal-content animated flipInY -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal inmodal -->
+<!--  End Print Master List Modal-->

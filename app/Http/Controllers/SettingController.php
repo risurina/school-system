@@ -25,10 +25,12 @@ class SettingController extends Controller
     public function settingIndex()
     {   
         $view = 'setting.index';
-
-        $school = \App\School::find(Auth::user()->school_id);
+        $school = $this->mySchool();
         $levels = $school->levels();
         
-        return view($view,['school' => $school,'levels' => $levels]);
+        return view($view,[
+            'school' => $school,
+            'levels' => $levels
+        ]);
     }
 }

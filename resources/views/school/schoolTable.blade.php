@@ -8,7 +8,7 @@
         <td>{{ $school->name }}</td>
         <td>{{ $school->address }}</td>
         <td class="text-center">
-          <a href="{{ route('school.view',['id'=> $school->id ]) }}">View </a> |
+          <a onClick='schoolView("{{ $school->id }}")'>View </a> |
           <a onClick="schoolUpdate({{ $school }})">Edit </a> |
           <a onClick='schoolDelete("{{ $school->id }}","{{ $school->name }}")'>Delete </a>
         </td>

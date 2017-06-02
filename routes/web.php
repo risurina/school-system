@@ -288,6 +288,10 @@ Route::group(['prefix' => 'school'], function() {
     'uses' => 'SchoolController@schoolIndex',
     'as' => 'school.index'
   ]);
+  Route::post('/', [
+    'uses' => 'SchoolController@schoolIndex',
+    'as' => 'school.index'
+  ]);
   Route::post('/table',[
     'uses' => 'SchoolController@schoolTable',
     'as' => 'school.table'
@@ -308,20 +312,21 @@ Route::group(['prefix' => 'school'], function() {
     'uses' => 'SchoolController@schoolRestore',
     'as' => 'school.restore'
   ]);
-  Route::get('/view/{id}', [
-    'uses' => 'SchoolController@schoolView',
-    'as' => 'school.view'
-  ]);
 });
 
-/*
-Route::get('/', function () {
-    return view('welcome');
+/** Admin Route **/
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/', [
+      'uses' => 'HomeController@admin',
+      'as' => 'admin.index'
+    ]);
 });
-*/
-Route::get('/', [ 'uses' => 'HomeController@index' ] );
+/** End Admin Route */
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', [ 
+    'uses' => 'HomeController@index',
+    'as' => 'home'
+]);
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

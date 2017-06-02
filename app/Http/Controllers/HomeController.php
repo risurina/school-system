@@ -13,10 +13,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -25,28 +21,15 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        if (Auth::user()->school_id == '') {
-            return view($view,['school.index' => $school]);
+        if (Auth::user()->school_id == '' && session( 'school_id' ) == false ) {
+            return redirect()->route( 'admin.index' );
+        }else{
+            return redirect()->route( 'school.index' );
         }
+    }
 
-        $school = \App\School::find(Auth::user()->school_id);
-        $school->id = encrypt($school->id);
-        $sy = $this->mySchool()
-                     ->school_years()
-                     ->latest('year')
-                     ->first();
-
-        $schoolYearLevels = $sy->school_year_levels()->oldest('id')->get();
-
-          
-        return response()->view('school.schoolDashboard',[
-            'sy' => $sy,
-            'schoolYearLevels' => $schoolYearLevels,
-            'employees' => $this->mySchool()->employees,
-            'schedules' => $this->mySchool()->schedules,
-            'levels' => $this->mySchool()->levels,
-            'fees' => $this->mySchool()->fees,
-        ]);
-        
+    public function admin()
+    {
+        return view( 'admin.index' );
     }
 }

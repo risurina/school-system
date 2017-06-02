@@ -30,8 +30,10 @@ class SchoolYearController extends Controller
       $schoolYears = $this->mySchool()
                         ->school_years()
                         ->where('year','like',$search_key)
-                        ->orWhere('start','like',$search_key)
-                        ->orWhere('end','like',$search_key)
+                        ->where(function ($qry) use ($search_key) {
+                            $qry->orWhere('start', 'like', $search_key )
+                                ->orWhere('end', 'like', $search_key );
+                        })
                         ->latest('id')
                         ->take($limit)
                         ->paginate($show_row);

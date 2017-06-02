@@ -10,8 +10,7 @@ class LevelController extends Controller
     public function lvlTable(Request $req) {
       $levels = $this->mySchool()
                     ->levels()
-                    ->where('code','like','%'.$req->input('lvlSearch_key').'%')
-                    ->orWhere('level','like','%'.$req->input('lvlSearch_key').'%')
+                    ->where('level','like','%'.$req->input('lvlSearch_key').'%')
                     ->orderBy('id')
                     ->paginate(5);
 

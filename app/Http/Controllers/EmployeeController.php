@@ -27,9 +27,12 @@ class EmployeeController extends Controller
       $show_row = $req->input('show_row');
       $limit = $req->input('limit');
 
-      $employees = Employee::where('firstName','like',$search_key)
-                        ->orWhere('lastName','like',$search_key)
-                        ->orWhere('position','like',$search_key)
+      $employees = $this->mySchool()->employees()
+                        ->where(function ($qry) use ($search_key) {
+                            $qry->orWhere('firstName', 'like', $search_key )
+                                ->orWhere('lastName', 'like', $search_key )
+                                ->orWhere('position', 'like', $search_key );
+                        })
                         ->latest('id')
                         ->take($limit)
                         ->paginate($show_row);

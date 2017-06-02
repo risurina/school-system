@@ -14,9 +14,28 @@ class SchoolController extends Controller
     * Show the school table.
     * @return \Illuminate\Http\Response
     */
-    public function schoolIndex()
+    public function schoolIndex(Request $req)
     {
-        return view('school.index');
+        if ( $req->input( 'school_id' ) ) {
+          session( [ 'school_id' => $req->input( 'school_id' ) ] );
+        }
+
+        $sy = $this->mySchool()
+                     ->school_years()
+                     ->latest('year')
+                     ->first();
+
+        $schoolYearLevels = $sy->school_year_levels()->oldest('id')->get();
+          
+        return response()->view('school.index',[
+            'sy' => $sy,
+            'schoolYearLevels' => $schoolYearLevels,
+            'employees' => $this->mySchool()->employees,
+            'schedules' => $this->mySchool()->schedules,
+            'levels' => $this->mySchool()->levels,
+            'fees' => $this->mySchool()->fees,
+            'req' => session( 'school_id' )
+        ]);
     }
 
     /**
@@ -108,7 +127,7 @@ class SchoolController extends Controller
     * @return Illuminate\Http\Response
     **/
     public function schoolView($id) {
-      $school = School::find($id);
-      return response()->view('school.schoolView',['school' => $school]);
+      session(['school_id' => $id ]);
+      return response()->view('school.index');
     }
 }

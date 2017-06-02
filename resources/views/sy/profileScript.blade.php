@@ -140,3 +140,22 @@ $(document).on('click','.pagination a',function(e) {
     studentTable(link);
 });
 </script>
+
+<!-- Print -->
+<script type="text/javascript">
+ // Print Master List
+ function printMaterListModal( $year ) {
+  let masterListModal = $('#printMaterList_modal');
+
+  masterListModal.modal( 'show' );
+  masterListModal.find( '#year' ).html( $year );
+
+  let printType = masterListModal.find( 'select[name=printType]' );
+
+  printType.on('click change', function() {
+    console.log( printType.val() );
+  } );
+ }
+ // End Print Master List  
+</script>
+<!-- End Print -->
