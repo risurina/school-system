@@ -21,6 +21,9 @@ class CreateStudentsTable extends Migration
             $table->string('lastName');
             $table->date('dateOfBirth')->nullable();
             $table->string('sex');
+            $table->boolean('isActive')->default(0);
+            $table->string('password')->nullable();
+            $table->rememberToken();
             $table->timestamps();
             $table->increments('id');
         });

@@ -37,6 +37,9 @@ class CreateEmployeesTable extends Migration
             $table->string('er')->nullable(); 
             $table->string('ee')->nullable();
             $table->string('tc')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
+            $table->rememberToken();
             $table->increments('id');
             $table->timestamps();
         });
