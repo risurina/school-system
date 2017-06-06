@@ -321,12 +321,44 @@ Route::group(['prefix' => 'admin'], function() {
       'as' => 'admin.index'
     ]);
 });
+
+Route::get('/', [
+    'uses' => 'HomeController@index',
+    'as' => 'index'
+]);
 /** End Admin Route */
 
-Route::get('/', [ 
-    'uses' => 'HomeController@index',
-    'as' => 'home'
-]);
+/** Student Portal */
+Route::group(['prefix' => '/portal/student'], function () {
+  Route::get('/{sy?}', [
+    'uses' => 'StudentPortalController@index',
+    'as' => 'studentPortal.index'
+  ]);
+});
+/** End Student Portal */
+
+/** Login Auth for Employee and Student **/
+Route::group(['prefix' => 'login'], function() {
+    Route::get('/employee',[
+      'uses' => 'Auth\EmployeeLoginController@showLoginForm',
+      'as' => 'login.employee'
+    ]);
+
+    Route::post('/employee',[
+      'uses' => 'Auth\EmployeeLoginController@login',
+      'as' => 'login.employee'
+    ]);
+
+    Route::get('/student',[
+      'uses' => 'Auth\StudentLoginController@showLoginForm',
+      'as' => 'login.student'
+    ]);
+
+    Route::post('/student',[
+      'uses' => 'Auth\StudentLoginController@login',
+      'as' => 'login.student'
+    ]);
+});
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
