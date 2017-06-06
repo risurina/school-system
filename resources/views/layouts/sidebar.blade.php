@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li id="sidemenu_dashboard">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('index') }}">
                     <i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
                 </a>
             </li>

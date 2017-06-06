@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SIS | Login</title>
+    <title>SIS | Student Login</title>
 
     <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -24,25 +24,25 @@
             <h1 class="logo-name" style="font-size: 40px;">&nbsp;</h1>
         </div>
 
-        <h3>Login</h3>
+        <h3>Student Login</h3>
         <p>Please login to start!</p>
             
-        <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
+        <form class="m-t" role="form" method="POST" action="{{ route('login.student') }}">
             {{ csrf_field() }}
             
-            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email" 
-                            type="email" 
+            <div class="form-group {{ $errors->has('lrnNo') ? ' has-error' : '' }}">
+                    <input id="lrnNo" 
+                            type="lrnNo" 
                             class="form-control" 
-                            name="email" 
-                            value="{{ old('email') }}" 
+                            name="lrnNo" 
+                            value="{{ old('lrnNo') }}" 
                             required autofocus
-                            placeholder="Email" 
+                            placeholder="Student LRN no." 
                     >
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('lrnNo'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('lrnNo') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -53,7 +53,8 @@
                             class="form-control" 
                             name="password" 
                             required
-                            placeholder="Password" >
+                            placeholder="Password" 
+                    >
 
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -82,14 +83,14 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <a class="btn btn-white btn-block" href="{{ route('login.employee') }}">
-                            Log as employee
+                        <a class="btn btn-white btn-block" href="{{ route('login') }}">
+                            Log as admin
                         </a>
                     </div>
 
                     <div class="col-xs-6">
-                        <a class="btn btn-white btn-block" href="{{ route('login.student') }}">
-                            Log as student
+                        <a class="btn btn-white btn-block" href="{{ route('login.employee') }}">
+                            Log as employee
                         </a>
                     </div>
 

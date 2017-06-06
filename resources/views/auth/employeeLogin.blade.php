@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SIS | Login</title>
+    <title>SIS | Employee Login</title>
 
     <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -24,10 +24,10 @@
             <h1 class="logo-name" style="font-size: 40px;">&nbsp;</h1>
         </div>
 
-        <h3>Login</h3>
+        <h3>Employee Login</h3>
         <p>Please login to start!</p>
             
-        <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
+        <form class="m-t" role="form" method="POST" action="{{ route('login.employee') }}">
             {{ csrf_field() }}
             
             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
@@ -82,8 +82,8 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <a class="btn btn-white btn-block" href="{{ route('login.employee') }}">
-                            Log as employee
+                        <a class="btn btn-white btn-block" href="{{ route('login') }}">
+                            Log as admin
                         </a>
                     </div>
 

@@ -2,10 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Model
-{
+class Employee extends Authenticatable
+{   
+    use Notifiable;
+
+    protected $guard = 'employee';
+
 	protected $fillable = [
 		'number', 'eeNum', 'firstName', 'middleName', 'lastName',
 		'status','isActive',
@@ -13,6 +18,10 @@ class Employee extends Model
 		'basicSalary', 'allowance', 'takeHome', 'daysOfWork', 'endDate',
 		'percent', 'bonus', 'declare', 'er', 'ee', 'tc', 
 	];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     protected $appends = [ 'fullName' ];
 	/**

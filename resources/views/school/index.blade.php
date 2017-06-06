@@ -4,7 +4,7 @@
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-md-4">
         <h2>
-            {{ $req }} - School Year <strong class="text-navy">{{ $sy->year }} - {{ $sy->year + 1 }}</strong>
+            School Year <strong class="text-navy">{{ $sy->year }} - {{ $sy->year + 1 }}</strong>
         </h2>
         <p>CODE : <strong class="text-navy">{{ $sy->code }}</strong></p>
         <p>
