@@ -35,11 +35,15 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-12 col-lg-3 b-r">
-                            <div class="form-group">
-                                <label>&nbsp;</label> <br>
-                                <label>&nbsp;</label> <br>
-                                <label>&nbsp;</label>
+                        <div class="col-sm-12 col-md-12 col-lg-3">
+                            <div class="form-group" id="error_mobileNo">
+                                <label for="mobileNo">Mobile no. *</label> 
+                                <input type="text"
+                                       class="form-control"
+                                       name="mobileNo" 
+                                       placeholder="0932123456" 
+                                >
+                                <span class="help-block"></span>
                             </div>
                         </div>
 
@@ -56,6 +60,18 @@
                     </div><!-- /.row -->
 
                     <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-3 b-r">
+                            <div class="form-group" id="error_lastName">
+                                <label for="lastName">Last Name *</label> 
+                                <input type="text"
+                                       class="form-control"
+                                       name="lastName" 
+                                       placeholder="Last Name" 
+                                >
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
                         <div class="col-sm-12 col-md-12 col-lg-3">
                             <div class="form-group" id="error_firstName">
                                 <label for="firstName">First Name *</label> 
@@ -75,18 +91,6 @@
                                        class="form-control"
                                        name="middleName" 
                                        placeholder="Middle Name" 
-                                >
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-12 col-lg-3 b-r">
-                            <div class="form-group" id="error_lastName">
-                                <label for="lastName">Last Name *</label> 
-                                <input type="text"
-                                       class="form-control"
-                                       name="lastName" 
-                                       placeholder="Last Name" 
                                 >
                                 <span class="help-block"></span>
                             </div>

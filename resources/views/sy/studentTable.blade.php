@@ -4,15 +4,15 @@
   @if ($students->count())
     @foreach ($students as $student_count => $student)
     <tr>
-        <td class="text-center">{{ $student_count + 1 }}</td>
-        <td class="text-center">
-          <span class="label label-primary">
-            {{ $student->sy_code .'-'.$student->syStudentID }}
-          </span>
-        </td>
-        <td> {{ $student->level }} </td>
-        <td>{{ $student->section }}</td>
+        <td class="text-center">{{ $student_count + 1 }} - {{ $student->id }}</td>
+        <td class="client-avatar text-center" >
+            <img alt="Pic" 
+                 src="{{ url("/public/storage/profile/student/".$student->year."/" . $student->student_id  .".jpg") }}" 
+                 style="margin: -5px; padding: -5px;">
+        </td> 
         <td>{{ $student->student->fullName }}</td>
+        <td class="text-left"> {{ $student->level }} - {{ $student->section }}</td>
+        <td class="text-center">{{ ($student->isCash) ? 'CASH' : 'INSTALLMENT' }}</td>
         <td class="text-right">{{ number_format( $student->total_fee, 2, '.', ',') }}</td>
         <td class="text-right">{{ number_format( $student->total_payment, 2, '.', ',') }}</td>
         <td class="text-right">
@@ -23,7 +23,25 @@
           @endif
         </td>
         <td class="text-center">
-          <a href="{{ route('student.profile',['id'=> $student->student_id, 'sy'=>$student->year ]) }}">
+          <a class="label label-default"
+              id="addIDprintQry_{{ $student->id }}"
+              onClick="addIDprintQry( {{ $student->id }} )">
+              ID
+          </a>
+          <a href="">&nbsp;</a>
+          <a class="label label-default"
+              onClick="uploadImageModal( {{ $student->id }} )">
+              Upload
+          </a>
+          <a href="">&nbsp;</a>
+          <a onClick="printSOA('{{ $student->student_id }}')"
+             class="label label-default">
+            Print SOA 
+          </a>
+          <a href="">&nbsp;</a>
+
+          <a href="{{ route('student.profile',['id'=> $student->student_id, 'sy'=>$student->year ]) }}"
+             class="label label-default">
             View 
           </a>
         </td>

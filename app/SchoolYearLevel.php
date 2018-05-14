@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolYearLevel extends Model
 {
     protected $appends = [
-        'total_fee','total_student',
+        'total_fee','total_student','level_name'
     ];
 
 	public function school_year()
@@ -51,5 +51,10 @@ class SchoolYearLevel extends Model
         }
 
         return $totalFee;
+    }
+
+    public function getLevelNameAttribute()
+    {
+        return $this->level->level;
     }
 }

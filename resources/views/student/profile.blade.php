@@ -7,9 +7,15 @@
     <div class="row m-b-lg m-t-lg">
         <div class="col-md-12">
             <div class="profile-image">
-                <img src="{{ URL::to('assets/img/a4.jpg')}}" 
-                     class="img-circle circle-border m-b-md" 
-                     alt="profile">
+                <img  
+                    @if (isset($currentProgress))
+                        src="{{ url("/public/storage/profile/student/".$student->currentProgress()->year."/" . $student->id  .".jpg") }}" 
+                    @else
+                        src="{{ url("/assets/img/a4.jpg") }}"
+                    @endif
+                    class="img-circle circle-border m-b-md" 
+                    alt="profile"
+                >
             </div>
             <div class="profile-info">
                 <div class="">
@@ -19,14 +25,29 @@
                             Edit Info
                         </a>
                         <span class="pull-right">&nbsp;</span>
-                        <a class="btn btn-info btn-sm pull-right" 
-                            onClick="progressCreateModal(
-                                        {{ $student }},
-                                        '{{ $student->fullName }}',
-                                        '{{ $student->currentAge }}'
-                            )">
-                            Enroll
-                        </a>
+
+                        @if( isset($currentProgress->year) )
+                            @if( $currentProgress->year < $latestSY )
+                                <a class="btn btn-info btn-sm pull-right" 
+                                    onClick="progressCreateModal(
+                                                {{ $student }},
+                                                '{{ $student->fullName }}',
+                                                '{{ $student->currentAge }}'
+                                    )">
+                                    Enroll
+                                </a>
+                            @endif
+                        @else
+                            <a class="btn btn-info btn-sm pull-right" 
+                                onClick="progressCreateModal(
+                                            {{ $student }},
+                                            '{{ $student->fullName }}',
+                                            '{{ $student->currentAge }}'
+                                )">
+                                Enroll
+                            </a>
+                        @endif
+
                         <h2 class="no-margins">
                             <strong class="text-navy">{{ $student->fullName }}</strong>
                         </h2>
@@ -75,14 +96,25 @@
                         )">
                             Update Details
                         </a>
+                        <a type="button" 
+                            class="btn btn-primary btn-xs" 
+                            onClick="uploadImageModal( {{ $currentProgress->id }} )">
+                            Upload Picture
+                        </a>
                         <a class="btn btn-primary btn-xs" 
                             onclick="progressPrint( {{ $currentProgress }} )">
                             Print Reg Form
                         </a>
                         <a class="btn btn-primary btn-xs" 
-                            onclick="soaPrint( {{ $currentProgress->id }} )">
+                            onclick="printSOA( {{ $currentProgress->id }},false )">
                             Print SOA
                         </a>
+
+                        <a class="btn btn-primary btn-xs" 
+                            onclick="printSOA( {{ $currentProgress->id }}, true )">
+                            Complete SOA
+                        </a>
+
                         <a href="{{ route('student.profile',['id'=> $student->id ]) }}">
                             <i class="fa fa-refresh"></i>
                         </a>
@@ -160,7 +192,9 @@
                                         <ul class="nav nav-tabs" id="tabs">
                                             <li class="active"><a id="tab-1" data-toggle="tab">Fee</a></li>
                                             <li><a id="tab-2" data-toggle="tab">Payment</a></li>
+                                            <!--
                                             <li ><a id="tab-3" data-toggle="tab">Academic</a></li>
+                                            -->
                                         </ul>
                                     </div>
                                 </div><!-- /.panel-heading -->
@@ -397,8 +431,8 @@
                             <div class="feed-element">
                                 <a href="#" class="pull-left">
                                     <img alt="image" class="img-thumbnail" 
-                                            src="{{ URL::to('assets/img/a4.jpg') }}"
-                                            style="width: 100px; height: 100px;">
+                                        src="{{ URL::to("/public/storage/profile/student/".$history->year."/" . $student->id.".jpg") }}" 
+                                        style="width: 100px; height: 100px;">
                                 </a>
                                 <div class="media-body ">
                                     <!--
@@ -447,6 +481,7 @@
 @if( isset($currentProgress) )
     @include('studentFee.modalForm')
     @include('studentPayment.modalForm')
+    @include('student.ImageUploadModalForm')
 @endif
 
 @endsection
@@ -459,6 +494,7 @@
 @if( isset($currentProgress) )
     @include('studentFee.script')
     @include('studentPayment.script')
+    @include('student.ImageUploadScript')
 @endif
 
 <script type="text/javascript"> 

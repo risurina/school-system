@@ -26,13 +26,15 @@ class StudentController extends Controller
 
       $students = $this->mySchool()
       					->students()
-      					->where('lrnNo','like',$search_key)
-                        ->orWhere('firstName','like',$search_key)
-                        ->orWhere('lastName','like',$search_key)
-                        ->orWhere('middleName','like',$search_key)
-                        ->latest('id')
-                        ->take($limit)
-                        ->paginate($show_row);
+                ->where(function ($qry) use ($search_key) {
+                    $qry->orWhere('firstName', 'like', $search_key )
+                        ->orWhere('lastName', 'like', $search_key )
+                        ->orWhere('middleName', 'like', $search_key )
+                        ->orWhere('lrnNo','like',$search_key);
+                })
+                ->orderBy('lastName')
+                ->take($limit)
+                ->paginate($show_row);
 
       return response()->view('student.table',['students' => $students]);
     }
@@ -119,6 +121,8 @@ class StudentController extends Controller
     * @return Illuminate\Http\Response
     **/
     public function studentProfile($id,$sy = '') {
+      $latestSY = $this->mySchool()->school_years()->orderBy('id','desc')->first();
+
       $student = Student::find($id);
 
       if (!$student) {
@@ -167,6 +171,7 @@ class StudentController extends Controller
           'currentFee' => $currentFee,
           'currentPayment' => $currentPayment,
           'fees' => $this->mySchool()->fees,
+          'latestSY' => $latestSY->year, 
         ];
       };
 

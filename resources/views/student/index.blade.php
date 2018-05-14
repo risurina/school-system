@@ -33,7 +33,7 @@
                     <div class="pull-left form-inline">
                         <label>Show 
                             <input type="number" name="show_row" 
-                                    value="8" class="form-control input-sm" 
+                                    value="20" class="form-control input-sm" 
                                     style="width:60px;" min="1" max="1000">
                         </label>
 
@@ -60,19 +60,14 @@
 
             <!-- Table -->
             <div class="table-responsive">
-                <table class="table table-striped table-bordered">
+                <table class="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>#</th>
+                        <th>System ID</th>
                         <th>LRN #</th>
-                        <th>Last</th>
-                        <th>First</th>
-                        <th>Middle</th>
+                        <th colspan="2">Student Name</th>
                         <th class="text-center">Gender</th>
-                        <th>Date of Birth</th>
-                        <th>Current Age/s</th>
-                        <th>Date Added</th>
-                        <th>Status</th>
                         <th>&nbsp;</th>
                       </tr>
                     </thead> 

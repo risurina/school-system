@@ -21,17 +21,15 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        /*if (Auth::user()->school_id == '' && session( 'school_id' ) == false ) {
+        if (Auth::user()->school_id == '' && session( 'school_id' ) == false ) {
             return redirect()->route( 'admin.index' );
-        }else{
-            return redirect()->route( 'school.index' );
-        }*/
-
+        }
         return redirect()->route( 'school.index' );
     }
 
     public function admin()
     {
+        session()->forget( 'school_id' );
         return view( 'admin.index' );
     }
 }

@@ -14,10 +14,11 @@ class SchoolController extends Controller
     * Show the school table.
     * @return \Illuminate\Http\Response
     */
+
     public function schoolIndex(Request $req)
     {
         if ( $req->input( 'school_id' ) ) {
-          session( [ 'school_id' => $req->input( 'school_id' ) ] );
+          $req->session()->put('school_id', $req->input( 'school_id' ));
         }
 
         $sy = $this->mySchool()
@@ -26,7 +27,7 @@ class SchoolController extends Controller
                      ->first();
 
         $schoolYearLevels = $sy->school_year_levels()->oldest('id')->get();
-          
+
         return response()->view('school.index',[
             'sy' => $sy,
             'schoolYearLevels' => $schoolYearLevels,
@@ -74,6 +75,21 @@ class SchoolController extends Controller
       $school->name = $req->input('name');
       $school->address = $req->input('address');
       $school->save();
+
+      $schoolYear = new \App\SchoolYear([
+          'year' => '2017',
+            'code' => '201718',
+          'start' => '2017-06-05',
+          'end' => '2018-02-28',
+            'firstGrading' => '2017-08-01',
+            'secondGrading' => '2017-10-02',
+            'thirdGrading' => '2017-12-02',
+            'fourthGrading' => '2018-03-02',
+            'monthlyExam' => '10',
+            'monthlyDue' => '05',
+        ]);
+
+        $school->school_years()->save($schoolYear);
 
       return response()->json($school);
     }

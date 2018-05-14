@@ -7,21 +7,21 @@
 >
 
 	<div class="row m-b-lg m-t-lg">
-    	<div class="col-md-6">
+    	<div class="col-md-12">
             <div class="profile-image">
-                <img src="{{ asset('storage/school/logo.png') }}" 
+                <img src="{{ URL::to('public/storage/school/logo.png') }}" 
                     class="img-circle circle-border m-b-md" alt="profile">
             </div>
             <div class="profile-info">
-                <div class="">
-                    <div>
-                        <h2 class="no-margins">
-                        	{{ $school->name }}
-                        </h2>
-                        <h4>Add. : <span> {{ $school->address }} </span></h4>
-                        <h4>Code : <span> {{ $school->code }} </span></h4>
-                        <a onClick='schoolUpdate({{ $school }})'>Edit </a>
-                    </div>
+                <div class="pull-left">
+                    <h2 class="no-margins">
+                    	{{ $school->name }}
+                    </h2>
+                    <h4>Add. : <span> {{ $school->address }} </span></h4>
+                    <h4>Code : <span> {{ $school->code }} </span></h4>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-primary btn-sm" onClick='schoolUpdate({{ $school }})'>Edit </a>
                 </div>
             </div><!-- /.profile-info -->
         </div>

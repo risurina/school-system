@@ -35,7 +35,10 @@
                                     @foreach( $currentFee as $fee )
                                         @if($fee->balance > 0)
                                         <option value="{{ $fee }}">
-                                            {{ $fee->fee->fee }}
+                                            {{ ( $fee->fee->isTuition ) ?
+                                                  date('M ', strtotime($fee->dueDate)) . $fee->fee->fee :
+                                                 $fee->fee->fee
+                                            }}
                                         </option>
                                         @endif
                                     @endforeach

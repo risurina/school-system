@@ -36,7 +36,7 @@ class StudentFeeController extends Controller
       $fee->discount = ( $req->input('discount') ) ? $req->input('discount') : '0' ;
 
       if ( $req->input('dueDate') ) {
-        $fee->dueDate = $req->input( 'input' );
+          $fee->dueDate = $req->input( 'dueDate' );
       }
 
       $studentProgress->student_fees()->save( $fee );

@@ -22,7 +22,7 @@
           $('.pagination').addClass('pagination-sm pull-right no-margin');
         },
         error: function(msg){
-          $('#table_body').html('<tr><td colspan="6">Please reload!</td></tr>');
+          //$('#table_body').html('<tr><td colspan="6">Please reload!</td></tr>');
         }
       });
     }
@@ -65,6 +65,7 @@
       emp_form.find('input[name=er]').val(data.er); 
       emp_form.find('input[name=ee]').val(data.ee); 
       emp_form.find('input[name=tc]').val(data.tc); 
+      emp_form.find('input[name=mobileNo]').val(data.mobileNo); 
 
       if (data.isActive) {
         emp_form.find('input[name=isActive]').attr('checked',true);

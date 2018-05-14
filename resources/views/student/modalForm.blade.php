@@ -25,6 +25,18 @@
 
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="form-group" id="error_lastName">
+                                <label for="lastName">Last Name *</label> 
+                                <input type="text"
+                                       class="form-control"
+                                       name="lastName" 
+                                       placeholder="Last Name" 
+                                >
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="form-group" id="error_firstName">
                                 <label for="firstName">First Name *</label> 
                                 <input type="text"
@@ -43,18 +55,6 @@
                                        class="form-control"
                                        name="middleName" 
                                        placeholder="Middle Name" 
-                                >
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                            <div class="form-group" id="error_lastName">
-                                <label for="lastName">Last Name *</label> 
-                                <input type="text"
-                                       class="form-control"
-                                       name="lastName" 
-                                       placeholder="Last Name" 
                                 >
                                 <span class="help-block"></span>
                             </div>

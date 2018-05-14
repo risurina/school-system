@@ -118,7 +118,7 @@
                             <div class="pull-left form-inline">
                                 <label>Show 
                                     <input type="number" name="show_row" 
-                                            value="8" class="form-control input-sm" 
+                                            value="15" class="form-control input-sm" 
                                             style="width:60px;" min="1" max="1000">
                                 </label>
 
@@ -176,10 +176,9 @@
                             <thead>
                               <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">STUDENT ID</th>
-                                <th class="text-center">LEVEL</th>
-                                <th class="text-center">SECTION</th>
-                                <th class="text-center">STUDENT NAME</th>
+                                <th class="text-center" colspan="2">STUDENT NAME</th>
+                                <th class="text-center">LEVEL & SECTION</th>
+                                <th class="text-center">PYMNT MODE</th>
                                 <th class="text-center">TTL FEE</th>
                                 <th class="text-center">TTL PYMNT</th>
                                 <th class="text-center">TTL BALANCE</th>

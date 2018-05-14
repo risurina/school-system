@@ -4,6 +4,19 @@
 * Web Routes
 */
 
+/** Logs **/
+Route::get('logs/{rfcard_id}/{accessPoint}',[
+  'uses' => 'LogController@create',
+  'as' => 'logs'
+]);
+
+Route::get('logs/fingerprint/{type}/{id}/{accessPoint}',[
+  'uses' => 'LogController@fingerprintLogcreate',
+  'as' => 'logs.fingerprint'
+]);
+
+/** End Logs */
+
 /** Settings Routes */
 Route::group(['prefix' => 'school/setting'], function() {
     Route::get('/', [
@@ -12,6 +25,20 @@ Route::group(['prefix' => 'school/setting'], function() {
     ]);
 });
 /** End Settings Route */
+
+/** Attendance Routes */
+Route::group(['prefix' => 'school/attendance'], function() {
+    Route::get('/', [
+      'uses' => 'AttendanceController@attendanceIndex',
+      'as' => 'attendance.index',
+    ]);
+
+    Route::post('/table',[
+    'uses' => 'AttendanceController@attendanceTable',
+    'as' => 'attendance.table'
+  ]);
+});
+/** End Attendance Route */
 
 /** Student Payment Route */
 Route::group(['prefix' => 'school/student/payment'], function() {
@@ -76,6 +103,22 @@ Route::group(['prefix' => 'school/student/progress'], function() {
     Route::post('/print', [
       'uses' => 'StudentProgressController@studentProgressPrint',
       'as' => 'studentProgress.print'
+    ]);
+
+    Route::post('/print/soa/{type?}', [
+      'uses' => 'StudentProgressController@studentProgressPrintSOA',
+      'as' => 'studentProgress.printSOA'
+    ]);
+
+    # delete upon production
+    Route::get('/print/id/{studentProgress?}', [
+      'uses' => 'StudentProgressController@studentProgressPrintID',
+      'as' => 'studentProgress.printID'
+    ]);
+
+    Route::post('/upload/image', [
+      'uses' => 'StudentProgressController@studentProgressUploadImage',
+      'as' => 'studentProgress.uploadImage'
     ]);
 });
 /** End Student Progress Route */
@@ -278,6 +321,11 @@ Route::group(['prefix' => 'school/year'], function() {
   Route::post('/{year}/student/table',[
     'uses' => 'SchoolYearController@syStudentTable',
     'as' => 'sy.studentTable'
+  ]);
+
+  Route::post('/masterlist',[
+    'uses' => 'SchoolYearController@syMasterList',
+    'as' => 'sy.masterlist'
   ]);
 });
 /** End School Year Route **/

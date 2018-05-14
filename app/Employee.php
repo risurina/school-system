@@ -45,4 +45,9 @@ class Employee extends Authenticatable
         
         return ucwords($fullName);
     }
+
+    public function logs()
+    {
+      return $this->morphMany('App\Log', 'logtable');
+    }
 }

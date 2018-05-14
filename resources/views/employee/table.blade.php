@@ -4,7 +4,12 @@
     @foreach ($employees as $count => $emp)
     <tr>
         <td>{{ ($count + 1) }}</td>
-
+        <td>{{ $emp->id }}</td>
+        <td class="client-avatar text-center" >
+            <img alt="Pic" 
+                 src="{{ url("/public/storage/profile/employee/" . $emp->id  .".jpg") }}" 
+                 style="margin: -5px; padding: -5px;">
+        </td>
         <td> <strong>{{ $emp->fullName }}</strong> </td>
 
         <td> {{ $emp->position }} </td>

@@ -15,14 +15,18 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->integer('school_id');
+            $table->integer('rfcard_id')->nullable();
             $table->string('number')->nullable(); 
             $table->string('eeNum')->nullable(); 
             $table->string('firstName'); 
             $table->string('middleName')->nullable(); 
             $table->string('lastName');
             $table->string('position');
+            $table->string('address');
+            $table->string('assingEmpID');
             $table->string('status')->nullable();
             $table->boolean('isActive')->default(true)->nullable();
+            $table->bigInteger('mobileNo')->nullable();
             $table->string('level')->nullable();
             $table->date('hiredDate')->nullable(); 
             $table->date('dateOfBirth')->nullable();
@@ -37,6 +41,7 @@ class CreateEmployeesTable extends Migration
             $table->string('er')->nullable(); 
             $table->string('ee')->nullable();
             $table->string('tc')->nullable();
+            $table->boolean('hasFingerPrint')->default(0);
             $table->string('email')->nullable()->unique();
             $table->string('password')->nullable();
             $table->rememberToken();

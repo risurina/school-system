@@ -170,6 +170,8 @@ class SchoolYearController extends Controller
 
       $conditions = [];
 
+      $conditions[] = [ 'a.school_id', '=', $this->mySchool()->id ];
+
       $school_year = [ 'year', '=', $req->input('school_year') ];
       $conditions[] = $school_year;
 
@@ -202,11 +204,60 @@ class SchoolYearController extends Controller
                               ->orWhere('a.middleName', 'like', $search_key )
                               ->orWhere('a.lastName', 'like', $search_key );
                       })
-                      ->orderBy('syStudentID', 'desc')
+                      ->orderBy('a.lastName')
                       ->take($limit)
                       ->paginate($show_row);
 
       return response()->view('sy.studentTable',['students' => $students]);
       //return response()->json( $students, 400 );
+    }
+
+    /** Master List */
+    public function syMasterList(Request $req)
+    { 
+        $school = $this->mySchool();
+
+        $data = $req->input('data');
+        $action = $req->input('action');
+        $dataList = [];
+
+        if ($data != '') {
+          $dataExploded = explode(':', $data);
+
+          if ($dataExploded[0] == 'level') {
+            $schoolYear = $school->school_years()->orderBy('id', 'desc')->first();
+            $level = $schoolYear->school_year_levels()->where('id', $dataExploded[1] )->first();
+
+            $dataList[] = [
+              'level' => $level->level_name,
+              'sections' => $level->school_year_level_sections
+            ];
+          }
+
+          if ($dataExploded[0] == 'section') {
+            $section = \App\SchoolYearLevelSection::find( $dataExploded[1] );
+
+            $dataList[] = [
+              'level' => $section->level,
+              'sections' => [ $section ],
+            ];
+          }
+        }else{
+          $schoolYear = $school->school_years()->orderBy('id', 'desc')->first();
+          $levels = $schoolYear->school_year_levels;
+
+          foreach ($levels as $level) {
+            $dataList[] = [
+              'level' => $level->level_name,
+              'sections' => $level->school_year_level_sections
+            ];
+          }
+        }
+
+        return response()->view('sy.masterlist',[ 
+            'action' => $action,
+            'dataList' => $dataList,
+            'school' => $school,
+        ]);
     }
 }

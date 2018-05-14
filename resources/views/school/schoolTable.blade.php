@@ -9,8 +9,10 @@
         <td>{{ $school->address }}</td>
         <td class="text-center">
           <a onClick='schoolView("{{ $school->id }}")'>View </a> |
-          <a onClick="schoolUpdate({{ $school }})">Edit </a> |
+          <a onClick="schoolUpdate({{ $school }})">Edit </a> 
+          <!--
           <a onClick='schoolDelete("{{ $school->id }}","{{ $school->name }}")'>Delete </a>
+          -->
         </td>
     </tr>
     @endforeach

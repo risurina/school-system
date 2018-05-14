@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
         $systemAdmin = \App\Role::where('name','systemAdmin')->first();
         $schoolAdmin = \App\Role::where('name','schoolAdmin')->first();
 
-        $school = \App\School::where('code','ALC')->first();
+        $school = \App\School::find(1)->first();
 
         $sudo = User::create([
             'name' => 'Ronnie G. Isurina',
@@ -32,9 +32,9 @@ class UsersTableSeeder extends Seeder
         $sudoAdmin->roles()->attach($systemAdmin);
         
         $admin = User::create([
-            'name' => 'AEJHAN LEARNING CENTER',
-            'email' => 'aejhanlearningcenter@yahoo.com',
-            'password' => bcrypt('admin'),
+            'name' => 'SAPAMI',
+            'email' => 'sapami@gmail.com',
+            'password' => bcrypt('sapami-admin'),
         ]);
         $school->users()->save($admin);
         $admin->roles()->attach($schoolAdmin);

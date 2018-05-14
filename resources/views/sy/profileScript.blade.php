@@ -144,18 +144,138 @@ $(document).on('click','.pagination a',function(e) {
 <!-- Print -->
 <script type="text/javascript">
  // Print Master List
- function printMaterListModal( $year ) {
-  let masterListModal = $('#printMaterList_modal');
+ function printModal( $year, $type ) {
+    let masterListModal = $('#print_modal');
 
-  masterListModal.modal( 'show' );
-  masterListModal.find( '#year' ).html( $year );
+    masterListModal.modal( 'show' );
+    masterListModal.find( '#year' ).html( $year );
 
-  let printType = masterListModal.find( 'select[name=printType]' );
+    let printType = masterListModal.find( 'select[name=printType]' );
 
-  printType.on('click change', function() {
-    console.log( printType.val() );
-  } );
+    printType.on('click change', function() {
+        if ( printType.val() ) {
+            let printTypeVal =  $.parseJSON( printType.val() );
+            let sectionOptions = '<option value="level:'+printTypeVal.level_id+'">Print all sections!</option>';
+
+            $.each( printTypeVal.sections , function (i,v) {
+              sectionOptions += '<option value="section:'+v.id+'">'+v.section+'</option>'; 
+            });
+
+            if ( printTypeVal.sections.length == 0) {
+              sectionOptions = '<option value="level:'+printTypeVal.level_id+'" selected>No Section!</option>';
+              masterListModal.find('#printBtn').attr('disabled',true);
+            }else{
+              masterListModal.find('#printBtn').attr('disabled',false);
+            }
+
+            masterListModal.find( 'select[name=sections]' ).html( sectionOptions );
+            masterListModal.find( '#sectionDiv' ).removeAttr('hidden',true);
+        }else{
+            masterListModal.find('#printBtn').attr('disabled',false);
+            masterListModal.find( '#sectionDiv' ).attr('hidden',true);
+        }
+    });
+
+    if ($type == 'masterList') {
+      masterListModal.find( '#printTitle' ).html( 'PRINT MASTER LIST' );
+      masterListModal.find('#printBtn')
+                   .attr('onClick','printMasterList()');
+    }else{
+      masterListModal.find( '#printTitle' ).html( 'PRINT SOA' );
+      masterListModal.find('#printBtn')
+                   .attr('onClick','printSOA()');
+    }
+
+ }
+
+ function printMasterList() {
+    var masterListForm = $('#print_form');
+    var data = masterListForm.find('select[name=sections]').val();
+
+    $.ajax({
+        type : "POST",
+        url : "{{ route('sy.masterlist') }}",
+        data : { "data" : data ,
+                  "action" : "print",
+                  "_token" : "{{ csrf_token() }}" },
+        success : function(resp){
+            var pwa = window.open("about:blank", "_new");
+            pwa.document.open();
+            pwa.document.write( resp );
+            pwa.document.close();
+        },
+        error : function(resp) {
+          $('body').html(resp.responseText);
+        }
+    });
+ }
+
+ function printSOA(studentID) {
+    var masterListForm = $('#print_form');
+    var data = masterListForm.find('select[name=sections]').val();
+
+    if (studentID) {
+      data =  'student:' + studentID;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : "{{ route('studentProgress.printSOA', ['type' => 'partial']) }}",
+        data : { "data" : data ,
+                  "action" : "print",
+                  "_token" : "{{ csrf_token() }}" },
+        success : function(resp){
+            var pwa = window.open("about:blank", "_new");
+            pwa.document.open();
+            pwa.document.write( resp );
+            pwa.document.close();
+        },
+        error : function(resp) {
+          $('body').html(resp.responseText);
+        }
+    });
  }
  // End Print Master List  
 </script>
 <!-- End Print -->
+
+
+<script type="text/javascript">
+  var uploadImage_modal = $('#uploadImage_modal');
+  var uploadImage_form = $('#uploadImage_form');
+
+  function uploadImageModal($studentProgress_id) {
+    uploadImage_form.find( 'input[name=studentProgress_id]' ).val( $studentProgress_id );
+    uploadImage_modal.modal( 'show' );
+  }
+
+  function uploadImage() {
+    $.ajax({
+        url:'{{ route('studentProgress.uploadImage') }}',
+        data: new FormData($("#uploadImage_form")[0]),
+        dataType:'json',
+        async:false,
+        type:'post',
+        processData: false,
+        contentType: false,
+        success:function(resp){
+          uploadImage_modal.modal('hide');
+            studentTable();
+          //alert( 'Image Uploaded!' );
+            //location.reload(true);
+        },
+        error: function(resp){
+            uploadImage_form.find('.has-error').removeClass('has-error');
+            $('#uploadImage_form [id^="error_"] .help-block').addClass('hidden');
+
+            var error = resp.responseJSON;
+          
+            $.each(error, function(i, v) {
+              var resp = '* ' + v;
+                $('#error_' + i).addClass('has-error');
+                $('#error_'+i+' .help-block').removeClass('hidden').html(resp);
+            });       
+          }
+      });
+  }
+</script>

@@ -23,6 +23,7 @@ class CreateStudentsTable extends Migration
             $table->string('sex');
             $table->boolean('isActive')->default(0);
             $table->string('password')->nullable();
+            $table->boolean('hasFingerPrint')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->increments('id');

@@ -11,12 +11,11 @@ class SchoolYearLevelController extends Controller
 {
     public function levelList(Request $req)
     {
-    	$school_year = SY::find( $req->input('id') );
-    	$levels = $school_year->school_year_levels()
-    						  ->leftJoin('levels','levels.id','=','school_year_levels.level_id')
-    						  ->select('school_year_levels.*','levels.level')
-    						  ->get();
-    	
+    	$school_year = $this->mySchool()
+                            ->school_years()
+                            ->find( $req->input('id') );
+    	$levels = $school_year->school_year_levels;
+
     	return response()->json( $levels );
     }
 
@@ -27,7 +26,9 @@ class SchoolYearLevelController extends Controller
             'level_id' => 'required|integer'
         ]);
 
-        $school_year = SY::where( 'year', $req->input('school_year') )->first();
+        $school_year = $this->mySchool()
+                            ->school_years()
+                            ->where( 'year', $req->input('school_year') )->first();
         $lvlCheck = $school_year->school_year_levels()
                                 ->where( 'level_id', $req->input('level_id') )
                                 ->first();

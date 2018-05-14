@@ -1,14 +1,14 @@
 @font-face {
   font-family: 'footable';
-  src: url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.eot');
-  src: url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.eot?#iefix') format('embedded-opentype'), url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.woff') format('woff'), url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.ttf') format('truetype'), url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.svg#footable') format('svg');
+  src: url('/assets/fonts/footable.eot');
+  src: url('/assets/fonts/footable.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/footable.woff') format('woff'), url('/assets/fonts/footable.ttf') format('truetype'), url('/assets/fonts/footable.svg#footable') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   @font-face {
     font-family: 'footable';
-    src: url('http://webapplayers.com/inspinia_admin-v2.7/css/plugins/footable/fonts/footable.svg#footable') format('svg');
+    src: url('/assets/fonts/footable.svg#footable') format('svg');
     font-weight: normal;
     font-style: normal;
   }
@@ -115,37 +115,7 @@
 .footable.breakpoint.toggle-large > tbody > tr > td > span.footable-toggle {
   font-size: 24px;
 }
-.footable > thead > tr > th {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.footable > thead > tr > th.footable-sortable:hover {
-  cursor: pointer;
-}
-.footable > thead > tr > th.footable-sorted > span.footable-sort-indicator:before {
-  content: "\e013";
-}
-.footable > thead > tr > th.footable-sorted-desc > span.footable-sort-indicator:before {
-  content: "\e012";
-}
-.footable > thead > tr > th > span.footable-sort-indicator {
-  display: inline-block;
-  font-family: 'footable';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
-  padding-left: 5px;
-}
-.footable > thead > tr > th > span.footable-sort-indicator:before {
-  content: "\e022";
-}
+
 .footable > tfoot .pagination {
   margin: 0;
 }

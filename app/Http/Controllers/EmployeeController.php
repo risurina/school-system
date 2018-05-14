@@ -33,7 +33,7 @@ class EmployeeController extends Controller
                                 ->orWhere('lastName', 'like', $search_key )
                                 ->orWhere('position', 'like', $search_key );
                         })
-                        ->latest('id')
+                        ->orderBy('lastName')
                         ->take($limit)
                         ->paginate($show_row);
 
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
         'status' => 'required',
         'position' => 'required',
         'dateOfBirth' => 'required|date',
-        'hiredDate' => 'required|date'
+        'hiredDate' => 'required|date',
       ];
       
       if ($req->input('endDate')) {
@@ -95,6 +95,7 @@ class EmployeeController extends Controller
         'er' => $req->input('er'), 
         'ee' => $req->input('ee'), 
         'tc' => $req->input('tc'),
+        'mobileNo' => $req->input('mobileNo'), 
       ];
 
       if ($req->input('isActive')) {

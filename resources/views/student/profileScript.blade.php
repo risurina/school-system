@@ -199,12 +199,15 @@
           }
 
           options += "<option value='"+level.id+"'>"+
-                        level.level +
+                        level.level_name +
                      "</option>";
         });
         progress_form.find('select[name=level]')
           .html( options )
           .attr('readonly',false);
+      },
+      error: function(resp) {
+        $('body').html(resp.responseText);
       }
     }); // end ajax
   }
@@ -247,8 +250,8 @@
             pwa.document.close();
         },
         error: function(resp) {
-          $('body').html( resp.responseText );
-          console.log( resp );
+          //$('body').html( resp.responseText );
+          //console.log( resp );
         }
       }); // end ajax
     }
@@ -271,3 +274,32 @@
   });
 </script>
 <!-- End Student Progress -->
+
+<!-- SOA Print -->
+<script type="text/javascript">
+    function printSOA(studentID,isCompleteSOA = false) {
+      var data =  'student:' + studentID;
+      var url = "{{ route('studentProgress.printSOA', [ 'type' => 'partial' ]) }}";
+
+      if (isCompleteSOA) {
+          url = "{{ route('studentProgress.printSOA', [ 'type' => 'complete' ]) }}";
+      }
+
+      $.ajax({
+          type : "POST",
+          url : url,
+          data : { "data" : data ,
+                    "_token" : "{{ csrf_token() }}" },
+          success : function(resp){
+              var pwa = window.open("about:blank", "_new");
+              pwa.document.open();
+              pwa.document.write( resp );
+              pwa.document.close();
+          },
+          error : function(resp){
+            //$('body').html(resp.responseText)
+          }
+      });
+    }
+</script>
+<!-- SOA Print -->

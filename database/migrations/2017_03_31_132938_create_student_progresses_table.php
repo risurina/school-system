@@ -15,12 +15,13 @@ class CreateStudentProgressesTable extends Migration
     {
         Schema::create('student_progresses', function (Blueprint $table) {
             $table->integer('school_year_level_section_id');
+            $table->integer('rfcard_id')->nullable();
             $table->integer('student_id');
             $table->integer('syStudentID');
             $table->string('status')->default('ENROLLED');
             $table->date('enrolledDate')->nullable();
             $table->string('ageTimeOfEnrolled')->nullable();
-            $table->string('mobileNo')->nullable();
+            $table->bigInteger('mobileNo')->nullable();
             $table->string('landlineNo')->nullable();
             $table->string('address')->nullable()->nullable();
             $table->string('guardianName')->nullable();

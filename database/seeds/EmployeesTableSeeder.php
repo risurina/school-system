@@ -37,6 +37,6 @@ class EmployeesTableSeeder extends Seeder
 			'tc' => '12-345', 
         ]);
 
-        $school->employees()->save($employee);
+        #$school->employees()->save($employee);
     }
 }

@@ -104,6 +104,17 @@ class Student extends Authenticatable
                        'e.level',
                        'f.firstName as empFirstName',
                        'f.middleName as empMiddleName',
-                       'f.lastName as empLastName');
+                       'f.lastName as empLastName')
+            ->orderBy('f.lastName');
+    }
+
+    public function logs()
+    {
+      return $this->morphMany('App\Log', 'logtable');
+    }
+
+    public function currentProgress()
+    {
+      return $this->student_progresses()->orderBy('id','DESC')->first();
     }
 }

@@ -12,9 +12,9 @@ class SchoolsTableSeeder extends Seeder
     public function run()
     {
         $school = \App\School::create([
-        	'code' => 'ALC',
-        	'name' => 'AEJHAN LEARNING CENTER',
-        	'address' => 'PH. 3 BAGONG SILANG, CAL. CITY',
+        	'code' => 'SAPAMI',
+        	'name' => 'ST. ANNE POWER ACADEMY MARILAO INC.',
+        	'address' => 'MARILAO, BULACAN',
         	]);
     }
 }

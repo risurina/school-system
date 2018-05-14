@@ -23,11 +23,13 @@ class LevelController extends Controller
     * @return json
     **/
     public function lvlCreate(Request $req) {
+      /*
       $validate_array = [ 
             'code' => 'required|unique:levels',
             'level' => 'required|unique:levels',
       ];
-      $this->validate($req,$validate_array);
+      */
+      //$this->validate($req,$validate_array);
 
       $level = new Level([
         'level' => $req->input('level'),

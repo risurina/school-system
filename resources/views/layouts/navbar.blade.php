@@ -7,7 +7,13 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome! {{ Auth::user()->name }}</span>
+                @if (Auth::user()->school_id)
+                    <span class="m-r-sm text-muted welcome-message">Welcome! {{ Auth::user()->name }}</span>
+                @else
+                    <strong class="m-r-sm welcome-message text-navy">
+                        {{ \App\School::find( session('school_id') )->name }}
+                    </strong>
+                @endif
             </li>
             <li>
                 <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

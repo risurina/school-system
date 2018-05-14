@@ -91,8 +91,14 @@
                     <h1 class="no-margins font-bold text-navy">{{ $sy->total_student }}</h1>
                     <h5>&nbsp;</h5>
                      <button class="btn btn-sm btn-flat btn-info" 
-                            onClick="printMaterListModal( {{ $sy->year }} )">
+                            onClick="printModal( {{ $sy->year }}, 'masterList' )"
+                            style="margin-top: -30px;">
                             Print Master List
+                    </button>
+
+                    <button class="btn btn-sm btn-flat btn-info" 
+                            onClick="printModal( {{ $sy->year }}, 'soa' )">
+                            Print SOA
                     </button>
                 </center>
             </div>
@@ -112,6 +118,14 @@
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         <a class="close-link"><i class="fa fa-times"></i></a>
                     </div>
+
+                    <div class="pull-right">
+                        <a onClick="printID()" class="label label-info">
+                            Print ID <span id="printID_count">0</span>
+                        </a>
+
+                        <a onClick="clearIDprintQry()" class="label label-danger">Clear ID</a>
+                    </div>
                 </div>
                 <div class="ibox-content">
                     <!-- Search and filter form -->
@@ -123,7 +137,7 @@
                             <div class="pull-left form-inline">
                                 <label>Show 
                                     <input type="number" name="show_row" 
-                                            value="8" class="form-control input-sm" 
+                                            value="20" class="form-control input-sm" 
                                             style="width:60px;" min="1" max="1000">
                                 </label>
 
@@ -177,14 +191,13 @@
                     <!-- /.row -->
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-hover">
                             <thead>
                               <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">STUDENT ID</th>
-                                <th class="text-center">LEVEL</th>
-                                <th class="text-center">SECTION</th>
-                                <th class="text-center">STUDENT NAME</th>
+                                <th class="text-center" colspan="2">STUDENT NAME</th>
+                                <th class="text-center">LEVEL & SECTION</th>
+                                <th class="text-center">PYMNT MODE</th>
                                 <th class="text-center">TTL FEE</th>
                                 <th class="text-center">TTL PYMNT</th>
                                 <th class="text-center">TTL BALANCE</th>
@@ -298,6 +311,7 @@
 @include('syLevel.modalForm')
 @include('syLevelFee.modalForm')
 @include('section.modalForm')
+@include('student.ImageUploadModalForm')
 @endsection
 
 @section('js_script')
@@ -316,7 +330,11 @@ $('#sidemenu_dashboard ul li:first').addClass('active');
 
 <script type="text/javascript"> 
     $(document).ready(function () {
+        $('body').addClass( 'mini-navbar' );
         $('#content-tab-1').hide();
+
+        /** Remove Upon Production **/
+        clearIDprintQry();
     });
 
     function lvlView($lvl,$sections) {
@@ -353,6 +371,71 @@ $('#sidemenu_dashboard ul li:first').addClass('active');
         $( '#secTable' ).attr('class','col-lg-6').show();
 
         $( '#secTable .ibox .ibox-content .feed-activity-list' ).html( sectionRow );
+    }
+
+    /** This remove upon production **/
+    function clearIDprintQry() {
+        studentProgresses = sessionStorage.studentProgresses;
+
+        if (studentProgresses) {
+            studentProgresses = studentProgresses.split( ':' );
+        
+            $.each( studentProgresses, function(i, v) {
+                $('#addIDprintQry_' + v )
+                    .removeClass("label-info")
+                    .addClass("label-default")
+                    .attr("onClick","addIDprintQry( "+v+" )");
+            });
+
+            $( '#printID_count' ).html( '0' );
+
+            sessionStorage.removeItem('studentProgresses');
+        }
+    }
+
+    function addIDprintQry($studentProgress_id) {
+        $('#addIDprintQry_' + $studentProgress_id )
+            .removeClass('label-default')
+            .addClass('label-info')
+            .removeAttr('onClick');
+        $( '#printID_count' ).html( parseInt($( '#printID_count' ).html()) + 1 );
+
+        if (sessionStorage.studentProgresses) {
+            studentProgresses = sessionStorage.studentProgresses + ':' + $studentProgress_id;
+        }else{
+            studentProgresses = $studentProgress_id;
+        }
+        sessionStorage.setItem('studentProgresses', studentProgresses);
+    }
+
+    function printID() {
+        var selectedStudent = sessionStorage.studentProgresses;
+        window.open( " {{ route( 'studentProgress.printID' ) }}/" + selectedStudent );
+    }
+
+    function printID1() {
+        var selectedStudent = sessionStorage.studentProgresses;
+
+        if (selectedStudent) {
+            var data = { "students" : selectedStudent, 
+                         "_token" : "{{ csrf_token() }}"
+                        };
+            var url = " {{ route( 'studentProgress.printID' ) }}/" + selectedStudent
+            $.ajax({
+                type : "GET",
+                url : url,
+                data : data,
+                success : function(resp){
+                    var pwa = window.open("about:blank", "_new");
+                    pwa.document.open();
+                    pwa.document.write( resp );
+                    pwa.document.close();
+                },
+                error : function(resp) {
+                  $('body').html(resp.responseText);
+                }
+            });
+        }
     }
 </script>
 @endsection

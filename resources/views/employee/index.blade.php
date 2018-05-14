@@ -34,7 +34,7 @@
                     <div class="pull-left form-inline">
                         <label>Show 
                             <input type="number" name="show_row" 
-                                    value="8" class="form-control input-sm" 
+                                    value="20" class="form-control input-sm" 
                                     style="width:60px;" min="1" max="1000">
                         </label>
 
@@ -65,7 +65,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>System ID</th>
+                            <th colspan="2">Name</th>
                             <th>Position</th>
                             <th>Take Home</th>
                             <th>Status</th>

@@ -62,7 +62,7 @@
     <div class="row m-b-lg m-t-lg">
         <div class="col-md-12">
             <div class="profile-image">
-                <img src="{{ URL::to('assets/img/a4.jpg')}}" 
+                <img src="{{ url("/public/storage/profile/student/".$student->currentProgress()->year."/" . $student->id  .".jpg") }}"
                      class="img-circle circle-border m-b-md" 
                      alt="profile">
             </div>

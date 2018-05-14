@@ -150,37 +150,49 @@
 
 
 <!-- Print Master List Modal -->
-<div class="modal inmodal in" id="printMaterList_modal">
+<div class="modal inmodal in" id="print_modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content animated fadeIn">
             <div class="ibox-title">
-                <h5>Print Master List <strong id="year" class="text-navy"></strong> </h5>
+                <h5 id="printTitle">Print Master List <strong id="year" class="text-navy"></strong> </h5>
                 <span class="label label-info pull-right" id="code"></span>
             </div>
             <!-- /.ibox-title -->
 
             <div class="ibox-content">
                 <!-- form start -->
-                <form class="" id="printMaterList_form">
+                <form class="" id="print_form">
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-group" id="error_start">
-                                <label for="start" class="control-label">
-                                  Print Type <span>*</span>
+                            <div class="form-group" id="error_printType">
+                                <label for="printType" class="control-label">
+                                  Level <span>*</span>
                                 </label>
                                 <select name="printType"  class="form-control" >
                                     <option value="">All Level</option>
                                     @foreach( $sy->school_year_levels as $level )
-                                    <option value="{{ $level->school_year_level_sections }}" >
-                                        {{ $level->level->level }}
-                                    </option>
+                                        <option value='{ "level_id" : "{{ $level->id }}",
+                                                         "sections" : {{ $level->school_year_level_sections }} }' >
+                                            {{ $level->level_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <span class="help-block has-error"></span>
                             </div>
                             <!--/.form-group-->
                         </div><!-- /.col -->
+
+                        <div class="col-lg-12" id="sectionDiv"  hidden="true">
+                            <div class="form-group" id="error_sections">
+                                <label for="sections" class="control-label">
+                                  Section <span>*</span>
+                                </label>
+                                <select name="sections"  class="form-control" >
+                                </select>
+                                <span class="help-block has-error"></span>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.row -->
 
@@ -195,10 +207,10 @@
                 </button>
 
                 <button type="button" 
-                        id="sySave" 
-                        onClick="syUpdate()" 
+                        id="printBtn" 
+                        onClick="printMasterList('','')"
                         class="btn btn-flat btn-primary btn-sm"> 
-                  Save
+                  Print
                 </button>
               </div>
               <div>&nbsp;<br>&nbsp;</div>

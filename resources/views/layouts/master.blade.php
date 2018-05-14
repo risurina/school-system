@@ -24,6 +24,13 @@
     <link href="{{ URL::to('assets/css/animate.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/css/style.css') }}" rel="stylesheet">
 
+    <!-- Datatable -->
+    <link href="{{ URL::to('assets/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('assets/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+
+    <!-- jasny -->
+    <link href="{{ URL::to('assets/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+
     <!-- Custom Style -->
     <link href="{{ URL::to('assets/css/custom_style.css') }}" rel="stylesheet">
     <!-- Scripts -->
@@ -60,6 +67,13 @@
     <script src="{{ URL::to('assets/js/inspinia.js') }}"></script>
     <script src="{{ URL::to('assets/js/plugins/pace/pace.min.js') }}"></script>
 
+    <!-- Jasny -->
+    <script src="{{ URL::to('assets/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
+
+    <!-- Datatable -->
+    <script src="{{ URL::to('assets/js/plugins/dataTables/datatables.min.js') }}"></script>
+    <script src="{{ URL::to('assets/js/plugins/footable/footable.all.min.js') }}"></script>
+    
     <!-- Toastr -->
     <script src="{{ URL::to('assets/js/plugins/toastr/toastr.min.js') }}"></script>
 
