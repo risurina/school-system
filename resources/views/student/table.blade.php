@@ -12,7 +12,7 @@
                  src="{{ url("/public/storage/profile/student/2017/" . $student->id  .".jpg") }}" 
                  style="margin: -5px; padding: -5px;">
         </td>
-        <td>{{ $student->fullName }} {{ $student->currentProgress()['year'] }}</td>
+        <td>{{ $student->fullName }}</td>
         <th class="text-center {{ ($student->sex == 'M') ? 'text-info' : 'text-danger' }}" >
           {{ $student->sex }}
         </th>

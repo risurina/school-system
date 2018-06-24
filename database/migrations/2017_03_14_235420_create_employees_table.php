@@ -22,8 +22,8 @@ class CreateEmployeesTable extends Migration
             $table->string('middleName')->nullable(); 
             $table->string('lastName');
             $table->string('position');
-            $table->string('address');
-            $table->string('assingEmpID');
+            $table->string('address')->nullable();
+            $table->string('assingEmpID')->nullable();
             $table->string('status')->nullable();
             $table->boolean('isActive')->default(true)->nullable();
             $table->bigInteger('mobileNo')->nullable();

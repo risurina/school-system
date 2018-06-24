@@ -12,9 +12,9 @@ class SchoolsTableSeeder extends Seeder
     public function run()
     {
         $school = \App\School::create([
-        	'code' => 'SAPAMI',
-        	'name' => 'ST. ANNE POWER ACADEMY MARILAO INC.',
-        	'address' => 'MARILAO, BULACAN',
+        	'code' => 'JRCA',
+        	'name' => 'JESUS',
+        	'address' => 'PH 5',
         	]);
     }
 }

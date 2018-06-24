@@ -27,7 +27,12 @@
 	@include( 'id.' . $school->code )
 
     <script type="text/javascript">
-    
+        /*
+       	setTimeout(function(){ 
+       		window.print();
+       		window.close(); 
+       	}, 10);
+        */
     </script>
 
 </body>

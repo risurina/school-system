@@ -98,7 +98,7 @@ function studentTable (link = '') {
             $('.pagination').addClass('pagination-sm pull-right no-margin');
         },
         error: function(msg){
-            $('#table_body').html('<tr><td colspan="6">'+msg.responseText+'</td></tr>');
+            $('#table_body').html('<tr><td colspan="6" class="text-center">Please reload!</td></tr>');
         }
     });
 }
@@ -259,10 +259,8 @@ $(document).on('click','.pagination a',function(e) {
         processData: false,
         contentType: false,
         success:function(resp){
-          uploadImage_modal.modal('hide');
-            studentTable();
-          //alert( 'Image Uploaded!' );
-            //location.reload(true);
+            alert( 'Image Uploaded!' );
+            location.reload(true);
         },
         error: function(resp){
             uploadImage_form.find('.has-error').removeClass('has-error');

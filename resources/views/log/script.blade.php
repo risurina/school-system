@@ -16,7 +16,7 @@
           //$('#attendanceTable_pagination').html(attendancePage_link);
         },
         error: function(msg){
-          $('#attendanceTable_body').html('<tr><td colspan="6">'+msg.responseText+'</td></tr>');
+          $('#attendanceTable_body').html('<tr><td colspan="6" class="text-center">Please reload!</td></tr>');
         }
       });
     }

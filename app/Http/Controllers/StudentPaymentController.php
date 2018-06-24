@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\StudentPayment as Payment;
 use App\StudentProgress as Progress;
 use App\StudentFee as Fee;
+use App\SmsNotification as SMS;
 use Illuminate\Http\Request;
 
 class StudentPaymentController extends Controller
@@ -40,6 +41,15 @@ class StudentPaymentController extends Controller
       $payment->invNo = $req->input( 'invNo' );
       $payment->payment_by = $req->input( 'payment_by' );
       $payment->payment_date = $req->input( 'payment_date' );
+
+      $smsNotif = new SMS;
+      $smsNotif->message = 'We acknowledged the receipt of P' . number_format($payment->amount,2,'.',',') ;
+      $smsNotif->message .= ' with OR# ' . $payment->invNo . ' for ' . $studentFee->student_progress->student->fullName;
+      $smsNotif->message .=  ' in payment for his or her ' . $studentFee->fee->fee;
+      $smsNotif->message .= '. Date Of Payment ' . date('F d, Y', strtotime($payment->payment_date)) ;
+      $smsNotif->number = $studentFee->student_progress->mobileNo;
+      $smsNotif->isSend = false;
+      $smsNotif->save();
 
       $studentFee->student_payments()->save( $payment );
       return response()->json( [ 'fee' => $studentFee->fee->fee ] );

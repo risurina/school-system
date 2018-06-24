@@ -32,9 +32,9 @@ class UsersTableSeeder extends Seeder
         $sudoAdmin->roles()->attach($systemAdmin);
         
         $admin = User::create([
-            'name' => 'SAPAMI',
-            'email' => 'sapami@gmail.com',
-            'password' => bcrypt('sapami-admin'),
+            'name' => 'JRCA',
+            'email' => 'jrca@gmail.com',
+            'password' => bcrypt('jrca-admin'),
         ]);
         $school->users()->save($admin);
         $admin->roles()->attach($schoolAdmin);

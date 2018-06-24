@@ -158,7 +158,7 @@
             }, 1000);
         },
         error: function(resp) {
-          $('.ibox-content').html(resp.responseText);
+          //$('.ibox-content').html(resp.responseText);
         }
       }); // end ajax
     }

@@ -18,7 +18,7 @@
 	}
 
 	.id-layout-second {
-		margin-left: 5.13mm;
+		margin-left: 6.13mm;
 	}
 
 	.id-picture-first {
@@ -36,7 +36,7 @@
 		width: 26.8mm;
 		height: 31.0mm;
 		margin-top: 119.7mm;
-		margin-left: -31.8mm;
+		margin-left: -32.0mm;
 		border-radius: 10%;
 		border: solid white 3px;
 	}
@@ -82,7 +82,7 @@
 		position: absolute;
 		width: 47.3mm;
 		margin-top: 158.0mm;
-		margin-left: -51.7mm;
+		margin-left: -51.1mm;
 	}
 
 	.id-level-second {
@@ -93,7 +93,7 @@
 		position: absolute;
 		width: 47.3mm;
 		margin-top: 164.0mm;
-		margin-left: -51.7mm;
+		margin-left: -51.1mm;
 	}
 
 	.id-number-second {
@@ -104,7 +104,7 @@
 		position: absolute;
 		width: 47.3mm;
 		margin-top: 170.4mm;
-		margin-left: -51.7mm;
+		margin-left: -51.1mm;
 	}
 
 	.idback-first {
@@ -125,7 +125,7 @@
 		position: absolute;
 		width: 45.2mm;
 		margin-top: 103mm;
-		margin-left: -50.0mm;
+		margin-left: -50.5mm;
 		-webkit-print-color-adjust: exact;
 	}
 </style>
@@ -143,9 +143,7 @@
 			{{ $data[0]->student->lastName }}
 		</span>
 		<span class="id-level-first">{{ $data[0]->level }} </span>
-		<span class="id-number-first">
-			ID NO. {{ $data[0]->school_year_level_section->school_year_level->level->code }}-{{ ($data[0]->syStudentID < 100) ? 0 : ''}}{{ $data[0]->syStudentID }}-2017
-		</span>
+		<span class="id-number-first">ID NO. {{ $data[0]->landlineNo }}</span>
 
 		@if(isset($data[1]))
 		<img src="{{ URL::to('public/storage/JRCA-FRONT.png') }}"  class="id-layout id-layout-second">
@@ -154,16 +152,14 @@
 			class="id-picture-second">
 		<span class="id-name-second">
 			{{ $data[1]->student->firstName }} 
-			{{ ($data[1]->student->middleName) ? $data[1]->student->middleName[0].'. ' : ''}}
+			{{ ($data[1]->student->middleName) ? $data[1]->student->middleName[1].'. ' : ''}}
 			{{ $data[1]->student->lastName }}
 		</span>
-		<span class="id-level-second">{{ $data[1]->school_year_level_section->school_year_level->level->level }}</span>
-		<span class="id-number-second">
-			ID NO. {{ $data[1]->school_year_level_section->school_year_level->level->code }}-{{ ($data[1]->syStudentID < 100) ? 0 : ''}}{{ $data[1]->syStudentID }}-2017
-		</span>
+		<span class="id-level-second">{{ $data[1]->level }}</span>
+		<span class="id-number-second">ID NO. {{ $data[1]->landlineNo }}</span>
 
 		@else
-			<img src="{{ URL::to('public/storage/blank.png') }}"  class="id-layout id-layout-second">
+		
 		@endif
 	</div>
 
@@ -174,7 +170,7 @@
 			<br>
 			{{ $data[0]->address }}
 			<br> 
-			{{ ($data[0]->mobileNo) ? $data[0]->mobileNo : '' }} 
+			{{ $data[0]->mobileNo }} 
 		</span>
 
 		@if(isset($data[1]))
@@ -184,22 +180,13 @@
 			<br>
 			{{ $data[1]->address }} 
 			<br>
-			{{ ($data[1]->mobileNo) ? $data[1]->mobileNo : '' }} 
+			{{ $data[1]->mobileNo }} 
 		</span>
 
 		@else
-			<img src="{{ URL::to('public/storage/blank.png') }}"  class="id-layout id-layout-second">
+		
 		@endif
 	</div>
 @endforeach
-
- <script type="text/javascript">
-        
-       	setTimeout(function(){ 
-       		window.print();
-       		window.close(); 
-       	}, 10);
-        
-    </script>
 
 

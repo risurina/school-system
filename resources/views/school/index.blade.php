@@ -118,14 +118,6 @@
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         <a class="close-link"><i class="fa fa-times"></i></a>
                     </div>
-
-                    <div class="pull-right">
-                        <a onClick="printID()" class="label label-info">
-                            Print ID <span id="printID_count">0</span>
-                        </a>
-
-                        <a onClick="clearIDprintQry()" class="label label-danger">Clear ID</a>
-                    </div>
                 </div>
                 <div class="ibox-content">
                     <!-- Search and filter form -->

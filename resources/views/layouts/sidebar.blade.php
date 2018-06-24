@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element text-center">
                     <span>
-                        <img alt="image" class="img-circle" src="{{ URL::to('public/storage/school/logo.png') }}" 
+                        <img alt="image" class="img-circle" src="{{ URL::to('public/storage/school/logo.png') }}"
                         style="width: 70px; height: 70px; border: 3px white solid;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -18,6 +18,13 @@
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{  route('logout') }}">Logout</a></li>
                     </ul>
+                </div>
+                <div class="logo-element">
+                    @if ( session('school_id') )
+                        {{ \App\School::find( session('school_id') )->code }}
+                    @else
+                        {{ \App\School::find( Auth::user()->school_id )->code }}
+                    @endif
                 </div>
             </li>
             <li id="sidemenu_dashboard">
@@ -44,6 +51,11 @@
             <li id="attendance_settings">
                 <a href="{{ route('attendance.index') }}">
                     <i class="fa fa-calendar-check-o"></i><span class="nav-label">Attendance</span>
+                </a>
+            </li>
+            <li id="textbrigade_settings">
+                <a href="{{ route('textbrigade.index') }}">
+                    <i class="fa fa-envelope"></i><span class="nav-label">Text Brigade</span>
                 </a>
             </li>
             <li id="sidemenu_settings">

@@ -17,8 +17,9 @@
 	}
 
 	.id-layout-second {
-		margin-left: 5.13mm;
+		margin-left: 6.13mm;
 	}
+
 	.id-picture-first {
 		position: absolute;
 		width: 25.2mm;
@@ -143,11 +144,8 @@
 			{{ $data[0]->student->firstName }} 
 			{{ ($data[0]->student->middleName) ? $data[0]->student->middleName[0].'. ' : ''}}
 			{{ $data[0]->student->lastName }}
-
-			<br>
-			{{ $data[0]->level }} {{ ($data[0]->section == 'ONE') ? '' : '- ' . $data[0]->section }}
 		</span>
-		<span class="id-level-first"></span>
+		<span class="id-level-first">{{ $data[0]->level }} </span>
 		<span class="id-number-first"></span>
 
 		@if(isset($data[1]))
@@ -157,38 +155,13 @@
 			class="id-picture-second">
 		<span class="id-name-second">
 			{{ $data[1]->student->firstName }} 
-			{{ ($data[1]->student->middleName) ? $data[1]->student->middleName[0].'. ' : ''}}
+			{{ ($data[1]->student->middleName) ? $data[1]->student->middleName[1].'. ' : ''}}
 			{{ $data[1]->student->lastName }}
-
-			<br>
-			{{ $data[1]->level }}  - {{ $data[1]->section }}
 		</span>
-		<span class="id-level-second"></span>
+		<span class="id-level-second">{{ $data[1]->level }}</span>
 		<span class="id-number-second"></span>
-		@else
-			<img src="{{ URL::to('public/storage/blank.png') }}"  class="id-layout id-layout-second">
-		@endif
-	</div>
-
-	<div class="id-page">
-		<img src="{{ URL::to('public/storage/ALC-BACK.png') }}" class="id-layout id-layout-first">
-
-
-		@if(isset($data[1]))
-		<img src="{{ URL::to('public/storage/ALC-BACK.png') }}"  class="id-layout id-layout-second">
-		@else
-			<img src="{{ URL::to('public/storage/blank.png') }}"  class="id-layout id-layout-second">
 		@endif
 	</div>
 @endforeach
-
- <script type="text/javascript">
-        
-       	setTimeout(function(){ 
-       		window.print();
-       		window.close(); 
-       	}, 10);
-        
-    </script>
 
 

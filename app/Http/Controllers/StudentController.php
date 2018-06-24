@@ -121,7 +121,7 @@ class StudentController extends Controller
     * @return Illuminate\Http\Response
     **/
     public function studentProfile($id,$sy = '') {
-      $latestSY = $this->mySchool()->school_years()->orderBy('id','desc')->first();
+      $latestSY = $this->mySchool()->school_years()->orderBy('id', 'desc')->first();
 
       $student = Student::find($id);
 

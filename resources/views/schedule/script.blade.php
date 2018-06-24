@@ -20,7 +20,7 @@
           $('#scheduleTable_pagination').html(schedulePage_link);
         },
         error: function(msg){
-          $('#scheduleTable_body').html('<tr><td colspan="6">'+msg.responseText+'</td></tr>');
+          $('#scheduleTable_body').html('<tr><td colspan="6" class="text-center">Please reload!</td></tr>');
         }
       });
     }

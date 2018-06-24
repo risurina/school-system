@@ -8,6 +8,7 @@ use Illuminate\Routing\UrlGenerator as URL;
 use App\Log;
 use App\Student;
 use App\Employee;
+use App\SmsNotification as SMS;
 
 class LogController extends Controller
 {   
@@ -161,7 +162,8 @@ class LogController extends Controller
         $logDate = date('D - M d, Y', strtotime( $thisLog->dateTime ) );
 
         $message =  $name . " has logged ".$logType." at " . $logDate . " " . $logTime;
-        $message .= ". This is system generated. Please don't reply. Thank you.";
+        $message .= ".\n\nThis is system generated.\nPlease don't reply. Thank you.";
+        
         
         return response()->json([
             'type ' => $type,

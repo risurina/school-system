@@ -20,7 +20,7 @@
           $('.pagination').addClass('pagination-sm no-margin');
         },
         error: function(msg){
-          $('#feeTable_body').html('<tr><td colspan="6">'+msg.responseText+'</td></tr>');
+          $('#feeTable_body').html('<tr><td colspan="6">Please reload!</td></tr>');
         }
       });
     }

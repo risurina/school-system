@@ -22,7 +22,7 @@
           $('.pagination').addClass('pagination-sm pull-right no-margin');
         },
         error: function(msg){
-          //$('#table_body').html('<tr><td colspan="6">Please reload!</td></tr>');
+          $('#table_body').html('<tr><td colspan="6">Please reload!</td></tr>');
         }
       });
     }

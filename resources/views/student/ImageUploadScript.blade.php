@@ -17,9 +17,9 @@
 		    processData: false,
 		    contentType: false,
 		    success:function(resp){
-		        studentTable();
-		    	//alert( 'Image Uploaded!' );
-		        //location.reload(true);
+		        //studentTable();
+		    	alert( 'Image Uploaded!' );
+		        location.reload(true);
 		    },
 		    error: function(resp){
 	          uploadImage_form.find('.has-error').removeClass('has-error');

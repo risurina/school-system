@@ -4,6 +4,20 @@
 * Web Routes
 */
 
+/** Text Brigade */
+Route::group(['prefix' => 'school/textbrigade'], function() {
+    Route::get('/', [
+      'uses' => 'TextBrigadeController@index',
+      'as' => 'textbrigade.index',
+    ]);
+
+    Route::post('/create', [
+      'uses' => 'TextBrigadeController@create',
+      'as' => 'textbrigade.create',
+    ]);
+});
+/** End Text Brigade */
+
 /** Logs **/
 Route::get('logs/{rfcard_id}/{accessPoint}',[
   'uses' => 'LogController@create',

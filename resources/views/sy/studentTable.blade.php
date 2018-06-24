@@ -4,7 +4,7 @@
   @if ($students->count())
     @foreach ($students as $student_count => $student)
     <tr>
-        <td class="text-center">{{ $student_count + 1 }} - {{ $student->id }}</td>
+        <td class="text-center">{{ $student_count + 1 }}</td>
         <td class="client-avatar text-center" >
             <img alt="Pic" 
                  src="{{ url("/public/storage/profile/student/".$student->year."/" . $student->student_id  .".jpg") }}" 
@@ -23,11 +23,6 @@
           @endif
         </td>
         <td class="text-center">
-          <a class="label label-default"
-              id="addIDprintQry_{{ $student->id }}"
-              onClick="addIDprintQry( {{ $student->id }} )">
-              ID
-          </a>
           <a href="">&nbsp;</a>
           <a class="label label-default"
               onClick="uploadImageModal( {{ $student->id }} )">

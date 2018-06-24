@@ -19,7 +19,7 @@
           $('#lvlTable_pagination').html(lvlPage_link);
         },
         error: function(msg){
-          $('#lvlTable_body').html('<tr><td colspan="6">'+msg.responseText+'</td></tr>');
+          $('#lvlTable_body').html('<tr><td colspan="6">Please reload!</td></tr>');
         }
       });
     }
