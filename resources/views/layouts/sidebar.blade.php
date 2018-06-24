@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element text-center">
                     <span>
-                        <img alt="image" class="img-circle" src="{{ URL::to('public/storage/school/logo.png') }}"
+                        <img alt="image" class="img-circle" src="{{ URL::to('storage/school/logo.png') }}"
                         style="width: 70px; height: 70px; border: 3px white solid;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">

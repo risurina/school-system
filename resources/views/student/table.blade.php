@@ -1,6 +1,6 @@
 
 <tbody>
-  
+
   @if ($students->count())
     @foreach ($students as $student_count => $student)
     <tr>
@@ -8,9 +8,8 @@
         <td>{{ $student->id }}</td>
         <td class="text-navy">{{ $student->lrnNo }}</td>
         <td class="client-avatar text-center" >
-            <img alt="Pic" 
-                 src="{{ url("/public/storage/profile/student/2017/" . $student->id  .".jpg") }}" 
-                 style="margin: -5px; padding: -5px;">
+            <img src="{{ url("/storage/profile/student/2017/" . $student->id  .".jpg") }}"
+                 style="margin: -5px; padding: -5px;" alt="Smiley face" class="student-profile">
         </td>
         <td>{{ $student->fullName }}</td>
         <th class="text-center {{ ($student->sex == 'M') ? 'text-info' : 'text-danger' }}" >
@@ -37,15 +36,15 @@
         <div id="pagination_row">
           <div id="table_info">
             <p class="pull-left" style="margin-top: 7px;">
-              Showing  {{ $students->firstItem() }} 
-              to  {{ $students->lastItem() }} 
-              of  {{ $students->total() }} 
+              Showing  {{ $students->firstItem() }}
+              to  {{ $students->lastItem() }}
+              of  {{ $students->total() }}
               entries.
             </p>
           </div>
           <div class="table_pagination">
             {{ $students->render() }}
-          </div>        
+          </div>
         </div>
       </td>
     </tr>
