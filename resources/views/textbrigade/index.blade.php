@@ -89,55 +89,6 @@
     </div>
 </div>
 
-<div class="modal inmodal in" id="logs_modal">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content animated fadeIn">
-            <div class="ibox-title">
-                <h5>Logs</h5>
-            </div>
-            <!-- /.ibox-title -->
-
-            <div class="ibox-content">
-                <div class="row">
-                  <div class=" form-group col-lg-12">
-                    <label class="m-t-none m-b">
-                      Name : <span class="text-navy" id="fullName"></span>
-                    </label>
-                    <label class="m-t-none m-b">
-                      Date : <span class="text-navy" id="date"></span>
-                    </label>
-                  </div>
-                </div>
-                <!-- /.row -->
-
-                <table class="table table-striped table-bordered table-hover" style="padding-top: -30px;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.ibox-content -->
-            <div class="ibox-footer">
-              <div class="pull-right">
-                <button type="button" class="btn btn-white btn-sm " data-dismiss="modal">
-                  Close
-                </button>
-              </div>
-              <div>&nbsp;<br>&nbsp;</div>
-            </div>
-            <!-- /.ibox-footer -->
-        </div>
-        <!-- /.modal-content animated flipInY -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal inmodal -->
-
 @endsection
 
 @section('js_script')
@@ -149,49 +100,9 @@ $('title').text('SIS | Text Brigade');
 </script>
 
 <script>
-    function showLogs($logs, $name, $date) {
-        var sliceLog = $logs.slice(1, -1);
-        var splitLog = sliceLog.split(',')
-
-        let tbody = '';
-        $.each(splitLog, function(i, v) {
-            let count = i + 1;
-            tbody += '<tr>' +
-                        '<td>'+ count +'</td>' +
-                        '<td>'+ v.slice(1, -1) +'</td>' +
-                    '</tr>';
-        });
-
-        $('#logs_modal #fullName').html( $name );
-        $('#logs_modal #date').html( $date );
-        $('#logs_modal .ibox-content table tbody').html( tbody );
-        $('#logs_modal').modal('show');
-    }
 
     $(document).ready(function(){
         $('textarea').val('')
-
-        $('#submitBTN').click(function (e) {
-            e.preventDefault
-            $('#search_form').submit();
-        });
-
-        $('#search_form').on('change',function() {
-            $('#search_form').submit();
-        })
-
-        $('#attnTable').DataTable({
-            pageLength: 25,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                { extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'Time And Attendance'},
-                {extend: 'pdf', title: 'Time And Attendance'},
-            ]
-
-        });
     });
 </script>
 
