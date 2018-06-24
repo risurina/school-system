@@ -49,7 +49,7 @@
                                     <div class="col-md-12">
                                         <div class="alert alert-success">
                                             <ul>
-                                               * {{ $response }} 
+                                               * {{ $response }}
                                                <br>
                                                * <a href="{{ route('textbrigade.index') }}">
                                                     Click here to send new message!
@@ -63,13 +63,13 @@
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label>Message :</label>
-                                        <textarea class="form-control" style="height: 90px" name="message" value="">
+                                        <textarea class="form-control" style="height: 90px" name="message" value=" ">
                                         </textarea>
                                     </div>
                                     <div>
-                                        <input class="btn btn-sm btn-primary pull-right m-t-n-xs" 
+                                        <input class="btn btn-sm btn-primary pull-right m-t-n-xs"
                                                type="submit"
-                                               value="Send Message" 
+                                               value="Send Message"
                                         >
                                     </div>
                                 </form>
@@ -142,7 +142,7 @@
 
 @section('js_script')
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 /** Highlight Sidebard **/
 $('#textbrigade_settings').addClass('active');
 $('title').text('SIS | Text Brigade');
@@ -169,6 +169,8 @@ $('title').text('SIS | Text Brigade');
     }
 
     $(document).ready(function(){
+        $('textarea').val('')
+
         $('#submitBTN').click(function (e) {
             e.preventDefault
             $('#search_form').submit();
