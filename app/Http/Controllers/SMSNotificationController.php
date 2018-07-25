@@ -19,7 +19,13 @@ class SMSNotificationController extends Controller
     	if ( $this->accessPoint != $accessPoint ) {
 	    	return response()->json([ 'errors' => 'Access point not valid!' ]);
         }
-        return response()->json( SMS::where('isSend', False)->orderBy('isLog', 'desc'));
+
+        $sms = SMS::where('isSend', False)->orderBy('isLog', 'desc')->first();
+        if(!$sms) {
+            $sms = ['number' => '', 'message' => ''];
+        }
+
+        return response()->json( $sms );
     }
 
     public function sent( $id, $accessPoint  )

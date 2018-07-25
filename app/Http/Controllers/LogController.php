@@ -35,7 +35,7 @@ class LogController extends Controller
 
         # Insert Log
         $id_logs = $id->logs();
-        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no ]);
+        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no, 'dateTime' => \Carbon\Carbon::now() ]);
         $log->save();
 
         $id_logs = $id_logs->whereDate('dateTime',date('Y-m-d', strtotime( $log->dateTime ) ))->count();
