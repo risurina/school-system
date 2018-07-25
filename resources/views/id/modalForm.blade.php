@@ -54,6 +54,17 @@
                         <hr>
 
                         <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group" id="error_card_id_no">
+                                    <label>RFID Card # *</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        name="card_id_no"
+                                        placeholder="RFID Card #"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
                             <div class="col-sm-12 col-md-12 col-lg-4">
                                 <div class="form-group" id="error_last_name">
                                     <label>Last Name *</label>
@@ -230,18 +241,6 @@
                                     class="form-control"
                                     name="guardian"
                                     placeholder="Guardian"
-                                >
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-group" id="error_card_id_no">
-                                <label>RFID Card # *</label>
-                                <input type="text"
-                                    class="form-control"
-                                    name="card_id_no"
-                                    placeholder="RFID Card #"
                                 >
                                 <span class="help-block"></span>
                             </div>

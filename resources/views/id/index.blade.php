@@ -7,7 +7,7 @@
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>ID - Student \ Staff List</h5>
+            <h5>ID - Student \ Staff List : Total {{ App\Id::all()->count() }}</h5>
             <div class="ibox-tools">
                 <a href="#add-school" class="btn btn-primary btn-xs" onclick="idCreateModal()">
                     Add New
