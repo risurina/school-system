@@ -475,5 +475,17 @@ Route::group(['prefix' => 'school/id'], function() {
 });
 // End  ID Information
 
+//SMS Notification API
+Route::get('sms/{accessPoint?}', [
+  'uses' => 'SMSNotificationController@get',
+  'as' => 'sms.get'
+]);
+
+Route::get('sms/{id}/{accessPoint?}', [
+  'uses' => 'SMSNotificationController@sent',
+  'as' => 'sms.sent'
+]);
+//End SMS Notification API
+
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
