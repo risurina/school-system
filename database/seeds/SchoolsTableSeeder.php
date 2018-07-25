@@ -11,10 +11,10 @@ class SchoolsTableSeeder extends Seeder
      */
     public function run()
     {
-        $school = \App\School::create([
-        	'code' => 'JRCA',
-        	'name' => 'JESUS',
-        	'address' => 'PH 5',
-        	]);
+        $school = \App\School::insert([
+        	'code' => 'CLASJ',
+        	'name' => 'CLASJ',
+        	'address' => 'BULACAN',
+        ]);
     }
 }

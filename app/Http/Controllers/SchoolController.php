@@ -21,6 +21,13 @@ class SchoolController extends Controller
           $req->session()->put('school_id', $req->input( 'school_id' ));
         }
 
+        if(!$this->mySchool()->get())
+        {
+          return redirect()->route('/admin');
+        }
+
+        return redirect()->route('id.index');
+
         $sy = $this->mySchool()
                      ->school_years()
                      ->latest('year')
@@ -69,7 +76,7 @@ class SchoolController extends Controller
         'address' => 'required'
       ];
       $this->validate($req,$validate_array);
-      
+
       $school = new School;
       $school->code = $req->input('code');
       $school->name = $req->input('name');
@@ -106,7 +113,7 @@ class SchoolController extends Controller
         'address' => 'required'
       ];
       $this->validate($req,$validate_array);
-      
+
       $school = School::find($req->input('id'));
       $school->name = $req->input('name');
       $school->address = $req->input('address');
@@ -136,7 +143,7 @@ class SchoolController extends Controller
                         ->where('id', $id)
                         ->restore();
       return response()->json(['id' => $req->input('id')]);
-    }    
+    }
 
     /**
     * View School Details

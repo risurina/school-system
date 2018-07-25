@@ -14,8 +14,9 @@ class CreateLogsTable extends Migration
     public function up()
     {
         Schema::create('logs', function (Blueprint $table) {
-            $table->integer('logtable_id');
-            $table->string('logtable_type');
+            $table->string('card_id_no');
+            $table->integer('id_id');
+
             $table->increments('id');
             $table->dateTime('dateTime')->default(DB::raw('CURRENT_TIMESTAMP'));
         });

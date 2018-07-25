@@ -19,7 +19,7 @@ Route::group(['prefix' => 'school/textbrigade'], function() {
 /** End Text Brigade */
 
 /** Logs **/
-Route::get('logs/{rfcard_id}/{accessPoint}',[
+Route::get('logs/{card_id_no}/{accessPoint}',[
   'uses' => 'LogController@create',
   'as' => 'logs'
 ]);
@@ -421,6 +421,59 @@ Route::group(['prefix' => 'login'], function() {
       'as' => 'login.student'
     ]);
 });
+
+/** Text Brigade */
+Route::group(['prefix' => 'school/id'], function() {
+  Route::get('/', [
+    'uses' => 'IdController@index',
+    'as' => 'id.index',
+  ]);
+
+  Route::post('/create', [
+    'uses' => 'IdController@create',
+    'as' => 'id.create',
+  ]);
+});
+/** End Text Brigade */
+
+// ID Information
+Route::group(['prefix' => 'school/id'], function() {
+  Route::get('/', [
+    'uses' => 'IdController@index',
+    'as'  => 'id.index',
+  ]);
+  Route::post('/table',[
+    'uses' => 'IdController@table',
+    'as' => 'id.table'
+  ]);
+  Route::post('/create',[
+    'uses' => 'IdController@create',
+    'as' => 'id.create'
+  ]);
+  Route::post('/update',[
+    'uses' => 'IdController@update',
+    'as' => 'id.update'
+  ]);
+  Route::post('/delete', [
+    'uses' => 'IdController@delete',
+    'as' => 'id.delete'
+  ]);
+  Route::post('/restore', [
+    'uses' => 'IdController@restore',
+    'as' => 'id.restore'
+  ]);
+
+  Route::post('/upload/image', [
+    'uses' => 'IdController@uploadImage',
+    'as' => 'id.uploadImage'
+  ]);
+
+  Route::get('/print/{id?}', [
+    'uses' => 'idController@print',
+    'as' => 'id.print'
+  ]);
+});
+// End  ID Information
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

@@ -15,6 +15,11 @@ class School extends Model
         'schoolID', 'recognitionNo',
     ];
 
+    public function ids()
+    {
+    	return $this->hasMany('App\Id');
+    }
+
     /**
 	* DB relation to users
     **/

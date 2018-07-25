@@ -7,13 +7,13 @@
     <div class="row m-b-lg m-t-lg">
         <div class="col-md-12">
             <div class="profile-image">
-                <img  
+                <img
                     @if (isset($currentProgress))
-                        src="{{ url("/public/storage/profile/student/".$student->currentProgress()->year."/" . $student->id  .".jpg") }}" 
+                        src="{{ url("/public/storage/profile/student/".$student->currentProgress()->year."/" . $student->id  .".jpg") }}"
                     @else
                         src="{{ url("/assets/img/a4.jpg") }}"
                     @endif
-                    class="img-circle circle-border m-b-md" 
+                    class="img-circle circle-border m-b-md"
                     alt="profile"
                 >
             </div>
@@ -28,7 +28,7 @@
 
                         @if( isset($currentProgress->year) )
                             @if( $currentProgress->year < $latestSY )
-                                <a class="btn btn-info btn-sm pull-right" 
+                                <a class="btn btn-info btn-sm pull-right"
                                     onClick="progressCreateModal(
                                                 {{ $student }},
                                                 '{{ $student->fullName }}',
@@ -38,7 +38,7 @@
                                 </a>
                             @endif
                         @else
-                            <a class="btn btn-info btn-sm pull-right" 
+                            <a class="btn btn-info btn-sm pull-right"
                                 onClick="progressCreateModal(
                                             {{ $student }},
                                             '{{ $student->fullName }}',
@@ -52,21 +52,21 @@
                             <strong class="text-navy">{{ $student->fullName }}</strong>
                         </h2>
                         <h4>
-                            LRN NO : 
+                            LRN NO :
                             <span class="text-danger">{{ $student->lrnNo }}</span>
                         </h4>
                         <h5>
-                            Gender : 
+                            Gender :
                             <span class="text-warning">{{ $student->gender }}</span>
                         </h5>
                         <h5>
-                            Date Of Birth : 
+                            Date Of Birth :
                             <span class="text-warning">
                                 {{ date('M d, Y',strtotime($student->dateOfBirth)) }}
                             </span>
                         </h5>
                         <h5>
-                            Current Age : 
+                            Current Age :
                             <span class="text-warning">
                                 {{ $student->currentAge }}
                             </span>
@@ -87,7 +87,7 @@
                     @if (isset($currentProgress))
                     <h5>Student Details - SY {{ $currentSchoolYear->code }}</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs" 
+                        <a class="btn btn-primary btn-xs"
                             onclick="progressUpdateModal(
                                         {{ $currentProgress }},
                                         '{{ $currentSchoolYear->id }}',
@@ -96,21 +96,21 @@
                         )">
                             Update Details
                         </a>
-                        <a type="button" 
-                            class="btn btn-primary btn-xs" 
+                        <a type="button"
+                            class="btn btn-primary btn-xs"
                             onClick="uploadImageModal( {{ $currentProgress->id }} )">
                             Upload Picture
                         </a>
-                        <a class="btn btn-primary btn-xs" 
+                        <a class="btn btn-primary btn-xs"
                             onclick="progressPrint( {{ $currentProgress }} )">
                             Print Reg Form
                         </a>
-                        <a class="btn btn-primary btn-xs" 
+                        <a class="btn btn-primary btn-xs"
                             onclick="printSOA( {{ $currentProgress->id }},false )">
                             Print SOA
                         </a>
 
-                        <a class="btn btn-primary btn-xs" 
+                        <a class="btn btn-primary btn-xs"
                             onclick="printSOA( {{ $currentProgress->id }}, true )">
                             Complete SOA
                         </a>
@@ -129,17 +129,17 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <dl class="dl-horizontal">
-                                <dt>Status:</dt> 
+                                <dt>Status:</dt>
                                 <dd><span class="label label-primary">{{ $currentProgress->status }}</span></dd>
                             </dl>
                         </div>
                         <div class="col-lg-6">
                             <dl class="dl-horizontal">
-                                <dt>Last Year Attended:</dt> 
+                                <dt>Last Year Attended:</dt>
                                 <dd>
                                     <span class="label label-primary">
                                         {{ $currentProgress->last_year_attended }}
-                                    </span>       
+                                    </span>
                                 </dd>
                             </dl>
                         </div>
@@ -147,32 +147,32 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <dl class="dl-horizontal">
-                                <dt>Date Enrolled:</dt> 
+                                <dt>Date Enrolled:</dt>
                                     <dd> {{ date('M d, Y', strtotime($currentProgress->enrolledDate)) }} </dd>
-                                <dt><small>(when time of enrolled)</small> Age :</dt> 
+                                <dt><small>(when time of enrolled)</small> Age :</dt>
                                     <dd>{{ $currentProgress->ageTimeOfEnrolled }}</dd>
-                                <dt>StudentID:</dt> 
+                                <dt>StudentID:</dt>
                                 <dd><a href="#" class="text-navy">
                                     {{ $currentSchoolYear->code.'-'.$currentProgress->syStudentID }}
                                 </a></dd>
-                                <dt>Level & Section:</dt> 
+                                <dt>Level & Section:</dt>
                                     <dd>{{ $currentLevel->level->level }} - {{ $currentSection->section }}</dd>
-                                <dt>Shift :</dt> 
+                                <dt>Shift :</dt>
                                     <dd >
                                         {{ $currentSection->schedule->time }}
-                                    </dd> 
-                                <dt>Adviser :</dt> 
+                                    </dd>
+                                <dt>Adviser :</dt>
                                     <dd>{{ $currentSection->employee->fullName }}</dd>
-                                <dt>Address :</dt> 
+                                <dt>Address :</dt>
                                     <dd class="text-warning">{{ $currentProgress->address }}</dd>
                             </dl>
                         </div>
                         <div class="col-lg-6">
                             <dl class="dl-horizontal" >
                                 <dt>Payment :</dt>
-                                    <dd> 
-                                        <span class="label label-info"> 
-                                        {{ ($currentProgress->isCash) ? 'CASH' : 'INSTALLMENT' }} 
+                                    <dd>
+                                        <span class="label label-info">
+                                        {{ ($currentProgress->isCash) ? 'CASH' : 'INSTALLMENT' }}
                                         </span>
                                     </dd>
                                 <dt>Mobile No. :</dt> <dd> {{ $currentProgress->mobileNo }} </dd>
@@ -229,9 +229,9 @@
                                                             <td>{{ $feeCount + 1 }} </td>
                                                             <td class="text-center">{{ $fee->displayDueDate }}</td>
                                                             <th >
-                                                                <span class="label 
-                                                                {{ ($fee->balance <= 0) ? 'label-primary' 
-                                                                                       : 'label-danger' 
+                                                                <span class="label
+                                                                {{ ($fee->balance <= 0) ? 'label-primary'
+                                                                                       : 'label-danger'
                                                                 }}">
                                                                     {{ $fee->fee->fee }}
                                                                 </span>
@@ -243,16 +243,16 @@
                                                                 {{ number_format($fee->discount,2,'.',',') }}
                                                             </td>
                                                             <td class="text-right">
-                                                                {{ 
+                                                                {{
                                                                 number_format($fee->total,2,'.',',') }}
                                                             </td>
                                                             <td class="text-right">
-                                                                {{ 
+                                                                {{
                                                                 number_format($fee->total_payment,2,'.',',') }}
                                                             </td>
                                                             <td class="text-right">
                                                                 <span class="font-bold">
-                                                                {{ 
+                                                                {{
                                                                 number_format($fee->balance,2,'.',',') }}
                                                                 </span>
                                                             </td>
@@ -262,7 +262,7 @@
                                                                     }})">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
-                                                                 | 
+                                                                 |
                                                                 <a onClick="studentFeeDelete({{
                                                                         $fee->id
                                                                     }})">
@@ -292,13 +292,13 @@
                                             </div>
                                         </div>
                                         <!-- /#tab1C -->
-                                        
+
                                         <div class="tab-pane" id="content-tab-3">
                                             <div class="feed-activity-list">
                                                 <div class="feed-element">
                                                     <a href="#" class="pull-left">
-                                                        <img alt="image" 
-                                                            class="img-circle" 
+                                                        <img alt="image"
+                                                            class="img-circle"
                                                             src="{{ URL::to('assets/img/a4.jpg') }}">
                                                     </a>
                                                     <div class="media-body ">
@@ -345,7 +345,7 @@
                                                                 {{ $payment->fee }}
                                                             </th>
                                                             <td class="text-right">
-                                                                <span class="label 
+                                                                <span class="label
                                                                     label-{{ ( $payment->isCancel )? 'danger':'primary' }}">
                                                                     P {{ number_format($payment->amount
                                                                             ,2,'.','.') }}
@@ -361,15 +361,15 @@
                                                                     |
                                                                     <a onClick="studentPaymentCancel({{$payment->id}})">
                                                                         Cancel
-                                                                    </a> 
+                                                                    </a>
                                                                 @else
                                                                     <span class="label label-danger">
                                                                         Cancelled
                                                                     </span>
-                                                                    &nbsp;| 
+                                                                    &nbsp;|
                                                                     <a onClick="studentPaymentRestore({{$payment->id}})">
                                                                         Restore!
-                                                                    </a> 
+                                                                    </a>
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -396,7 +396,7 @@
                             New student!
                         </h3>
                         <h4>
-                            <a class="font-italic" 
+                            <a class="font-italic"
                                 onClick="progressCreateModal(
                                             {{ $student }},
                                             '{{ $student->fullName }}',
@@ -430,25 +430,25 @@
                             @foreach($student->student_history()->latest('year')->get() as $history)
                             <div class="feed-element">
                                 <a href="#" class="pull-left">
-                                    <img alt="image" class="img-thumbnail" 
-                                        src="{{ URL::to("/public/storage/profile/student/".$history->year."/" . $student->id.".jpg") }}" 
+                                    <img alt="image" class="img-thumbnail"
+                                        src="{{ URL::to("/public/storage/profile/student/".$history->year."/" . $student->id.".jpg") }}"
                                         style="width: 100px; height: 100px;">
                                 </a>
                                 <div class="media-body ">
                                     <!--
                                     <small class="pull-right text-navy">1m ago</small>
                                     -->
-                                    Student ID :    
+                                    Student ID :
                                         <strong class="label label-success">
                                             {{ $history->sy_code.'-'. $history->syStudentID }}
                                         </strong>
                                     <br>
                                     School Year : <strong>{{ $history->year }}</strong>
                                     <br>
-                                    Level & Section : 
+                                    Level & Section :
                                         <strong>{{ $history->level }} - {{ $history->section }}</strong>
                                     <br>
-                                    Adviser : 
+                                    Adviser :
                                     <strong>
                                         {{ $history->empFirstName }} {{ $history->empLastName }}
                                     </strong>
@@ -458,7 +458,7 @@
                                                 'id' => $student->id,
                                                 'year' => $history->year
                                             ]) }}">
-                                            View 
+                                            View
                                         </a>
                                     </div>
                                 </div>
@@ -497,27 +497,27 @@
     @include('student.ImageUploadScript')
 @endif
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 /** Highlight Sidebard **/
 $('#sidemenu_student').addClass('active');
 $('title').text('{{ $student->fullName }}');
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {    
+$(document).ready(function() {
 
     $('#tabs li a:not(:first)').addClass('inactive');
     $('.tab-pane:first').show();
-        
+
     $('#tabs li a').click(function(){
         var t = $(this).attr('id');
-        if($(this).hasClass('inactive')){ //this is the start of our condition 
-            $('#tabs li a').addClass('inactive');           
+        if($(this).hasClass('inactive')){ //this is the start of our condition
+            $('#tabs li a').addClass('inactive');
             $(this).removeClass('inactive');
-            
+
             $('.tab-pane').hide();
             $('#content-'+ t).fadeIn('slow');
-        }  
+        }
     });
 
 });

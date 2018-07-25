@@ -33,9 +33,9 @@
           $('#sySave').attr('disabled',false);
           var result = 'School year ' + data.year + ' was updated!';
           toastr.success( result, 'Updated!' );
-          
+
           sy_modal.modal('hide');
-          setInterval(function(){ 
+          setInterval(function(){
             location.reload();
           }, 1000);
         },
@@ -45,31 +45,31 @@
 	        $('#sy_form [id^="error_"] .help-block').addClass('hidden');
 
 	        var error = resp.responseJSON;
-	      
+
 	        $.each(error, function(i, v) {
 	          var resp = '* ' + v;
 	            $('#error_' + i).addClass('has-error');
 	            $('#error_'+i+' .help-block').removeClass('hidden').html(resp);
 	        });
 	        var keys = Object.keys(resp);
-	        $('input[name="'+keys[0]+'"]').focus();          
+	        $('input[name="'+keys[0]+'"]').focus();
 	      }
       }); // end ajax
     }
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {    
-        
+$(document).ready(function() {
+
     $('#tabs a').click(function(){
         var t = $(this).attr('id');
 
         if(!$(this).hasClass('active')){
-          $('#tabs span a').removeClass('active');           
+          $('#tabs span a').removeClass('active');
           $(this).addClass('active');
 
           $('.tab-pane').hide();
-          $('#content-'+ t).fadeIn('slow'); 
+          $('#content-'+ t).fadeIn('slow');
         }
     });
 
@@ -123,7 +123,7 @@ $(document).ready(function() {
             search_form.find( 'input[name=level_id]' ).val('');
         }
 
-        
+
         search_form.find( 'select[name=section_id]' ).html( sectionOptions );
         studentTable();
     });
@@ -158,7 +158,7 @@ $(document).on('click','.pagination a',function(e) {
             let sectionOptions = '<option value="level:'+printTypeVal.level_id+'">Print all sections!</option>';
 
             $.each( printTypeVal.sections , function (i,v) {
-              sectionOptions += '<option value="section:'+v.id+'">'+v.section+'</option>'; 
+              sectionOptions += '<option value="section:'+v.id+'">'+v.section+'</option>';
             });
 
             if ( printTypeVal.sections.length == 0) {
@@ -235,7 +235,7 @@ $(document).on('click','.pagination a',function(e) {
         }
     });
  }
- // End Print Master List  
+ // End Print Master List
 </script>
 <!-- End Print -->
 
@@ -267,12 +267,12 @@ $(document).on('click','.pagination a',function(e) {
             $('#uploadImage_form [id^="error_"] .help-block').addClass('hidden');
 
             var error = resp.responseJSON;
-          
+
             $.each(error, function(i, v) {
               var resp = '* ' + v;
                 $('#error_' + i).addClass('has-error');
                 $('#error_'+i+' .help-block').removeClass('hidden').html(resp);
-            });       
+            });
           }
       });
   }

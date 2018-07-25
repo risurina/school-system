@@ -4,6 +4,10 @@
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
                 <i class="fa fa-bars"></i>
             </a>
+
+            <a class="minimalize-styl-2 btn btn-default " href="/admin">
+                Back To School List
+            </a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>

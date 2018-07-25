@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class StudentProgressController extends Controller
 {
 	public function ageComputation($dbo,$today)
-	{	
+	{
 		if ($today == '') {
 			$today = date('Y-m-d');
 		}
@@ -27,7 +27,7 @@ class StudentProgressController extends Controller
 
 		$ageYear = $ageMonth = '';
 		if ($todayMonth >= $dob[1]) {
-			
+
 			$ageYear = $todayYear - $dob[0];
 			$ageMonth = $todayMonth - $dob[1];
 		}else{
@@ -42,7 +42,7 @@ class StudentProgressController extends Controller
 	public function maxSyStudentID($school_year_level_id)
 	{
 		$school_year = Level::find($school_year_level_id)->school_year;
-			
+
 		$studentProgress = Progress::leftJoin('school_year_level_sections as A',
 									  'student_progresses.school_year_level_section_id',
 									  '=',
@@ -76,7 +76,7 @@ class StudentProgressController extends Controller
 		return response()->json( $studentProgress );
     }
 
-    public function studentProgressEnroll(Request $req) 
+    public function studentProgressEnroll(Request $req)
     {
 	    $this->validate($req,[
 	    	'enrolledDate' => 'date|required',
@@ -86,7 +86,7 @@ class StudentProgressController extends Controller
 	    	'section' => 'required|integer',
 	    	'isCash' => 'required|boolean'
 	    ]);
-	    
+
 		# student
 		$student = Student::find( $req->input('student_id') );
 
@@ -125,15 +125,15 @@ class StudentProgressController extends Controller
 	          $months = ' month';
 	        }
 
-			$ageTimeOfEnrolled = $ageTimeOfEnrolled['year'] 
+			$ageTimeOfEnrolled = $ageTimeOfEnrolled['year']
 									.$yrs. $ageTimeOfEnrolled['month'] . $months;
-			
+
 			# end age on date enrolled
-			
+
 			# student school year id
 			$syStudentID = $this->maxSyStudentID( $req->input('level') );
 			# end student school year id
-			
+
 			$studentProgress = new Progress;
 			$studentProgress->enrolledDate = $req->input('enrolledDate');
 			$studentProgress->ageTimeOfEnrolled = $ageTimeOfEnrolled;
@@ -146,7 +146,7 @@ class StudentProgressController extends Controller
 			$studentProgress->landlineNo = $req->input('landlineNo');
 			$studentProgress->mobileNo = $req->input('mobileNo');
 			$studentProgress->school_year_level_section_id = $req->input('section');
-		
+
 			$student->student_progresses()->save( $studentProgress );
 
 			$sy = \App\SchoolYear::find( $req->input('school_year') );
@@ -181,7 +181,7 @@ class StudentProgressController extends Controller
 						if ( $req->input('initiallPayment') ) {
 							$initiallTuitionFee = new StudentFee([
 								'fee_id' => $lvlFee->fee_id,
-								'feeAmount' => $initiallTuition, 
+								'feeAmount' => $initiallTuition,
 								'discount' => $discount,
 							]);
 							$studentProgress->student_fees()->save( $initiallTuitionFee );
@@ -199,11 +199,11 @@ class StudentProgressController extends Controller
 						$tuitionFeeLeft = $lvlFee->feeAmount - $initiallTuition;
 						$amort = $tuitionFeeLeft / $monthCount;
 
-						for ($i = 0; $i <= ( $monthCount - 1 ); $i++) { 
+						for ($i = 0; $i <= ( $monthCount - 1 ); $i++) {
 							$feeDueDate = strtotime( $sy->start );
 							$feeDueDate = date( 'Y-m-'.$sy->monthlyDue, strtotime("+".(31 * $i)." day" ,$feeDueDate) );
 
-							$tuitionFeeArray = [ 
+							$tuitionFeeArray = [
 								'fee_id' => $lvlFee->fee_id,
 							];
 
@@ -218,7 +218,7 @@ class StudentProgressController extends Controller
 								}
 								$tuitionFeeArray['feeAmount'] = $amort;
 							}
-							
+
 							$tuitionFee = new StudentFee( $tuitionFeeArray );
 							$studentProgress->student_fees()->save( $tuitionFee );
 
@@ -236,7 +236,7 @@ class StudentProgressController extends Controller
 			}
 			/** End Duplicate Level Fee's **/
 		}
-		
+
 	    return response()->json( ['name' => $student->fullName ] );
     }
 
@@ -251,7 +251,7 @@ class StudentProgressController extends Controller
 	    	'level' => 'required|integer',
 	    	'section' => 'required|integer'
 	    ]);
-	    
+
 		# save student with progress
 		$student = Student::find( $req->input('student_id') );
 
@@ -269,10 +269,10 @@ class StudentProgressController extends Controller
           $months = ' month';
         }
 
-		$ageTimeOfEnrolled = $ageTimeOfEnrolled['year'] 
+		$ageTimeOfEnrolled = $ageTimeOfEnrolled['year']
 								.$yrs. $ageTimeOfEnrolled['month'] . $months;
 		# end age on date enrolled
-		
+
 		$studentProgress = Progress::find( $req->input( 'student_progress_id' ) );
 		$studentProgress->enrolledDate = $req->input('enrolledDate');
 		$studentProgress->ageTimeOfEnrolled = $ageTimeOfEnrolled;
@@ -284,14 +284,14 @@ class StudentProgressController extends Controller
 		$studentProgress->landlineNo = $req->input('landlineNo');
 		$studentProgress->mobileNo = $req->input('mobileNo');
 		$studentProgress->school_year_level_section_id = $req->input('section');
-	
+
 		$student->student_progresses()->save( $studentProgress );
 
     	return response()->json( ['name' => $student->fullName ] );
     }
 
     public function studentProgressPrint(Request $req)
-    {	
+    {
     	$student = Student::find( $req->input( 'student_id' ) );
     	$student_progress = $student->student_progresses()
     							    ->where('school_year_level_section_id',
@@ -299,13 +299,13 @@ class StudentProgressController extends Controller
     							    ->first();
     	return response()->view( 'student.registrationForm', [
     		'student' => $student,
-	    	'student_progress' => $student_progress 
+	    	'student_progress' => $student_progress
     	]);
 
     }
 
     public function studentProgressPrintSOA(Request $req, $type)
-    {	
+    {
     	$school = $this->mySchool();
 
         $data = $req->input('data');
@@ -324,7 +324,7 @@ class StudentProgressController extends Controller
           			$dataList[] = $this->studentSOA( $student->id );
           		}
           	}
-          	
+
           }
 
           /** Return all student in section **/
@@ -354,20 +354,20 @@ class StudentProgressController extends Controller
         }
 
         if ( $type == 'complete' ) {
-        	return view('student.CompleteSOA', [ 
+        	return view('student.CompleteSOA', [
         		"dataList" => $dataList,
         		"school" => $school
         	]);
         }
 
-    	return view('student.soa', [ 
-    		"dataList" => $dataList, 
+    	return view('student.soa', [
+    		"dataList" => $dataList,
     		"school" => $school
     	]);
     }
 
     public function studentSOA($studentProgressID, $inquiryDate = false )
-    {	
+    {
     	$inquiryDate = ( $inquiryDate ) ? $inquiryDate : date('Y-m-d') ;
     	$studentProgress = Progress::find( $studentProgressID );
     	$studentFee = $studentProgress->student_fees()->whereDate('dueDate', '<', $inquiryDate)->get();
@@ -406,7 +406,7 @@ class StudentProgressController extends Controller
 
     public function studentProgressUploadImage(Request $req)
     {
-    	
+
     	$this->validate( $req, [
     		'image' => 'image|required',
     		'studentProgress_id' => 'required|integer'
@@ -459,8 +459,8 @@ class StudentProgressController extends Controller
     	}
 
     	$dataList = array_chunk( $dataList,2 );
-    	
-    	return view('id.main', [ 
+
+    	return view('id.main', [
     		"dataList" => $dataList,
     		"school" => $this->mySchool(),
     	]);

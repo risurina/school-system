@@ -27,7 +27,6 @@ class AttendanceController extends Controller
         $dateTo = date('Y-m-d', time());
 
         $logs = Log::whereNotNull('id')
-                    ->where('logtable_type',"student")
                     #->whereBetween('dateTime',[$dateFrom,$dateTo])
                     ->orderBy('id','DESC')
                     ->paginate(15);
@@ -41,13 +40,12 @@ class AttendanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function attendanceIndex()
-    {   
+    {
         $dateFrom = (isset($_GET['dateFrom'])) ? $_GET['dateFrom'] : date('Y-m-d');
         $dateTo = (isset($_GET['dateTo'])) ? $_GET['dateTo'] : date('Y-m-d');
-        $type = (isset($_GET['type'])) ? $_GET['type'] : 'employee';
+        $type = (isset($_GET['type'])) ? $_GET['type'] : 'STAFF';
 
-        $logs = Log::where('logtable_type', $type )
-                    ->whereDate('dateTime','>=',$dateFrom)
+        $logs = Log::whereDate('dateTime','>=',$dateFrom)
                     ->whereDate('dateTime','<=',$dateTo)
                     ->orderBy('id','Asc')
                     ->get();
@@ -55,8 +53,10 @@ class AttendanceController extends Controller
         $mergeOutput = [];
         $output = [];
         foreach ($logs as $log) {
-            $mergeOutput[$log->logtable_type.'@'.$log->logtable_id .'@'.date( 'Y-m-d', strtotime($log->dateTime ))]
-                    [] = date( 'h:i A', strtotime($log->dateTime));
+            if($log->id()->first()->type == $type) {
+            $mergeOutput[''.'@'.$log->id_id .'@'.date( 'Y-m-d', strtotime($log->dateTime ))]
+                [] = date( 'h:i A', strtotime($log->dateTime));
+            }
         }
 
 
@@ -66,8 +66,8 @@ class AttendanceController extends Controller
             $out = (count($time) <= 1) ? '' : $time[count($time) - 1 ];
             $isLate = (strtotime($this->companyStartHour) < strtotime($in)) ? true : false;
             $earlyOut = (strtotime($this->companyEndHour) > strtotime($out)) ? true : false;
-            $output[] = [ 
-                'log' => Log::where('logtable_type',$logDetails[0])->where('logtable_id', $logDetails[1])->first(),
+            $output[] = [
+                'log' => Log::where('id_id', $logDetails[1])->first(),
                 'allLogs' => $time,
                 'date' => $logDetails[2],
                 'IN' => $in,
@@ -78,12 +78,12 @@ class AttendanceController extends Controller
         }
 
         return view('log.index',[
-            'logs' => $output, 
-            'dateFrom' => $dateFrom, 
-            'dateTo' => $dateTo, 
-            'type' => $type 
+            'logs' => $output,
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo,
+            'type' => $type
         ]);
-        
+
 
     }
 }

@@ -17,13 +17,13 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->middleware( 
+        $this->middleware(
             ['auth'],
             ['except' => 'logs'] );
     }
-    
+
     protected function mySchool()
-    {	
+    {
     	$school_id = '';
     	if ( Auth::user()->school_id != '') {
     		$school_id = Auth::user()->school_id;

@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
         $systemAdmin = \App\Role::where('name','systemAdmin')->first();
         $schoolAdmin = \App\Role::where('name','schoolAdmin')->first();
 
@@ -30,11 +30,11 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('gemvir'),
         ]);
         $sudoAdmin->roles()->attach($systemAdmin);
-        
+
         $admin = User::create([
-            'name' => 'JRCA',
-            'email' => 'jrca@gmail.com',
-            'password' => bcrypt('jrca-admin'),
+            'name' => 'CLASJ Admin',
+            'email' => 'clasj.admin@gmail.com',
+            'password' => bcrypt('clasj-admin'),
         ]);
         $school->users()->save($admin);
         $admin->roles()->attach($schoolAdmin);

@@ -7,3 +7,7 @@ td .btn-group {
 .student-profile {
   background-image:url('./storage/school/logo.png');
 }
+
+.form-control input {
+  color: black;
+}

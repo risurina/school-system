@@ -10,7 +10,7 @@
 
     <title>SIS</title>
 
-    <link rel="shortcut icon" href="{{ asset('storage/school/logo.png') }}">
+    <link rel="shortcut icon" href="{{ URL::to('storage/school/'. ((session('school_id')) ? \App\School::find( session('school_id') )->code : \App\School::find( Auth::user()->school_id )->code) .'-logo.png') }}">
 
     <link href="{{ URL::to('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -36,7 +36,7 @@
     <!-- Scripts -->
     <script>
         window.Laravel = {!!
-            json_encode(['csrfToken' => csrf_token(),]) 
+            json_encode(['csrfToken' => csrf_token(),])
         !!};
     </script>
 </head>
@@ -73,13 +73,13 @@
     <!-- Datatable -->
     <script src="{{ URL::to('assets/js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/plugins/footable/footable.all.min.js') }}"></script>
-    
+
     <!-- Toastr -->
     <script src="{{ URL::to('assets/js/plugins/toastr/toastr.min.js') }}"></script>
 
     <!-- My Custom js -->
     <script src="{{ URL::to('assets/js/custom_script.js') }}"></script>
-    
+
     @yield('js_script')
 </body>
 </html>

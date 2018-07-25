@@ -49,7 +49,7 @@ class SchoolYearController extends Controller
       $latestSchoolYear = SchoolYear::where('year',SchoolYear::max('year'))
                                     ->first();
 
-      if ( strtotime($latestSchoolYear->end) < strtotime(date('Y-m-d')) ) {
+      if ( strtotime($latestSchoolYear->end) > strtotime(date('Y-m-d')) ) {
         $year = $latestSchoolYear->year + 1;
 
         $sy = new SchoolYear([
@@ -127,7 +127,7 @@ class SchoolYearController extends Controller
     * View School Details
     * @return Illuminate\Http\Response
     **/
-    public function syProfile($year) 
+    public function syProfile($year)
     {
       $sy = $this->mySchool()
                  ->school_years
@@ -139,7 +139,7 @@ class SchoolYearController extends Controller
 
       $schoolYearLevels = $sy->school_year_levels()->oldest('id')->get();
 
-      
+
       return response()->view('sy.profile',[
         'sy' => $sy,
         'schoolYearLevels' => $schoolYearLevels,
@@ -148,14 +148,14 @@ class SchoolYearController extends Controller
         'levels' => $this->mySchool()->levels,
         'fees' => $this->mySchool()->fees,
       ]);
-      
+
     }
 
     /**
     * Return table view.
     * @return \Illuminate\Http\Response
     */
-    public function syStudentTable(Request $req, $year) 
+    public function syStudentTable(Request $req, $year)
     {
       $search_key = '%'.$req->input('search_key').'%';
       $show_row = $req->input('show_row');
@@ -175,10 +175,10 @@ class SchoolYearController extends Controller
       $school_year = [ 'year', '=', $req->input('school_year') ];
       $conditions[] = $school_year;
 
-      $level_id = ( $req->input('level_id') ) 
+      $level_id = ( $req->input('level_id') )
                       ? $conditions[] = [ 'school_year_level_id', '=', $req->input('level_id') ] : '';
 
-      $section_id = ( $req->input('section_id') ) 
+      $section_id = ( $req->input('section_id') )
                       ? $conditions[] = [ 'school_year_level_section_id', '=', $req->input('section_id') ] : '';
 
       $students = \App\StudentProgress::
@@ -214,7 +214,7 @@ class SchoolYearController extends Controller
 
     /** Master List */
     public function syMasterList(Request $req)
-    { 
+    {
         $school = $this->mySchool();
 
         $data = $req->input('data');
@@ -254,7 +254,7 @@ class SchoolYearController extends Controller
           }
         }
 
-        return response()->view('sy.masterlist',[ 
+        return response()->view('sy.masterlist',[
             'action' => $action,
             'dataList' => $dataList,
             'school' => $school,

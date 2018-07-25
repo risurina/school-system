@@ -5,27 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-Relation::morphMap([ 
-    'student' => 'App\Student',
-    'employee' => 'App\Employee',
-]);
-
 class Log extends Model
 {
-    protected $fillable = [ 'dateTime' ];
+    protected $dates = [ 'dateTime' ];
+
+    protected $fillable = [ 'dateTime', 'card_id_no', 'id_id' ];
 
     public $timestamps = '';
 
-    public function logtable()
+    public function id()
     {
-        return $this->morphto();
-    }
-
-    public function details()
-    {
-    	if ($this->attributes['logtable_type'] == 'student') {
-    		return Student::find($this->attributes['logtable_id']);
-    	}
-    	return Employee::find($this->attributes['logtable_id']);
+    	return $this->belongsTo('App\Id');
     }
 }

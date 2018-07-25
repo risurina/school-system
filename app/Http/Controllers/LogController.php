@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator as URL;
 use App\Log;
-use App\Student;
-use App\Employee;
+use App\Id;
 use App\SmsNotification as SMS;
 
 class LogController extends Controller
-{   
+{
     public function __construct()
     {
         $this->middleware('auth',['only' => '']);
@@ -19,63 +18,61 @@ class LogController extends Controller
 
     public $accessPoint = '$2y$10$5S66IceaUmDrxJYd4dDY2e7bmu7hZtlfQXX6MgUcZzN5aooQebi32';
 
-    public function create( $rfcard_id, $accessPoint )
+    public function create( $card_id_no, $accessPoint )
     {
     	if ( $this->accessPoint != $accessPoint ) {
-	    	return response()->json([
-	    		'errors' => 'access_point'
-	    	]);
+	    	return response()->json([ 'errors' => 'Access point not valid!' ]);
     	}
 
-    	# check if rfcard exist to student and employee
     	$details = '';
-    	$student = StudentProgress::where( 'rfcard_id', $rfcard_id )->first();
-    	$employee = Employee::where( 'rfcard_id', $rfcard_id )->first();
+        $id = Id::where( 'card_id_no', $card_id_no )->first();
 
-        $isStudent = true;
-        $level = '';
-        $section = '';
-        $adviser = '';
-        $cellNumber = '';
+        if(!$id) {
+    		return response()->json([ 'errors' => 'Your card was invalid or not registered!' ]);
+        }
+        /* Get Profile pic */
+        $profile_pic = $id->school->code . "/" . $id->year_level. "/" . $id->id . '.jpg';
 
-    	if ($employee != null) {
-            $name = $employee->fullname;
-            $cellNumber = $employee->mobileNo;
-            $isStudent = false;
-    	}
+        # Insert Log
+        $id_logs = $id->logs();
+        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no ]);
+        $log->save();
 
-    	if ( $student != null ) {
-            $name = $student->student->fullname;
-            $level = $student->level;
-            $section = $student->section;
-            $adviser = $student->adviser;
-            $cellNumber = $student->mobileNo;
-    	}
+        $id_logs = $id_logs->whereDate('dateTime',date('Y-m-d', strtotime( $log->dateTime ) ))->count();
+        $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT' ;
+        $logTime = date('h:i:s A', strtotime( $log->dateTime ) );
+        $logDate = date('D - M d, Y', strtotime( $log->dateTime ) );
 
-    	if ( $student != null || $employee != null ) {
-    		$log = new Log();
-	    	$log->rfcard_id = $rfcard_id;
-	    	$log->save();
+        $message =  $id->full_name . " has logged ".$logType." at " . $logDate . " " . $logTime;
+        $message .= ".\n\nThis is system generated.\nPlease don't reply. Thank you.";
 
-            $thisLog = Log::find( $log->id );
+        # Insert SMS
+        $smsNotif = '';
+        if($id->phone_number) {
+            $smsNotif = new SMS([
+                'message' => $message,
+                'number' => $id->phone_number,
+                'isSend' => false,
+                'isLog' => True
+            ]);
 
-            $resp = [
-            'isStudent' => $isStudent,
-            'log' => date('h:i:s A', strtotime( $thisLog->dateTime ) ),
-            'name' => $name,
-            'rfcard_id' => $rfcard_id,
-            'level' => $level,
-            'section' => $section,
-            'adviser' => $adviser,
-            'cellNumber' => $cellNumber
-        ];
-    	} else {
-    		return response()->json([
-	    		'errors' => 'card_not_exist'
-	    	]);
-    	}
+            if(strlen($smsNotif->number ) != 11) {
+                $smsNotif = new SMS([
+                    'message' => $id->full_name . ' ' . $id->year_level . ' phone number was invalid.',
+                    'number' => '09322790056',
+                    'isSend' => false,
+                ]);
+            }
+            $smsNotif->save();
+        }
 
-    	return response()->json( $resp );
+
+    	return response()->json( [
+            'type' => $id->type,
+            'name' => $id->full_name,
+            'year_level_position' => $id->year_level_position,
+            'profile_pic' => $profile_pic
+         ]);
     }
 
     public function fingerprintLogcreate($type, $id , $accessPoint)
@@ -122,7 +119,7 @@ class LogController extends Controller
                     $hasProfilePic = true;
                      $imageUrl = url("/public/storage/profile/student/2017/" . $id  .".jpg");
                 }
-                
+
                 break;
             case 'employee':
                 $employee = Employee::find($id);
@@ -163,8 +160,8 @@ class LogController extends Controller
 
         $message =  $name . " has logged ".$logType." at " . $logDate . " " . $logTime;
         $message .= ".\n\nThis is system generated.\nPlease don't reply. Thank you.";
-        
-        
+
+
         return response()->json([
             'type ' => $type,
             'name' => $name,

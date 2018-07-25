@@ -4,7 +4,8 @@
             <li class="nav-header">
                 <div class="dropdown profile-element text-center">
                     <span>
-                        <img alt="image" class="img-circle" src="{{ URL::to('storage/school/logo.png') }}"
+                        <img alt="image" class="img-circle"
+                                src="{{ URL::to('storage/school/'. ((session('school_id')) ? \App\School::find( session('school_id') )->code : \App\School::find( Auth::user()->school_id )->code) .'-logo.png') }}"
                         style="width: 70px; height: 70px; border: 3px white solid;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -27,6 +28,21 @@
                     @endif
                 </div>
             </li>
+
+            <li id="sidemenu_id">
+                <a href="{{ route('id.index') }}">
+                    <i class="fa fa-th-large"></i><span class="nav-label">Information</span>
+                </a>
+            </li>
+
+            <li id="attendance_settings">
+                <a href="{{ route('attendance.index') }}">
+                    <i class="fa fa-calendar-check-o"></i><span class="nav-label">Attendance</span>
+                </a>
+            </li>
+
+            <!-- Hide
+
             <li id="sidemenu_dashboard">
                 <a href="{{ route('index') }}">
                     <i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
@@ -48,16 +64,14 @@
                     <i class="fa fa-user-o"></i><span class="nav-label">Employee</span>
                 </a>
             </li>
-            <li id="attendance_settings">
-                <a href="{{ route('attendance.index') }}">
-                    <i class="fa fa-calendar-check-o"></i><span class="nav-label">Attendance</span>
-                </a>
-            </li>
             <li id="textbrigade_settings">
                 <a href="{{ route('textbrigade.index') }}">
                     <i class="fa fa-envelope"></i><span class="nav-label">Text Brigade</span>
                 </a>
             </li>
+
+            -->
+
             <li id="sidemenu_settings">
                 <a href="{{ route('setting.index') }}">
                     <i class="fa fa-cogs"></i><span class="nav-label">Settings</span>

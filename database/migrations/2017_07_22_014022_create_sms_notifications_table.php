@@ -17,7 +17,7 @@ class CreateSmsNotificationsTable extends Migration
             $table->string('message');
             $table->string('number')->default('9322790056');
             $table->boolean('isSend')->default(0);
-		  $table->boolean('isLog')->default(0);
+		    $table->boolean('isLog')->default(0);
             $table->timestamps();
             $table->increments('id');
         });

@@ -25,7 +25,7 @@
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         <a class="close-link"><i class="fa fa-times"></i></a>
 
-                       
+
                     </div>
 
                     <div>
@@ -36,37 +36,37 @@
                             <i class="fa fa-search"></i>
                             Search
                         </a>
-    
+
 
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                        
-                        <input type="date" 
-                            class="form-control input-sm pull-right" 
-                            name="dateTo" 
-                            value="{{ ($dateTo) ? $dateTo : date('Y-m-d') }}" 
+
+                        <input type="date"
+                            class="form-control input-sm pull-right"
+                            name="dateTo"
+                            value="{{ ($dateTo) ? $dateTo : date('Y-m-d') }}"
                             style="margin-top:-5px; width: 17%">
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                         <span class="pull-right">Date To : </span>
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 
-                        <input type="date" 
-                            class="form-control input-sm pull-right" 
-                            name="dateFrom" 
-                            value="{{ ($dateFrom) ? $dateFrom : date('Y-m-1') }}" 
+                        <input type="date"
+                            class="form-control input-sm pull-right"
+                            name="dateFrom"
+                            value="{{ ($dateFrom) ? $dateFrom : date('Y-m-1') }}"
                             style="margin-top:-5px; width: 17%">
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                        <span class="pull-right">Date From : </span>  
+                        <span class="pull-right">Date From : </span>
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                         <!-- End Date Range -->
-                        
-                        <select class="form-control input-sm pull-right" 
-                                name="type" 
+
+                        <select class="form-control input-sm pull-right"
+                                name="type"
                                 style="margin-top:-5px; width: 12%">
-                            <option value="employee" >Employee</option>
-                            <option value="student" {{ ($type == 'student') ? 'selected' : '' }}>Student</option>
+                            <option value="STAFF" >STAFF</option>
+                            <option value="STUDENT" {{ ($type == 'STUDENT') ? 'selected' : '' }}>STUDENT</option>
                         </select>
                         <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                        <span class="pull-right">Type : </span>  
+                        <span class="pull-right">Type : </span>
                         </form>
                     </div>
                 </div>
@@ -88,13 +88,13 @@
                                         <tr>
                                             <td class="text-center">{{ $logCount + 1 }}</td>
                                             <td>
-                                              {{ $log['log']->details()->fullName }}
+                                              {{ $log['log']->id()->first()->full_name }}
                                             </td>
 
                                             <td class="">
                                                 <a onclick="showLogs(
                                                                 '{{ collect($log['allLogs'])->toJson() }}',
-                                                                '{{ $log['log']->details()->fullName }}',
+                                                                '{{ $log['log']->id }}',
                                                                 '{{ date('M d, Y', strtotime($log['date'])) }}'
                                                             )">
                                                     {{ date('M d, Y', strtotime($log['date'])) }}
@@ -119,6 +119,7 @@
                               @endif
                             </tbody>
                         </table>
+                        <small>Click date to see logs!</small>
                     </div>
                 </div>
                 <!-- /.ibox-content -->
@@ -181,7 +182,7 @@
 
 @section('js_script')
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 /** Highlight Sidebard **/
 $('#attendance_settings').addClass('active');
 $('title').text('SIS | Attendance');
