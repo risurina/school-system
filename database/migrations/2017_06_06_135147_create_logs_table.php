@@ -16,7 +16,7 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->string('card_id_no');
             $table->integer('id_id');
-
+            $table->string('log_type')->nullable();
             $table->increments('id');
             $table->dateTime('dateTime')->default(DB::raw('CURRENT_TIMESTAMP'));
         });

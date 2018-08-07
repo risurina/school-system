@@ -14,14 +14,14 @@ class SchoolYearTableSeeder extends Seeder
     	$school = \App\School::find(1);
 
         $schoolYear = new \App\SchoolYear([
-        	'year' => '2017',
-            'code' => '201718',
-        	'start' => '2017-06-05',
-        	'end' => '2018-02-28',
-            'firstGrading' => '2017-08-01',
-            'secondGrading' => '2017-10-02',
-            'thirdGrading' => '2017-12-02',
-            'fourthGrading' => '2018-03-02',
+        	'year' => '2018',
+            'code' => '201819',
+        	'start' => '2018-06-05',
+        	'end' => '2019-02-28',
+            'firstGrading' => '2018-08-01',
+            'secondGrading' => '2018-10-02',
+            'thirdGrading' => '2018-12-02',
+            'fourthGrading' => '2019-03-02',
             'monthlyExam' => '10',
             'monthlyDue' => '05',
         ]);

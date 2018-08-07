@@ -18,7 +18,7 @@ class LogController extends Controller
 
     public $accessPoint = '$2y$10$5S66IceaUmDrxJYd4dDY2e7bmu7hZtlfQXX6MgUcZzN5aooQebi32';
 
-    public function create( $card_id_no, $accessPoint )
+    public function create( Request $request, $card_id_no, $accessPoint )
     {
     	if ( $this->accessPoint != $accessPoint ) {
 	    	return response()->json([ 'errors' => 'Access point not valid!' ]);
@@ -35,11 +35,17 @@ class LogController extends Controller
 
         # Insert Log
         $id_logs = $id->logs();
-        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no, 'dateTime' => \Carbon\Carbon::now() ]);
+        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no, 'log_type' => $request->query('log_type'), 'dateTime' => \Carbon\Carbon::now() ]);
         $log->save();
 
         $id_logs = $id_logs->whereDate('dateTime',date('Y-m-d', strtotime( $log->dateTime ) ))->count();
-        $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT' ;
+
+        if($request->query('log_type')) {
+            $logType = $request->query('log_type');
+        }else{
+            $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT' ;
+        }
+
         $logTime = date('h:i:s A', strtotime( $log->dateTime ) );
         $logDate = date('D - M d, Y', strtotime( $log->dateTime ) );
 
@@ -65,7 +71,6 @@ class LogController extends Controller
             }
             $smsNotif->save();
         }
-
 
     	return response()->json( [
             'type' => $id->type,

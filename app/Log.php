@@ -9,7 +9,7 @@ class Log extends Model
 {
     protected $dates = [ 'dateTime' ];
 
-    protected $fillable = [ 'dateTime', 'card_id_no', 'id_id' ];
+    protected $fillable = [ 'dateTime', 'card_id_no', 'id_id', 'log_type' ];
 
     public $timestamps = '';
 
