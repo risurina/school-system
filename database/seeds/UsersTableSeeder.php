@@ -12,8 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $systemAdmin = \App\Role::where('name','systemAdmin')->first();
-        $schoolAdmin = \App\Role::where('name','schoolAdmin')->first();
+        $systemAdmin = \App\Role::where('name', 'systemAdmin')->first();
+        $schoolAdmin = \App\Role::where('name', 'schoolAdmin')->first();
 
         $school = \App\School::find(1)->first();
 
@@ -32,9 +32,10 @@ class UsersTableSeeder extends Seeder
         $sudoAdmin->roles()->attach($systemAdmin);
 
         $admin = User::create([
-            'name' => 'CLASJ Admin',
-            'email' => 'clasj.admin@gmail.com',
-            'password' => bcrypt('clasj-admin'),
+            'school_id' => 1,
+            'name' => 'ADLS Admin',
+            'email' => 'adls.admin@gmail.com',
+            'password' => bcrypt('adls-admin'),
         ]);
         $school->users()->save($admin);
         $admin->roles()->attach($schoolAdmin);

@@ -165,7 +165,7 @@
 			class="id-picture-first">
 
 		<span class="id-lrn-first">
-			{{ ($data[0]->lrn) ? 'LRN : ' . $data[0]->lrn : '' }}
+			{{ ($data[0]->lrn) ? 'LRN : ' . $data[0]->lrn : '' }}asdas
 		</span>
 
 		<span class="id-name-first"  style="font-size:{{ ( strlen($data[0]->full_name) > 21 ) ? '7pt;' : '9pt;'}}">

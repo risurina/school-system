@@ -155,7 +155,7 @@ Route::group(['prefix' => 'school/student'], function() {
       'uses' => 'StudentController@studentUpdate',
       'as' => 'student.update'
     ]);
-    Route::post('/delete', [
+    Route::get('/delete/{id}', [
       'uses' => 'StudentController@studentDelete',
       'as' => 'student.delete'
     ]);
@@ -453,6 +453,10 @@ Route::group(['prefix' => 'school/id'], function() {
   Route::post('/update',[
     'uses' => 'IdController@update',
     'as' => 'id.update'
+  ]);
+  Route::get('/update/status/{id}/{status}',[
+    'uses' => 'IdController@updateStatus',
+    'as' => 'id.updateStatus'
   ]);
   Route::post('/delete', [
     'uses' => 'IdController@delete',

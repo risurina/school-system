@@ -1,4 +1,3 @@
-
 <style type="text/css">
 	.id-page {
 		background: white;
@@ -16,11 +15,11 @@
 	}
 
 	.id-layout-first {
-		margin-left: 7.37mm;
+		margin-left: 7.4mm;
 	}
 
 	.id-layout-second {
-		margin-left: 3.6mm;
+		margin-left: 3.85mm;
 	}
 
 	.id-picture-first {
@@ -77,11 +76,11 @@
 
 	.id-number-first {
 		font-weight: bold;
-		font-size: 8pt;
+		font-size: 7.5pt;
 		color: red;
 		text-align: center;
 		position: absolute;
-		width: 47.3mm;
+		width: 52.3mm;
 		margin-top: 171.8mm;
 		margin-left: -52.45mm;
 	}
@@ -122,13 +121,13 @@
 
 	.id-number-second {
 		font-weight: bold;
-		font-size: 8pt;
+		font-size: 7.5pt;
 		color: red;
 		text-align: center;
 		position: absolute;
-		width: 47.3mm;
+		width: 52.3mm;
 		margin-top: 171.8mm;
-		margin-left: -51.1mm;
+		margin-left: -54.1mm;
 	}
 
 	.idback-first {
