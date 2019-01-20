@@ -8,6 +8,7 @@ use Illuminate\Routing\UrlGenerator as URL;
 use App\Log;
 use App\Id;
 use App\SmsNotification as SMS;
+use Carbon\Carbon;
 
 class LogController extends Controller
 {
@@ -23,25 +24,58 @@ class LogController extends Controller
         if ($this->accessPoint != $accessPoint) {
             return response()->json(['errors' => 'Access point not valid!']);
         }
-
+        $now = Carbon::now();
+        $log_type = $request->query('log_type');
         $details = '';
         $id = Id::where('card_id_no', $card_id_no)->first();
-
+        
+        /* Verify ID */
         if (!$id) {
-            return response()->json(['errors' => 'Your card was invalid or not registered!']);
+            return response()->json([
+                'errors' => 'Your card was invalid or not registered!'
+            ]);
         }
+
         /* Get Profile pic */
         $profile_pic = $id->school->code . "/" . $id->year_level . "/" . $id->id . '.jpg';
 
         # Insert Log
         $id_logs = $id->logs();
-        $log = new Log(['id_id' => $id->id, 'card_id_no' => $card_id_no, 'log_type' => $request->query('log_type'), 'dateTime' => \Carbon\Carbon::now()]);
+        $log = new Log([
+            'id_id' => $id->id,
+            'card_id_no' => $card_id_no,
+            'log_type' => $log_type,
+            'dateTime' => $now
+        ]);
+
+        /*  Check if already log for today */
+        $log_interval_allowed = config('attendance-log.log_interval_allowed');
+        if ($log_interval_allowed) {
+            $today_log = Log::where('id_id', $id->id)
+                ->where('log_type', $log_type)
+                ->whereDate('dateTime', $log->dateTime->format('Y-m-d'))
+                ->first();
+
+            if ($today_log && $id->type == 'STUDENT') {
+                $time_diff = $now->diffInMinutes($today_log->dateTime);
+
+                if ($time_diff >= $log_interval_allowed) {
+                    $today_log_message = "You have already log " . $log_type . " today ";
+                    $today_log_message .= $today_log->dateTime->format('H:i A') . " .";
+                    return response()->json([
+                        'errors' => $today_log_message,
+                    ]);
+                }
+            }
+        }
+        /*  End Check if already log for today */
+
         $log->save();
 
         $id_logs = $id_logs->whereDate('dateTime', date('Y-m-d', strtotime($log->dateTime)))->count();
 
-        if ($request->query('log_type')) {
-            $logType = $request->query('log_type');
+        if ($log_type) {
+            $logType = $log_type;
         } else {
             $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT';
         }
@@ -180,7 +214,6 @@ class LogController extends Controller
             'message' => $message,
             'id' => $id,
         ]);
-
     }
 
     private function isLogIn($numberOfLog)
