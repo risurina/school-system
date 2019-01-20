@@ -9,29 +9,30 @@ class StudentProgress extends Model
 {
 
     protected $appends = [
-        'year','level','section','adviser','time','student_sy_id',
-        'last_year_attended','total_fee','total_payment','total_balance'
+        'year', 'level', 'section', 'adviser', 'time', 'student_sy_id',
+        'last_year_attended', 'total_fee', 'total_payment', 'total_balance'
     ];
 
     public function student()
     {
-    	return $this->belongsTo('App\Student');
+        return $this->belongsTo('App\Student');
     }
 
     public function school_year_level_section()
     {
-    	return $this->belongsTo('App\SchoolYearLevelSection');
+        return $this->belongsTo('App\SchoolYearLevelSection');
     }
 
     public function student_fees()
     {
-    	return $this->hasMany('App\StudentFee');
+        return $this->hasMany('App\StudentFee');
     }
 
     public function student_payments()
     {
         return $this->hasManyThrough(
-            'App\StudentPayment','App\StudentFee'
+            'App\StudentPayment',
+            'App\StudentFee'
         );
     }
 
@@ -39,7 +40,7 @@ class StudentProgress extends Model
     public function getStudentSyIdAttribute()
     {
         $student_sy_id = $this->school_year_level_section->year_code;
-        $student_sy_id .= '-'. $this->attributes['syStudentID'];
+        $student_sy_id .= '-' . $this->attributes['syStudentID'];
         return $student_sy_id;
     }
 
@@ -70,11 +71,10 @@ class StudentProgress extends Model
 
     public function getLastYearAttendedAttribute()
     {
-        $progress = StudentProgress::
-                    where('student_id', $this->attributes['student_id'])
-                    ->where( 'school_year_level_section_id', '<', $this->attributes['school_year_level_section_id'] )
-                    ->orderBy('id','desc')
-                    ->first();
+        $progress = StudentProgress::where('student_id', $this->attributes['student_id'])
+            ->where('school_year_level_section_id', '<', $this->attributes['school_year_level_section_id'])
+            ->orderBy('id', 'desc')
+            ->first();
         if (!$progress) {
             return 'NEW';
         }
@@ -82,7 +82,7 @@ class StudentProgress extends Model
     }
 
     # get total figure from student_fee
-    private function totalFigure($figure ='') 
+    private function totalFigure($figure = '')
     {
         $student_fees = $this->student_fees;
         $totalFee = 0;
@@ -96,9 +96,15 @@ class StudentProgress extends Model
         }
 
         switch ($figure) {
-            case 'fee': return $totalFee;  break;
-            case 'payment': return $totalPayment; break;
-            default: return $totalBalance; break;
+            case 'fee':
+                return $totalFee;
+                break;
+            case 'payment':
+                return $totalPayment;
+                break;
+            default:
+                return $totalBalance;
+                break;
         }
     }
 

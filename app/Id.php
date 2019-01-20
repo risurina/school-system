@@ -40,9 +40,9 @@ class Id extends Model
     }
 
     public function school()
-   	{
-   		return $this->belongsTo('App\School');
-   	}
+    {
+        return $this->belongsTo('App\School');
+    }
 
     public function getFullNameAttribute()
     {
@@ -50,23 +50,24 @@ class Id extends Model
         $first_name = $this->attributes['first_name'];
         $middle_name = $this->attributes['middle_name'];
 
-        if($middle_name) {
+        if ($middle_name) {
             $middle_name = explode(' ', $middle_name);
 
             $mid_name = '';
             foreach ($middle_name as $middle) {
-                if(isset($middle[0])) {
+                if (isset($middle[0])) {
                     $mid_name .= $middle[0];
                 }
             }
             $middle_name = ($mid_name != '') ? $mid_name . '.' : '';
         }
 
-        $full_name = $first_name  . ' ' . $middle_name . ' ' . $last_name;
+        $full_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
         return ucwords($full_name);
     }
 
-    public function getidLayoutAttribute() {
+    public function getidLayoutAttribute()
+    {
         $layout = 'SHS';
 
         switch ($this->attributes['year_level']) {
@@ -92,11 +93,12 @@ class Id extends Model
         return $layout;
     }
 
-    public function getYearLevelPositionAttribute() {
+    public function getYearLevelPositionAttribute()
+    {
         $year_level_position = $this->attributes['year_level'];
-        if($this->attributes['section']) {
+        if ($this->attributes['section']) {
             $year_level_position .= ' - ' . $this->attributes['section'];
         }
-        return  $year_level_position;
+        return $year_level_position;
     }
 }

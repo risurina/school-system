@@ -7,38 +7,40 @@ use Illuminate\Http\Request;
 
 class LevelController extends Controller
 {
-    public function lvlTable(Request $req) {
-      $levels = $this->mySchool()
-                    ->levels()
-                    ->where('level','like','%'.$req->input('lvlSearch_key').'%')
-                    ->orderBy('id')
-                    ->paginate(5);
+    public function lvlTable(Request $req)
+    {
+        $levels = $this->mySchool()
+            ->levels()
+            ->where('level', 'like', '%' . $req->input('lvlSearch_key') . '%')
+            ->orderBy('id')
+            ->paginate(5);
 
-      return response()->view('level.table',['levels' => $levels]);
+        return response()->view('level.table', ['levels' => $levels]);
     }
 
     /**
-    * Level Create function
-    * @param Request $req 
-    * @return json
-    **/
-    public function lvlCreate(Request $req) {
-      /*
-      $validate_array = [ 
+     * Level Create function
+     * @param Request $req 
+     * @return json
+     **/
+    public function lvlCreate(Request $req)
+    {
+        /*
+        $validate_array = [
             'code' => 'required|unique:levels',
             'level' => 'required|unique:levels',
-      ];
-      */
-      //$this->validate($req,$validate_array);
+        ];
+         */
+        //$this->validate($req,$validate_array);
 
-      $level = new Level([
-        'level' => $req->input('level'),
-        'code' => $req->input('code'),
-      ]);
+        $level = new Level([
+            'level' => $req->input('level'),
+            'code' => $req->input('code'),
+        ]);
 
-      $this->mySchool()->levels()->save($level);
+        $this->mySchool()->levels()->save($level);
 
-      return response()->json($level);
+        return response()->json($level);
     }
 
     /**
@@ -46,20 +48,20 @@ class LevelController extends Controller
      * @param  Request $req
      * @return json
      */
-    public function lvlUpdate(Request  $req)
+    public function lvlUpdate(Request $req)
     {
-      $validate_array = [ 
+        $validate_array = [
             'code' => 'required',
             'level' => 'required',
             'id' => 'required|integer',
-      ];
-      $this->validate($req,$validate_array);
+        ];
+        $this->validate($req, $validate_array);
 
-      $lvl = level::find($req->input('id'));
-      $lvl->code = $req->input('code');
-      $lvl->level = $req->input('level');
-      $this->mySchool()->levels()->save($lvl);
+        $lvl = level::find($req->input('id'));
+        $lvl->code = $req->input('code');
+        $lvl->level = $req->input('level');
+        $this->mySchool()->levels()->save($lvl);
 
-      return response()->json($lvl);
+        return response()->json($lvl);
     }
 }

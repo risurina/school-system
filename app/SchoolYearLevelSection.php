@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class SchoolYearLevelSection extends Model
 {
-	protected $fillable = [
-		'section','schedule_id'
-	];
+    protected $fillable = [
+        'section', 'schedule_id'
+    ];
 
     protected $appends = [
-        'schedule_time', 'adviser','year','year_code','level','total_student'
+        'schedule_time', 'adviser', 'year', 'year_code', 'level', 'total_student'
     ];
 
     public function school_year_level()
     {
-    	return $this->belongsTo('App\SchoolYearLevel');
+        return $this->belongsTo('App\SchoolYearLevel');
     }
 
     public function student_progresses()
     {
-    	return $this->hasMany('App\StudentProgress');
+        return $this->hasMany('App\StudentProgress');
     }
 
     public function employee()

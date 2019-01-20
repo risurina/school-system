@@ -12,10 +12,11 @@ class SmsNotification extends Model
         'message', 'number', 'isSend', 'isLog'
     ];
 
-    public function getNumberAttribute() {
+    public function getNumberAttribute()
+    {
         $number = $this->attributes['number'];
 
-        if($number[0] != '0') {
+        if ($number[0] != '0') {
             return '0' . $number;
         }
         return $number;

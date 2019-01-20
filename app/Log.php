@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Log extends Model
 {
-    protected $dates = [ 'dateTime' ];
+    protected $dates = ['dateTime'];
 
-    protected $fillable = [ 'dateTime', 'card_id_no', 'id_id', 'log_type' ];
+    protected $fillable = ['dateTime', 'card_id_no', 'id_id', 'log_type'];
 
     public $timestamps = '';
 
     public function id()
     {
-    	return $this->belongsTo('App\Id');
+        return $this->belongsTo('App\Id');
     }
 }

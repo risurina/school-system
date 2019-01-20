@@ -13,56 +13,56 @@ class LogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['only' => '']);
+        $this->middleware('auth', ['only' => '']);
     }
 
     public $accessPoint = '$2y$10$5S66IceaUmDrxJYd4dDY2e7bmu7hZtlfQXX6MgUcZzN5aooQebi32';
 
-    public function create( Request $request, $card_id_no, $accessPoint )
+    public function create(Request $request, $card_id_no, $accessPoint)
     {
-    	if ( $this->accessPoint != $accessPoint ) {
-	    	return response()->json([ 'errors' => 'Access point not valid!' ]);
-    	}
+        if ($this->accessPoint != $accessPoint) {
+            return response()->json(['errors' => 'Access point not valid!']);
+        }
 
-    	$details = '';
-        $id = Id::where( 'card_id_no', $card_id_no )->first();
+        $details = '';
+        $id = Id::where('card_id_no', $card_id_no)->first();
 
-        if(!$id) {
-    		return response()->json([ 'errors' => 'Your card was invalid or not registered!' ]);
+        if (!$id) {
+            return response()->json(['errors' => 'Your card was invalid or not registered!']);
         }
         /* Get Profile pic */
-        $profile_pic = $id->school->code . "/" . $id->year_level. "/" . $id->id . '.jpg';
+        $profile_pic = $id->school->code . "/" . $id->year_level . "/" . $id->id . '.jpg';
 
         # Insert Log
         $id_logs = $id->logs();
-        $log = new Log([ 'id_id' => $id->id, 'card_id_no' => $card_id_no, 'log_type' => $request->query('log_type'), 'dateTime' => \Carbon\Carbon::now() ]);
+        $log = new Log(['id_id' => $id->id, 'card_id_no' => $card_id_no, 'log_type' => $request->query('log_type'), 'dateTime' => \Carbon\Carbon::now()]);
         $log->save();
 
-        $id_logs = $id_logs->whereDate('dateTime',date('Y-m-d', strtotime( $log->dateTime ) ))->count();
+        $id_logs = $id_logs->whereDate('dateTime', date('Y-m-d', strtotime($log->dateTime)))->count();
 
-        if($request->query('log_type')) {
+        if ($request->query('log_type')) {
             $logType = $request->query('log_type');
-        }else{
-            $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT' ;
+        } else {
+            $logType = ($this->isLogIn($id_logs)) ? 'IN' : 'OUT';
         }
 
-        $logTime = date('h:i:s A', strtotime( $log->dateTime ) );
-        $logDate = date('D - M d, Y', strtotime( $log->dateTime ) );
+        $logTime = date('h:i:s A', strtotime($log->dateTime));
+        $logDate = date('D - M d, Y', strtotime($log->dateTime));
 
-        $message =  $id->full_name . " has logged ".$logType." at " . $logDate . " " . $logTime;
+        $message = $id->full_name . " has logged " . $logType . " at " . $logDate . " " . $logTime;
         $message .= ".\n\nThis is system generated.\nPlease don't reply. Thank you.";
 
         # Insert SMS
         $smsNotif = '';
-        if($id->phone_number) {
+        if ($id->phone_number) {
             $smsNotif = new SMS([
                 'message' => $message,
                 'number' => $id->phone_number,
                 'isSend' => false,
-                'isLog' => True
+                'isLog' => true
             ]);
 
-            if(strlen($smsNotif->number ) != 11) {
+            if (strlen($smsNotif->number) != 11) {
                 $smsNotif = new SMS([
                     'message' => $id->full_name . ' ' . $id->year_level . ' phone number was invalid.',
                     'number' => '09322790056',
@@ -72,17 +72,17 @@ class LogController extends Controller
             $smsNotif->save();
         }
 
-    	return response()->json( [
+        return response()->json([
             'type' => $id->type,
             'name' => $id->full_name,
             'year_level_position' => $id->year_level_position,
             'profile_pic' => $profile_pic
-         ]);
+        ]);
     }
 
-    public function fingerprintLogcreate($type, $id , $accessPoint)
+    public function fingerprintLogcreate($type, $id, $accessPoint)
     {
-        if ( $this->accessPoint != $accessPoint ) {
+        if ($this->accessPoint != $accessPoint) {
             return response()->json([
                 'errors' => 'access_point'
             ]);
@@ -104,25 +104,25 @@ class LogController extends Controller
             case 'student':
                 $student = Student::find($id);
                 $latestProgress = $student->student_progresses()
-                                          ->whereNotNull('student_id')
-                                          ->orderBy('id', 'desc')
-                                          ->first();
+                    ->whereNotNull('student_id')
+                    ->orderBy('id', 'desc')
+                    ->first();
 
                 $logCount = $student->logs();
 
-                $type  = "student";
+                $type = "student";
                 $name = $student->fullname;
                 $id = $student->id;
 
                 if ($latestProgress) {
                     $year = $latestProgress->year;
-                    $lvlSection = $latestProgress->level . ' - ' . $latestProgress->section ;
+                    $lvlSection = $latestProgress->level . ' - ' . $latestProgress->section;
                     $cellNumber = $latestProgress->mobileNo;
                 }
 
-                if (file_exists( public_path() . "/storage/profile/student/2017/" . $id  .".jpg" )) {
+                if (file_exists(public_path() . "/storage/profile/student/2017/" . $id . ".jpg")) {
                     $hasProfilePic = true;
-                     $imageUrl = url("/public/storage/profile/student/2017/" . $id  .".jpg");
+                    $imageUrl = url("/public/storage/profile/student/2017/" . $id . ".jpg");
                 }
 
                 break;
@@ -137,17 +137,17 @@ class LogController extends Controller
                 $cellNumber = $employee->mobileNo;
                 $id = $employee->id;
 
-                if (file_exists( public_path() . "/storage/profile/employee/" . $id .".jpg" )) {
+                if (file_exists(public_path() . "/storage/profile/employee/" . $id . ".jpg")) {
                     $hasProfilePic = true;
-                     $imageUrl = url("/public/storage/profile/employee/" . $id  .".jpg");
+                    $imageUrl = url("/public/storage/profile/employee/" . $id . ".jpg");
                 }
 
 
                 break;
             default:
-               return response()->json([
-                'errors' => 'access_point'
-            ]);
+                return response()->json([
+                    'errors' => 'access_point'
+                ]);
                 break;
         }
 
@@ -156,14 +156,14 @@ class LogController extends Controller
         $log->logtable_id = $id;
         $log->logtable_type = $type;
         $log->save();
-        $thisLog = Log::find( $log->id );
+        $thisLog = Log::find($log->id);
 
-        $logCount = $logCount->whereDate('dateTime',date('Y-m-d', strtotime( $thisLog->dateTime ) ))->count();
-        $logType = ($this->isLogIn($logCount)) ? 'IN' : 'OUT' ;
-        $logTime = date('h:i:s A', strtotime( $thisLog->dateTime ) );
-        $logDate = date('D - M d, Y', strtotime( $thisLog->dateTime ) );
+        $logCount = $logCount->whereDate('dateTime', date('Y-m-d', strtotime($thisLog->dateTime)))->count();
+        $logType = ($this->isLogIn($logCount)) ? 'IN' : 'OUT';
+        $logTime = date('h:i:s A', strtotime($thisLog->dateTime));
+        $logDate = date('D - M d, Y', strtotime($thisLog->dateTime));
 
-        $message =  $name . " has logged ".$logType." at " . $logDate . " " . $logTime;
+        $message = $name . " has logged " . $logType . " at " . $logDate . " " . $logTime;
         $message .= ".\n\nThis is system generated.\nPlease don't reply. Thank you.";
 
 
@@ -183,8 +183,9 @@ class LogController extends Controller
 
     }
 
-    private function isLogIn($numberOfLog ){
-        if ( $numberOfLog % 2 == 1) {
+    private function isLogIn($numberOfLog)
+    {
+        if ($numberOfLog % 2 == 1) {
             return true;
         }
         return false;

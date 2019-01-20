@@ -7,24 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     protected $fillable = [
-    	'schedule', 'startTime', 'endTime'
+        'schedule', 'startTime', 'endTime'
     ];
 
-    protected $appends = [ 'time' ];
+    protected $appends = ['time'];
 
     public function school()
     {
-    	return $this->belongsTo('App\School');
+        return $this->belongsTo('App\School');
     }
 
     public function getTimeAttribute()
     {
-    	$time = date('h:i A', strtotime($this->startTime));
-    	$time .= ' to ';
-    	$time .= date('h:i A', strtotime($this->endTime));
+        $time = date('h:i A', strtotime($this->startTime));
+        $time .= ' to ';
+        $time .= date('h:i A', strtotime($this->endTime));
 
-    	return $time;
-                                        
+        return $time;
+
     }
 
 }

@@ -19,17 +19,18 @@ class Controller extends BaseController
     {
         $this->middleware(
             ['auth'],
-            ['except' => 'logs'] );
+            ['except' => 'logs']
+        );
     }
 
     protected function mySchool()
     {
-    	$school_id = '';
-    	if ( Auth::user()->school_id != '') {
-    		$school_id = Auth::user()->school_id;
-    	}else{
-    		$school_id = session( 'school_id' );
-    	}
-    	return School::find( $school_id );
+        $school_id = '';
+        if (Auth::user()->school_id != '') {
+            $school_id = Auth::user()->school_id;
+        } else {
+            $school_id = session('school_id');
+        }
+        return School::find($school_id);
     }
 }

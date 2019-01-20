@@ -20,16 +20,16 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        if (Auth::user()->school_id == '' && session( 'school_id' ) == false ) {
-            return redirect()->route( 'admin.index' );
+    {
+        if (Auth::user()->school_id == '' && session('school_id') == false) {
+            return redirect()->route('admin.index');
         }
-        return redirect()->route( 'school.index' );
+        return redirect()->route('school.index');
     }
 
     public function admin()
     {
-        session()->forget( 'school_id' );
-        return view( 'admin.index' );
+        session()->forget('school_id');
+        return view('admin.index');
     }
 }

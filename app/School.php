@@ -11,21 +11,21 @@ class School extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'address','tel',
+        'code', 'name', 'address', 'tel',
         'schoolID', 'recognitionNo',
     ];
 
     public function ids()
     {
-    	return $this->hasMany('App\Id');
+        return $this->hasMany('App\Id');
     }
 
     /**
-	* DB relation to users
-    **/
+     * DB relation to users
+     **/
     public function users()
     {
-    	return $this->hasMany('App\User');
+        return $this->hasMany('App\User');
     }
 
     public function school_years()

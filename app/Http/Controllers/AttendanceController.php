@@ -22,16 +22,17 @@ class AttendanceController extends Controller
     private $companyStartHour = '6:00 AM';
     private $companyEndHour = '5:40 PM';
 
-    public function attendanceTable(Request $req) {
+    public function attendanceTable(Request $req)
+    {
         $dateFrom = date('Y-m-d');
         $dateTo = date('Y-m-d', time());
 
         $logs = Log::whereNotNull('id')
                     #->whereBetween('dateTime',[$dateFrom,$dateTo])
-                    ->orderBy('id','DESC')
-                    ->paginate(15);
+            ->orderBy('id', 'DESC')
+            ->paginate(15);
 
-        return response()->view('log.table',['logs' => $logs, 'req' => $req ]);
+        return response()->view('log.table', ['logs' => $logs, 'req' => $req]);
         //return response()->json( $req );
     }
 
@@ -45,25 +46,24 @@ class AttendanceController extends Controller
         $dateTo = (isset($_GET['dateTo'])) ? $_GET['dateTo'] : date('Y-m-d');
         $type = (isset($_GET['type'])) ? $_GET['type'] : 'STAFF';
 
-        $logs = Log::whereDate('dateTime','>=',$dateFrom)
-                    ->whereDate('dateTime','<=',$dateTo)
-                    ->orderBy('id','Asc')
-                    ->get();
+        $logs = Log::whereDate('dateTime', '>=', $dateFrom)
+            ->whereDate('dateTime', '<=', $dateTo)
+            ->orderBy('id', 'Asc')
+            ->get();
 
         $mergeOutput = [];
         $output = [];
         foreach ($logs as $log) {
-            if($log->id()->first()->type == $type) {
-            $mergeOutput[''.'@'.$log->id_id .'@'.date( 'Y-m-d', strtotime($log->dateTime ))]
-                [] = date( 'h:i A', strtotime($log->dateTime));
+            if ($log->id()->first()->type == $type) {
+                $mergeOutput['' . '@' . $log->id_id . '@' . date('Y-m-d', strtotime($log->dateTime))][] = date('h:i A', strtotime($log->dateTime));
             }
         }
 
 
         foreach ($mergeOutput as $detail => $time) {
             $logDetails = explode('@', $detail);
-            $in =  $time[0];
-            $out = (count($time) <= 1) ? '' : $time[count($time) - 1 ];
+            $in = $time[0];
+            $out = (count($time) <= 1) ? '' : $time[count($time) - 1];
             $isLate = (strtotime($this->companyStartHour) < strtotime($in)) ? true : false;
             $earlyOut = (strtotime($this->companyEndHour) > strtotime($out)) ? true : false;
             $output[] = [
@@ -77,13 +77,11 @@ class AttendanceController extends Controller
             ];
         }
 
-        return view('log.index',[
+        return view('log.index', [
             'logs' => $output,
             'dateFrom' => $dateFrom,
             'dateTo' => $dateTo,
             'type' => $type
         ]);
-
-
     }
 }
