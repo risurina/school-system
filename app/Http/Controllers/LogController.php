@@ -56,7 +56,7 @@ class LogController extends Controller
                 ->whereDate('dateTime', $log->dateTime->format('Y-m-d'))
                 ->first();
 
-            if ($today_log && $id->type == 'STUDENT') {
+            if ($today_log && $id->type != 'ADMIN') {
                 $time_diff = $now->diffInMinutes($today_log->dateTime);
 
                 if ($time_diff >= $log_interval_allowed) {

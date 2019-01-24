@@ -21,6 +21,7 @@
                                     >
                                         <option value="STUDENT">STUDENT</option>
                                         <option value="STAFF">STAFF</option>
+                                        <option value="ADMIN">ADMIN</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
