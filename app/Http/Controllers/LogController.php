@@ -49,15 +49,15 @@ class LogController extends Controller
         ]);
 
         /*  Check if already log for today */
-        $log_interval_allowed = config('attendance-log.log_interval_allowed', 2);
+        $log_interval_allowed = config('attendance-log.log_interval_allowed',30);
         if ($log_interval_allowed) {
             $today_log = Log::where('id_id', $id->id)
                 ->where('log_type', $log_type)
                 ->whereDate('dateTime', $log->dateTime->format('Y-m-d'))
                 ->first();
 
-            if ($today_log && $id->type == 'STUDENT') {
-                $time_diff = $now->diffInMinutes($today_log->dateTime);
+            if ($today_log && $id->type != 'ADMIN') {
+                $time_diff = $now->diffInSeconds($today_log->dateTime);
 
                 if ($time_diff >= $log_interval_allowed) {
                     $today_log_message = "You have already log " . $log_type . " today ";
