@@ -97,13 +97,15 @@ class LogController extends Controller
             ]);
 
             if (strlen($smsNotif->number) != 11) {
-                $smsNotif = new SMS([
-                    'message' => $id->full_name . ' ' . $id->year_level . ' phone number was invalid.',
-                    'number' => '09322790056',
-                    'isSend' => false,
-                ]);
+                // $smsNotif = new SMS([
+                //     'message' => $id->full_name . ' ' . $id->year_level . ' phone number was invalid.',
+                //     'number' => '09322790056',
+                //     'isSend' => false,
+                // ]);
+                // $smsNotif->save();
+            } else {
+                $smsNotif->save();
             }
-            $smsNotif->save();
         }
 
         return response()->json([
