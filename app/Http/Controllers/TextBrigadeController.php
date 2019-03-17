@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SmsNotification as SMS;
-use App\StudentProgress;
+use App\Id;
 
 class TextBrigadeController extends Controller
 {
@@ -21,14 +21,14 @@ class TextBrigadeController extends Controller
 
 	    $msg = $req->input( 'message' );
 
-	    $student_progress = StudentProgress::whereNotNull('mobileNo')->get();
+	    $infos = Id::where('type', 'student')->get();
 
-	    foreach ($student_progress as $sp) {
-	    	if ($sp->mobileNo) {
+	    foreach ($infos as $infos) {
+	    	if ($infos->phone_number) {
 			    foreach ($this->device_message($msg) as $mess) {
 			    	$smsNotif = new SMS;
 				    $smsNotif->message = $mess;
-				    $smsNotif->number = $sp->mobileNo;
+				    $smsNotif->number = $infos->phone_number;
 				    $smsNotif->isSend = false;
 				    $smsNotif->save();	
 			    }
