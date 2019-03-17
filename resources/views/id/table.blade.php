@@ -42,7 +42,7 @@
           @if($id->type == "STUDENT")
             <strong>Student ID No</strong> : {{ $id->student_id_no }}
             <br>
-            <strong>RFID #</strong> : {{ $id->card_id_no }}
+            <strong>RFID #</strong> : {{ str_replace('3B8F8001804F0CA0000003060300030000000068-', '****', $id->card_id_no)  }}
           @endif
         </td>
 
