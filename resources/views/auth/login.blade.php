@@ -63,24 +63,14 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-7">
-                       <div class="form-group pull-left">
-                            <div class="checkbox i-checks">
-                                <label>
-                                    <input type="checkbox" 
-                                            name="remember" {{ old('remember') ? 'checked' : '' }}> 
-                                    Remember me?
-                                </label>
-                            </div>
-                       </div>
-                    </div>
 
-                    <div class="col-xs-5">
+                    <div class="col-xs-12">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
                         </div>
                     </div>
 
+                    <!--
                     <div class="col-xs-6">
                         <a class="btn btn-white btn-block" href="{{ route('login.employee') }}">
                             Log as employee
@@ -93,7 +83,6 @@
                         </a>
                     </div>
 
-                    <!--
                     <div class="col-xs-12">
                         <p class="text-muted text-center">
                             <small>Do not have an account?</small>
@@ -105,7 +94,7 @@
         </form>
         
         <p class="m-t">
-            <small>Schoo Information System &copy; 2017</small>
+            <small>Izkul - Attendance System</small>
         </p>
     </div>
 </div>
