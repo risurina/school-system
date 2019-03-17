@@ -50,7 +50,7 @@ class LogController extends Controller
 
         /*  Check if already log for today */
         $log_interval_allowed = config('attendance-log.log_interval_allowed',30);
-        if ($log_interval_allowed) {
+        if (false) {
             $today_log = Log::where('id_id', $id->id)
                 ->where('log_type', $log_type)
                 ->whereDate('dateTime', $log->dateTime->format('Y-m-d'))

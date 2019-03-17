@@ -64,17 +64,18 @@
                     <i class="fa fa-user-o"></i><span class="nav-label">Employee</span>
                 </a>
             </li>
-            <li id="textbrigade_settings">
-                <a href="{{ route('textbrigade.index') }}">
-                    <i class="fa fa-envelope"></i><span class="nav-label">Text Brigade</span>
-                </a>
-            </li>
 
-            -->
 
             <li id="sidemenu_settings">
                 <a href="{{ route('setting.index') }}">
                     <i class="fa fa-cogs"></i><span class="nav-label">Settings</span>
+                </a>
+            </li>
+            -->
+
+            <li id="textbrigade_settings">
+                <a href="{{ route('textbrigade.index') }}">
+                    <i class="fa fa-envelope"></i><span class="nav-label">Text Brigade</span>
                 </a>
             </li>
         </ul>
