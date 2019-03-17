@@ -4,14 +4,18 @@
   @if ($ids->count())
     @foreach ($ids as $id_count => $id)
     <tr>
-        <td>{{ $id->id }}</td>
+        <td>
+          <span class="label label-{{ ($id->type == 'STUDENT') ? 'primary' : 'warning' }}">
+              {{ $id->type }}
+            </span>  
+        </td>
         <td class="project-title">
           <a>{{ $id->fullName }}</a>
-          <span class="label label-{{ ($id->type == 'STUDENT') ? 'primary' : 'warning' }}">
-            {{ $id->type }}
-          </span>
+          
+          @if($id->address || $id->address_two)
           <br>
           <small>{{ $id->address }} | {{ $id->address_two }}</small>
+          @endif
         </td>
 
         <td class="project-people">
@@ -21,7 +25,7 @@
         </td>
 
         <td class="project-title">
-          <strong>LRN</strong> : {{ $id->lrn }}
+          {{ ($id->lrn) ? $id->lrn : '--' }}
         </td>
 
         <td class="project-title">

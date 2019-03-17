@@ -63,11 +63,11 @@
                 <table class="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th></th>
                         <th>Full Name</th>
                         <th>&nbsp;</th>
-                        <th>LRN #</th>
-                        <th>Level \ Position</th>
+                        <th>LRN # / Emp #</th>
+                        <th>Level / Position</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
