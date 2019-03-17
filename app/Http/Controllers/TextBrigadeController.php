@@ -43,7 +43,7 @@ class TextBrigadeController extends Controller
 
    public function device_message($message)
    {	
-   		$message_per_page = 120;
+   		$message_per_page = 100;
         $message_count = strlen($message);
         $has_remainder = $message_count / $message_per_page;
         $message_page = ($message_count - $has_remainder) / $message_per_page ;
@@ -68,7 +68,7 @@ class TextBrigadeController extends Controller
                 if ($start + $end > $message_count) {
                     $end = $message_count - $start;
                 }
-                $output[] =  ($i + 1) . "/" . $message_page . "\r\n" . substr($message, $start, $end) . "     ";
+                $output[] =  ($i + 1) . "/" . $message_page . "\r\n" . substr($message, $start, $end) . "     .";
 
                 $start += $message_per_page;
             }
