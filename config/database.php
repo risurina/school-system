@@ -1,5 +1,18 @@
 <?php
 
+$cleardb = [
+    'host' => '', 'user' => '', 'pass' => '', 'database' => ''
+];
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+if (env("CLEARDB_DATABASE_URL")) {
+    $cleardb = [
+        'host' => $url["host"],
+        'user' => $url["user"],
+        'pass' => $url["pass"],
+        'database' => substr($url["path"], 1)
+    ];
+}
+
 return [
 
     /*
@@ -40,6 +53,22 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'cleardb' => [
+            'driver' => 'mysql',
+            'host'      => $cleardb['host'],
+            'port' => env('DB_PORT', '3306'),
+            'database'  => $cleardb['database'],
+            'username'  => $cleardb['user'],
+            'password'  => $cleardb['pass'],
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+        
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
